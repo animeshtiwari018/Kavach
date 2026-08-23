@@ -46,7 +46,7 @@ export default function Preloader({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-black select-none p-4">
-      <div className="flex flex-col items-center gap-8 max-w-xs w-full">
+      <div className="flex flex-col items-center gap-4 max-w-xs w-full">
         {/* Skull Image Container */}
         <div className="w-40 h-40 flex items-center justify-center">
           {imageError ? (
@@ -86,7 +86,7 @@ export default function Preloader({ onComplete }) {
         </div>
 
         {/* Loading Bar */}
-        <div className="w-[200px] sm:w-[250px] h-[3.9px] bg-[#1A1E24] rounded-full overflow-hidden relative">
+        <div className="w-[200px] sm:w-[290px] h-[4px] bg-[#1A1E24] rounded-full overflow-hidden relative">
           <div
             className="h-full bg-white rounded-full transition-all duration-150 ease-out"
             style={{ width: `${progress}%` }}
