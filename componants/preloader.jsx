@@ -79,8 +79,10 @@ export default function Preloader({ onComplete }) {
             <img
               src="/images/Para_Skull.png"
               alt="Skull logo"
-              className="w-36 h-36 object-contain brightness-90 hover:brightness-100 transition-all duration-300"
+              className="w-36 h-36 object-contain brightness-90 hover:brightness-100 transition-all duration-300 pointer-events-none select-none"
               onError={() => setImageError(true)}
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
             />
           )}
         </div>
