@@ -48,7 +48,7 @@ export default function Preloader({ onComplete }) {
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-black select-none p-4">
       <div className="flex flex-col items-center gap-8 max-w-xs w-full">
         {/* Skull Image Container */}
-        <div className="w-24 h-24 flex items-center justify-center">
+        <div className="w-40 h-40 flex items-center justify-center">
           {imageError ? (
             /* Premium, clean geometric skull SVG fallback if the PNG is not yet present */
             <svg
@@ -79,7 +79,7 @@ export default function Preloader({ onComplete }) {
             <img
               src="/images/Para_Skull.png"
               alt="Skull logo"
-              className="w-24 h-20 object-contain brightness-90 hover:brightness-100 transition-all duration-300"
+              className="w-36 h-36 object-contain brightness-90 hover:brightness-100 transition-all duration-300"
               onError={() => setImageError(true)}
             />
           )}
