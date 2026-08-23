@@ -24,3 +24,127 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* KAVACH SECURITY SYSTEMS CRT TERMINAL EFFECTS */
+
+/* Custom Monospace Font Face fallback */
+.font-terminal {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* CRT Screen Jitter */
+@keyframes subtle-jitter {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-0.5px, 0.5px); }
+  20% { transform: translate(0.5px, -0.5px); }
+  30% { transform: translate(-0.8px, 0); }
+  40% { transform: translate(0.8px, 0.5px); }
+  50% { transform: translate(-0.5px, -0.5px); }
+  60% { transform: translate(0.5px, 0); }
+  70% { transform: translate(-0.5px, 0.5px); }
+  80% { transform: translate(0.8px, -0.5px); }
+  90% { transform: translate(-0.5px, -0.8px); }
+  100% { transform: translate(0, 0); }
+}
+
+.crt-jitter {
+  animation: subtle-jitter 0.15s infinite;
+}
+
+/* CRT Screen Flicker */
+@keyframes crt-flicker {
+  0% { opacity: 0.985; }
+  50% { opacity: 1; }
+  100% { opacity: 0.99; }
+}
+
+.crt-flicker {
+  animation: crt-flicker 0.15s infinite;
+}
+
+/* Scanline Scrolling */
+@keyframes scanline-scroll {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.scanline-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 255, 0, 0),
+    rgba(0, 255, 0, 0.05) 50%,
+    rgba(0, 255, 0, 0)
+  );
+  animation: scanline-scroll 8s linear infinite;
+  z-index: 51;
+  pointer-events: none;
+}
+
+/* CRT Screen Glow/Vignette */
+.crt-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 55%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  z-index: 52;
+  pointer-events: none;
+}
+
+/* Text Chromatic Aberration & Glow Effects */
+.chromatic-typing {
+  color: #39ff14; /* Matrix bright green */
+  text-shadow: 
+    -2px 0 1px rgba(255, 0, 0, 0.85), 
+    2px 0 1px rgba(0, 255, 255, 0.85), 
+    0 0 5px rgba(0, 255, 0, 0.6);
+}
+
+.settled-glow {
+  color: #00ff00;
+  text-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
+  transition: text-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.title-glow {
+  color: #00ff00;
+  text-shadow: 
+    0 0 4px rgba(0, 255, 0, 0.6),
+    0 0 12px rgba(0, 255, 0, 0.5);
+}
+
+/* Blinking terminal cursor */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
