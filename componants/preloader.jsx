@@ -18,11 +18,11 @@ export default function Preloader({ onComplete }) {
           }, 500);
           return 100;
         }
-        
+
         // Random increment to simulate loading chunks of resources
         const currentStep = Math.random();
         let increment = 0;
-        
+
         if (prev < 30) {
           // Slow start
           increment = currentStep * 8;
@@ -36,7 +36,7 @@ export default function Preloader({ onComplete }) {
           // Fast finish
           increment = currentStep * 6;
         }
-        
+
         return Math.min(prev + increment, 100);
       });
     }, 200);
@@ -73,26 +73,22 @@ export default function Preloader({ onComplete }) {
                 strokeLinejoin="round"
                 d="M9 10h.01M15 10h.01"
               />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10 18h4"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 18h4" />
             </svg>
           ) : (
             <img
-              src="/skull.png"
+              src="/images/Para_Skull.png"
               alt="Skull logo"
-              className="w-20 h-20 object-contain brightness-90 hover:brightness-100 transition-all duration-300"
+              className="w-24 h-20 object-contain brightness-90 hover:brightness-100 transition-all duration-300"
               onError={() => setImageError(true)}
             />
           )}
         </div>
 
-        {/* Apple-style Loading Bar */}
-        <div className="w-[180px] sm:w-[200px] h-[3px] bg-neutral-800 rounded-full overflow-hidden relative">
+        {/* Loading Bar */}
+        <div className="w-[200px] sm:w-[250px] h-[3.9px] bg-[#1A1E24] rounded-full overflow-hidden relative">
           <div
-            className="h-full bg-white rounded-full transition-all duration-150 ease-out shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+            className="h-full bg-white rounded-full transition-all duration-150 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
