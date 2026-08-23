@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Preloader from "@/componants/preloader";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
   const [lines, setLines] = useState([
     { id: 1, text: "Hardware Self-Test", typeSpeed: 25, showOk: true, typed: "", status: "waiting" },
     { id: 2, text: "Powering on...", typeSpeed: 30, showOk: true, typed: "", status: "waiting" },
@@ -108,8 +110,14 @@ export default function Home() {
   };
 
   useEffect(() => {
-    runBootSequence();
-  }, []);
+    if (!isLoading) {
+      runBootSequence();
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <Preloader onComplete={() => setIsLoading(false)} />;
+  }
 
   return (
     <div className="font-terminal bg-[#000000] text-[#00ff00] h-screen w-screen relative overflow-hidden select-none flex flex-col p-4 md:p-8">
