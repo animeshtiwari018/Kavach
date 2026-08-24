@@ -16,14 +16,14 @@ export default function LockScreen() {
           hour: "numeric",
           minute: "2-digit",
           hour12: true,
-        })
+        }),
       );
       setDateStr(
         now.toLocaleDateString("en-US", {
           weekday: "long",
           month: "long",
           day: "numeric",
-        })
+        }),
       );
     };
     updateTime();
@@ -46,7 +46,8 @@ export default function LockScreen() {
     <div
       className="min-h-screen relative flex flex-col items-center justify-between text-white font-sans overflow-hidden select-none"
       style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2670&auto=format&fit=crop')", // High quality abstract landscape
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2670&auto=format&fit=crop')", // High quality abstract landscape
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -56,10 +57,15 @@ export default function LockScreen() {
 
       {/* Center Lock Screen Container */}
       <div className="flex flex-col items-center justify-center flex-1 w-full mt-[-8vh]">
-        
         {/* Clock & Date */}
         <div className="flex flex-col items-center drop-shadow-md">
-          <h1 className="text-[4.5rem] font-light tracking-tight leading-none mb-1">
+          <h1
+            className="text-[3.5rem] font-light tracking-tight leading-none mb-1"
+            style={{
+              fontFamily:
+                'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+            }}
+          >
             {time}
           </h1>
           <p className="text-lg font-normal tracking-wide opacity-90 drop-shadow">
@@ -70,21 +76,26 @@ export default function LockScreen() {
         {/* User Profile */}
         <div className="flex flex-col items-center mt-10">
           {/* Avatar */}
-          <div className="w-[4.5rem] h-[4.5rem] rounded-full bg-[#1e293b] flex items-center justify-center mb-3 shadow-lg border border-white/5">
-            <span className="text-white text-3xl font-semibold">D</span>
+          <div className="w-[5.5rem] h-[5.5rem] rounded-full bg-[#1e293b] flex items-center justify-center mb-3 shadow-lg border border-white/5">
+            <span className="text-white text-4xl font-semibold">D</span>
           </div>
 
           {/* Name */}
-          <h2 className="text-lg font-bold mb-4 drop-shadow-lg tracking-wide">Daniel</h2>
+          <h2 className="text-lg font-bold mb-4 drop-shadow-lg tracking-wide">
+            Daniel
+          </h2>
 
           {/* Authentication Form */}
-          <form onSubmit={handleUnlock} className="flex flex-col items-center gap-2 animate-fade-in">
+          <form
+            onSubmit={handleUnlock}
+            className="flex flex-col items-center gap-2 animate-fade-in"
+          >
             <input
               type="password"
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
               placeholder="Enter Password"
-              className="w-[14rem] rounded-lg px-3 py-1.5 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
+              className="w-[14rem] rounded-lg px-3 py-2 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
               style={{
                 background: "rgba(0, 0, 0, 0.25)",
                 backdropFilter: "blur(15px)",
@@ -93,10 +104,10 @@ export default function LockScreen() {
               }}
               autoFocus
             />
-            
+
             <button
               type="submit"
-              className="mt-1 rounded-lg px-4 py-1 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
+              className="mt-1 rounded-lg px-4 py-1.5 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
               style={{
                 background: "rgba(0, 0, 0, 0.25)",
                 backdropFilter: "blur(15px)",
@@ -112,12 +123,19 @@ export default function LockScreen() {
 
       {/* Footer System Controls */}
       <div className="absolute bottom-10 flex flex-col items-center gap-1 opacity-80 cursor-pointer hover:opacity-100 transition-opacity">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-5 h-5"
+        >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
         <div className="w-4 h-0.5 bg-white/70 rounded-full mt-1"></div>
       </div>
-      
     </div>
   );
 }
