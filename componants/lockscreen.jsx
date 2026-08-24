@@ -36,9 +36,9 @@ export default function LockScreen() {
   const handleUnlock = (e) => {
     e?.preventDefault();
     if (authStatus !== "idle") return;
-    
+
     setAuthStatus("verifying");
-    
+
     setTimeout(() => {
       const code = passcode.trim().toUpperCase();
       if (code === "ADMIN" || code === "COMMANDER") {
@@ -47,7 +47,7 @@ export default function LockScreen() {
         setAccessLevel("visitor");
       }
       setAuthStatus("success");
-      
+
       // Immediately transition to unlocked state, no delay for messages
       setIsUnlocked(true);
     }, 800); // Small fake verifying delay for the spinner
@@ -161,7 +161,10 @@ export default function LockScreen() {
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
-        <div className="w-4 h-0.5 bg-white/70 rounded-full mt-1"></div>
+        <div className="w-4 h-0.5 bg-black/70 rounded-full mt-1"></div>
+        <div className="absolute bottom-10 tracking-[0.4em] text-[10px] font-semibold text-white/20 uppercase pointer-events-none select-none">
+          Kavach
+        </div>
       </div>
     </div>
   );
