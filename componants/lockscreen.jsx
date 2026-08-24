@@ -55,53 +55,53 @@ export default function LockScreen() {
       <div className="w-full h-8"></div>
 
       {/* Center Lock Screen Container */}
-      <div className="flex flex-col items-center mb-auto pt-16">
+      <div className="flex flex-col items-center justify-center flex-1 w-full mt-[-8vh]">
         
         {/* Clock & Date */}
         <div className="flex flex-col items-center drop-shadow-md">
-          <h1 className="text-[5.5rem] font-light tracking-tight leading-none mb-1">
+          <h1 className="text-[4.5rem] font-light tracking-tight leading-none mb-1">
             {time}
           </h1>
-          <p className="text-xl font-normal tracking-wide opacity-90 drop-shadow">
+          <p className="text-lg font-normal tracking-wide opacity-90 drop-shadow">
             {dateStr}
           </p>
         </div>
 
         {/* User Profile */}
-        <div className="flex flex-col items-center mt-12">
+        <div className="flex flex-col items-center mt-10">
           {/* Avatar */}
-          <div className="w-[5.5rem] h-[5.5rem] rounded-full bg-[#1e293b] flex items-center justify-center mb-3 shadow-lg border border-white/5">
-            <span className="text-white text-4xl font-semibold">D</span>
+          <div className="w-[4.5rem] h-[4.5rem] rounded-full bg-[#1e293b] flex items-center justify-center mb-3 shadow-lg border border-white/5">
+            <span className="text-white text-3xl font-semibold">D</span>
           </div>
 
           {/* Name */}
-          <h2 className="text-2xl font-bold mb-6 drop-shadow-lg tracking-wide">Daniel</h2>
+          <h2 className="text-lg font-bold mb-4 drop-shadow-lg tracking-wide">Daniel</h2>
 
           {/* Authentication Form */}
-          <form onSubmit={handleUnlock} className="flex flex-col items-center gap-3 w-64 animate-fade-in">
+          <form onSubmit={handleUnlock} className="flex flex-col items-center gap-2 animate-fade-in">
             <input
               type="password"
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
               placeholder="Enter Password"
-              className="w-[18rem] rounded-xl px-4 py-2 text-[15px] outline-none placeholder-white/70 focus:placeholder-transparent text-white transition-all shadow-md text-center"
+              className="w-[14rem] rounded-lg px-3 py-1.5 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
               style={{
-                background: "rgba(255, 255, 255, 0.2)",
+                background: "rgba(0, 0, 0, 0.25)",
                 backdropFilter: "blur(15px)",
                 WebkitBackdropFilter: "blur(15px)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
               autoFocus
             />
             
             <button
               type="submit"
-              className="mt-1 rounded-[10px] px-5 py-1.5 text-[13px] font-medium tracking-wide transition-all shadow-md text-white/90 hover:text-white"
+              className="mt-1 rounded-lg px-4 py-1 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
               style={{
-                background: "rgba(255, 255, 255, 0.25)",
+                background: "rgba(0, 0, 0, 0.25)",
                 backdropFilter: "blur(15px)",
                 WebkitBackdropFilter: "blur(15px)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
               }}
             >
               Login
