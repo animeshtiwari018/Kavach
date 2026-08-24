@@ -10,6 +10,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-rajdhani: var(--font-rajdhani);
+  --font-fira: var(--font-fira-code);
+  --color-military-black: #000000;
+  --color-military-white: #FFFFFF;
+  --color-military-amber: #F59E0B;
+  --color-military-green: #22C55E;
 }
 
 @media (prefers-color-scheme: dark) {
