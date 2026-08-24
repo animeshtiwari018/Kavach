@@ -60,7 +60,7 @@ export default function LockScreen() {
         {/* Clock & Date */}
         <div className="flex flex-col items-center drop-shadow-md">
           <h1
-            className="text-[3.5rem] font-light tracking-tight leading-none mb-1"
+            className="text-[3rem] font-light tracking-tight leading-none mb-1"
             style={{
               fontFamily:
                 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
@@ -76,13 +76,13 @@ export default function LockScreen() {
         {/* User Profile */}
         <div className="flex flex-col items-center mt-10">
           {/* Avatar */}
-          <div className="w-[5.5rem] h-[5.5rem] rounded-full bg-[#1e293b] flex items-center justify-center mb-3 shadow-lg border border-white/5">
+          <div className="w-[6rem] h-[6rem] rounded-full bg-[#1e293b] flex items-center justify-center mb-3 shadow-lg border border-white/5">
             <span className="text-white text-4xl font-semibold">D</span>
           </div>
 
           {/* Name */}
           <h2 className="text-lg font-bold mb-4 drop-shadow-lg tracking-wide">
-            Daniel
+            Animesh
           </h2>
 
           {/* Authentication Form */}
@@ -95,12 +95,13 @@ export default function LockScreen() {
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
               placeholder="Enter Password"
-              className="w-[14rem] rounded-lg px-3 py-2 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
+              className="w-[16rem] rounded-md px-3 py-2 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
               style={{
-                background: "rgba(0, 0, 0, 0.25)",
-                backdropFilter: "blur(15px)",
-                WebkitBackdropFilter: "blur(15px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "rgba(255, 255, 255, 0.15)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
               }}
               autoFocus
             />
@@ -109,10 +110,11 @@ export default function LockScreen() {
               type="submit"
               className="mt-1 rounded-lg px-4 py-1.5 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
               style={{
-                background: "rgba(0, 0, 0, 0.25)",
-                backdropFilter: "blur(15px)",
-                WebkitBackdropFilter: "blur(15px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "rgba(255, 255, 255, 0.15)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
               }}
             >
               Login
