@@ -4,26 +4,29 @@ import { useState, useEffect } from "react";
 
 export default function LockScreen() {
   const [passcode, setPasscode] = useState("");
-  const [authStatus, setAuthStatus] = useState("idle"); // idle, verifying, denied, success
+  const [authStatus, setAuthStatus] = useState("idle"); // idle, verifying, success
   const [accessLevel, setAccessLevel] = useState("none"); // none, visitor, admin
   const [time, setTime] = useState("");
+  const [dateStr, setDateStr] = useState("");
+  const [zuluTime, setZuluTime] = useState("");
   
-  // Terminal state for desktop
-  const [terminalHistory, setTerminalHistory] = useState([
-    "System initialized.",
-    "Awaiting commands...",
-  ]);
-  const [cmdInput, setCmdInput] = useState("");
+  // Notification banner state
+  const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      setTime(
+      
+      // Main Clock (10:22 PM)
+      setTime(now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }));
+      
+      // Main Date (Monday, August 24)
+      setDateStr(now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }));
+      
+      // Zulu Time for Menu Bar
+      setZuluTime(
         `${now.getUTCHours().toString().padStart(2, "0")}:${now
           .getUTCMinutes()
-          .toString()
-          .padStart(2, "0")}:${now
-          .getUTCSeconds()
           .toString()
           .padStart(2, "0")} ZULU`
       );
@@ -33,274 +36,262 @@ export default function LockScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleAuthenticate = (isGuestOverride = false) => {
-    if (authStatus !== "idle" && authStatus !== "denied") return;
+  const handleUnlock = (e) => {
+    e?.preventDefault();
+    if (authStatus !== "idle") return;
     
     setAuthStatus("verifying");
     
     setTimeout(() => {
-      if (isGuestOverride) {
-        setAuthStatus("denied");
-        setTimeout(() => {
-          setAccessLevel("visitor");
-          setAuthStatus("success");
-        }, 1500);
+      const code = passcode.trim().toUpperCase();
+      if (code === "COMMANDER" || code === "ADMIN") {
+        setAccessLevel("admin");
       } else {
-        const code = passcode.trim().toUpperCase();
-        if (code === "COMMANDER" || code === "ADMIN") {
-          setAuthStatus("success");
-          setTimeout(() => {
-            setAccessLevel("admin");
-          }, 1000);
-        } else {
-          setAuthStatus("denied");
-          setTimeout(() => {
-            setAccessLevel("visitor");
-            setAuthStatus("success");
-          }, 1500);
-        }
+        setAccessLevel("visitor");
       }
+      setAuthStatus("success");
+      
+      // Trigger banner after unlock
+      setTimeout(() => {
+        setShowBanner(true);
+        setTimeout(() => setShowBanner(false), 5000); // hide banner after 5s
+      }, 800);
+      
     }, 1200);
   };
 
-  const handleTerminalCommand = (e) => {
-    e.preventDefault();
-    if (!cmdInput.trim()) return;
-    
-    const newHistory = [...terminalHistory, `> ${cmdInput}`];
-    const cmd = cmdInput.trim().toLowerCase();
-    
-    if (accessLevel === "visitor") {
-      if (["help", "projects", "contact", "clear"].includes(cmd)) {
-        if (cmd === "clear") {
-          setTerminalHistory([]);
-        } else if (cmd === "help") {
-          newHistory.push("Available commands: help, projects, contact, clear");
-        } else {
-          newHistory.push(`Executing ${cmd}... [DATA REDACTED]`);
-        }
-      } else {
-        newHistory.push("[ACCESS DENIED: LEVEL-1 CLEARANCE INSUFFICIENT]");
-      }
-    } else if (accessLevel === "admin") {
-      if (cmd === "clear") {
-        setTerminalHistory([]);
-      } else {
-        newHistory.push(`[SUDO] Executing ${cmd}... SUCCESS`);
-      }
-    }
-    
-    if (cmd !== "clear") {
-      setTerminalHistory(newHistory);
-    }
-    setCmdInput("");
+  const Icons = {
+    Wifi: (props) => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+        <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+        <line x1="12" y1="20" x2="12.01" y2="20" />
+      </svg>
+    ),
+    Battery: (props) => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <rect x="2" y="7" width="16" height="10" rx="2" ry="2" />
+        <line x1="22" y1="11" x2="22" y2="13" />
+        <rect x="4" y="9" width="10" height="6" fill="currentColor" />
+      </svg>
+    ),
+    Search: (props) => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    ),
+    Shield: (props) => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    ),
+    Folder: (props) => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+      </svg>
+    ),
+    Terminal: (props) => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <polyline points="4 17 10 11 4 5" />
+        <line x1="12" y1="19" x2="20" y2="19" />
+      </svg>
+    ),
+    User: (props) => (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    )
   };
 
-  if (accessLevel !== "none" && authStatus === "success") {
-    // Desktop View
-    const isVisitor = accessLevel === "visitor";
-    return (
-      <div className="min-h-screen bg-military-black text-military-white font-fira relative overflow-hidden flex flex-col p-6 selection:bg-military-green selection:text-military-black">
-        {/* Environmental Overlays */}
-        <div className="scanline-overlay"></div>
-        <div className="scanline-bar"></div>
-        <div className="crt-vignette"></div>
+  const isUnlocked = authStatus === "success";
+  const isVisitor = accessLevel === "visitor";
 
-        {/* Header Badge */}
-        <div className="z-10 flex justify-between items-start mb-8 border-b border-military-white/20 pb-4">
-          <div className="flex flex-col">
-            <h1 className="font-rajdhani text-2xl font-bold tracking-widest uppercase">
-              Kavach OS
-            </h1>
-            <div className={`mt-2 px-3 py-1 text-sm border inline-block w-fit font-bold tracking-wider ${isVisitor ? 'border-military-amber text-military-amber' : 'border-military-green text-military-green'}`}>
-              {isVisitor ? '[CLEARANCE: VISITOR / LEVEL 1]' : '[CLEARANCE: COMMANDER / CLASS ALPHA]'}
-            </div>
-          </div>
-          <div className="text-right font-rajdhani text-military-white/60">
-            <p>USER STATUS: ACTIVE</p>
-            <p className="mt-1">{time}</p>
-          </div>
+  return (
+    <div className="min-h-screen mac-wallpaper text-white font-sans relative overflow-hidden select-none">
+      
+      {/* Top Menu Bar */}
+      <div className="glass-menu w-full h-8 px-4 flex justify-between items-center text-xs font-medium z-50 relative">
+        {/* Left Side */}
+        <div className="flex items-center gap-3">
+          <Icons.Shield className="w-4 h-4 opacity-80" />
+          <span className="tracking-wide opacity-90 font-semibold">INTELLIGENCE WORKSTATION</span>
+          {isUnlocked && (
+            <>
+              <span className="mx-2 opacity-30">|</span>
+              <span className="opacity-80 hover:opacity-100 cursor-pointer">File</span>
+              <span className="opacity-80 hover:opacity-100 cursor-pointer">Edit</span>
+              <span className="opacity-80 hover:opacity-100 cursor-pointer">View</span>
+              <span className="opacity-80 hover:opacity-100 cursor-pointer">System</span>
+            </>
+          )}
         </div>
+        
+        {/* Right Side */}
+        <div className="flex items-center gap-4 opacity-90">
+          <Icons.Wifi className="w-4 h-4" />
+          <Icons.Battery className="w-5 h-5" />
+          <Icons.Search className="w-4 h-4 ml-1" />
+          <span className="font-semibold ml-2">{zuluTime}</span>
+        </div>
+      </div>
 
-        {/* Main Content */}
-        <div className="z-10 flex-1 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Content Area */}
-          <div className="border border-military-white/20 p-6 relative group bg-black/40">
-            {/* Stencil Corners */}
-            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-military-white/50 -translate-x-1 -translate-y-1"></div>
-            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-military-white/50 translate-x-1 -translate-y-1"></div>
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-military-white/50 -translate-x-1 translate-y-1"></div>
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-military-white/50 translate-x-1 translate-y-1"></div>
-
-            <h2 className="font-rajdhani text-xl border-b border-military-white/20 pb-2 mb-4">
-              {isVisitor ? 'PUBLIC DOSSIER' : 'CLASSIFIED DOSSIERS'}
-            </h2>
-            <div className="space-y-4 text-sm text-military-white/80">
-              {isVisitor ? (
-                <>
-                  <p>Welcome, Guest. Access to core systems is restricted.</p>
-                  <ul className="list-disc pl-5 space-y-2 text-military-white/60">
-                    <li>Basic bio available.</li>
-                    <li>Public project arsenal viewable.</li>
-                    <li>Standard comms channels open.</li>
-                  </ul>
-                </>
-              ) : (
-                <>
-                  <p className="text-military-green">Welcome back, Commander. All systems unlocked.</p>
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>Secret laboratory builds online.</li>
-                    <li>Full tactical diagnostics available.</li>
-                    <li>System override ready.</li>
-                  </ul>
-                </>
-              )}
-            </div>
+      {/* Lock Screen UI */}
+      {!isUnlocked && (
+        <div className={`absolute inset-0 flex flex-col items-center pt-24 transition-opacity duration-700 ${authStatus === "success" ? "opacity-0" : "opacity-100"}`}>
+          
+          {/* Center Header Clock */}
+          <div className="flex flex-col items-center mb-16 shadow-black drop-shadow-lg">
+            <h1 className="text-7xl font-bold tracking-tight mb-2">{time}</h1>
+            <p className="text-xl font-medium opacity-90 tracking-wide">{dateStr}</p>
           </div>
 
-          {/* Terminal Area */}
-          <div className="border border-military-white/20 p-6 relative flex flex-col bg-black/40 h-[400px]">
-            {/* Stencil Corners */}
-            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-military-white/50 -translate-x-1 -translate-y-1"></div>
-            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-military-white/50 translate-x-1 -translate-y-1"></div>
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-military-white/50 -translate-x-1 translate-y-1"></div>
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-military-white/50 translate-x-1 translate-y-1"></div>
-
-            <div className="flex-1 overflow-y-auto font-fira text-xs space-y-1 mb-4 scrollbar-hide">
-              {terminalHistory.map((line, i) => (
-                <div key={i} className={line.includes('DENIED') ? 'text-red-500' : line.includes('SUCCESS') ? 'text-military-green' : 'text-military-white/80'}>{line}</div>
-              ))}
+          {/* User Profile Card */}
+          <div className="flex flex-col items-center">
+            {/* Avatar */}
+            <div className="w-24 h-24 rounded-full glass-panel flex items-center justify-center mb-4 border border-white/20 shadow-2xl relative">
+              <Icons.User className="w-10 h-10 opacity-70" />
+              <div className="absolute inset-0 rounded-full border-2 border-white/10"></div>
             </div>
             
-            <form onSubmit={handleTerminalCommand} className="flex border-t border-military-white/20 pt-3">
-              <span className="mr-2 text-military-white/50">{'>'}</span>
-              <input 
-                type="text" 
-                value={cmdInput}
-                onChange={(e) => setCmdInput(e.target.value)}
-                className="flex-1 bg-transparent border-none outline-none text-military-white font-fira text-sm uppercase placeholder-military-white/20"
-                placeholder="ENTER COMMAND..."
-                autoComplete="off"
-              />
-            </form>
-          </div>
-        </div>
+            <h2 className="text-xl font-semibold mb-1 shadow-black drop-shadow-md">COMMANDER KAVACH</h2>
+            <div className="text-[10px] font-bold tracking-wider px-3 py-1 rounded-full glass-panel border-white/10 mb-8 shadow-black drop-shadow-md text-white/70 uppercase">
+              [Clearance: Level-4 Restricted]
+            </div>
 
-        {/* Watermark */}
-        <div className="absolute bottom-6 right-6 opacity-20 font-rajdhani font-bold text-xl uppercase pointer-events-none tracking-widest z-0">
-          {isVisitor ? 'GUEST SESSION // READ-ONLY' : 'COMMAND OVERRIDE ACTIVE // UNRESTRICTED'}
-        </div>
-      </div>
-    );
-  }
-
-  // Lock Screen View
-  return (
-    <div className="min-h-screen bg-military-black text-military-white font-fira relative overflow-hidden flex flex-col selection:bg-military-white selection:text-military-black">
-      {/* Environmental Overlays */}
-      <div className="scanline-overlay"></div>
-      <div className="scanline-bar"></div>
-      <div className="crt-vignette"></div>
-
-      {/* Header Bar */}
-      <div className="w-full flex justify-between items-center p-4 border-b border-military-white/20 font-rajdhani z-10 text-sm tracking-widest uppercase">
-        <div className="flex items-center gap-3">
-          <div className="w-2 h-2 bg-military-green rounded-full animate-pulse"></div>
-          <span>DEFCON 3 // SYSTEM SECURE</span>
-        </div>
-        <div className="flex gap-6 text-military-white/60">
-          <span className="hidden sm:inline-block">26.9124° N, 75.7873° E</span>
-          <span>{time}</span>
-        </div>
-      </div>
-
-      {/* Center Authentication Terminal */}
-      <div className="flex-1 flex items-center justify-center p-4 z-10">
-        <div className="relative border border-military-white/30 bg-military-black p-8 w-full max-w-md shadow-2xl backdrop-blur-sm">
-          {/* Corner Brackets */}
-          <div className="absolute -top-1 -left-1 text-military-white/60 font-bold leading-none text-xl">[</div>
-          <div className="absolute -top-1 -right-1 text-military-white/60 font-bold leading-none text-xl">]</div>
-          <div className="absolute -bottom-1 -left-1 text-military-white/60 font-bold leading-none text-xl">[</div>
-          <div className="absolute -bottom-1 -right-1 text-military-white/60 font-bold leading-none text-xl">]</div>
-
-          {/* Crosshairs */}
-          <div className="absolute top-1/2 -left-3 w-6 h-[1px] bg-military-white/30"></div>
-          <div className="absolute top-1/2 -right-3 w-6 h-[1px] bg-military-white/30"></div>
-          <div className="absolute -top-3 left-1/2 w-[1px] h-6 bg-military-white/30"></div>
-          <div className="absolute -bottom-3 left-1/2 w-[1px] h-6 bg-military-white/30"></div>
-
-          <div className="flex flex-col items-center">
-            {/* System Header */}
-            <h2 className="font-rajdhani text-center font-bold text-lg tracking-widest border-b border-military-white/20 pb-3 w-full mb-6 text-military-white/80 uppercase">
-              RESTRICTED ACCESS <br/> <span className="text-sm opacity-70">// AUTHORIZED PERSONNEL ONLY</span>
-            </h2>
-
-            {/* Badge/Icon */}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-16 h-16 text-military-white/80 mb-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-
-            {/* Status Messages */}
-            <div className="h-6 w-full mb-4 text-center text-xs font-bold tracking-wider">
-              {authStatus === "verifying" && (
-                <span className="text-military-amber animate-pulse">[VERIFYING CREDENTIALS...]</span>
-              )}
-              {authStatus === "denied" && (
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-red-500 font-bold animate-pulse">[CLEARANCE DENIED: UNKNOWN PASSCODE]</span>
-                  <span className="text-military-white/60 text-[10px] mt-1">[INITIATING GUEST OVERRIDE PROTOCOL...]</span>
+            {/* Authentication Form */}
+            {authStatus === "idle" ? (
+              <form onSubmit={handleUnlock} className="flex flex-col items-center w-64 gap-4 animate-fade-in">
+                <input
+                  type="password"
+                  value={passcode}
+                  onChange={(e) => setPasscode(e.target.value)}
+                  placeholder="Enter Passcode..."
+                  className="w-full glass-input rounded-xl px-4 py-2.5 text-center text-sm outline-none placeholder-white/40 focus:placeholder-transparent"
+                  autoFocus
+                />
+                <button
+                  type="submit"
+                  className="w-full glass-button rounded-xl py-2.5 text-sm font-medium tracking-wide flex justify-center items-center gap-2"
+                >
+                  Unlock
+                </button>
+              </form>
+            ) : (
+              /* Status Messages */
+              <div className="h-24 flex flex-col items-center justify-center gap-3">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="text-sm font-medium opacity-80 tracking-wide text-center">
+                  {accessLevel === "admin" || passcode.trim().toUpperCase() === "ADMIN" || passcode.trim().toUpperCase() === "COMMANDER" ? (
+                    <span className="text-green-300 drop-shadow-md animate-subtle-pulse">[Clearance Confirmed: Welcome Commander]</span>
+                  ) : (
+                    <span className="text-white/70 drop-shadow-md">[Authenticating Guest Session...]</span>
+                  )}
                 </div>
-              )}
-              {authStatus === "success" && (
-                <span className="text-military-green title-glow">
-                  {accessLevel === "admin" ? "[PASSCODE ACCEPTED: CLASS-ALPHA COMMANDER]" : "[SUCCESS: LEVEL-1 GUEST CLEARANCE GRANTED]"}
-                </span>
-              )}
-            </div>
+              </div>
+            )}
+          </div>
 
-            {/* Input Field */}
-            <div className="w-full relative group mb-6">
-              <input
-                type="password"
-                value={passcode}
-                onChange={(e) => setPasscode(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleAuthenticate(false)}
-                disabled={authStatus !== "idle"}
-                className="w-full bg-transparent border border-military-white/30 outline-none text-center px-4 py-3 text-military-white placeholder-military-white/20 font-fira tracking-widest focus:border-military-white transition-colors uppercase disabled:opacity-50"
-                placeholder="ENTER PASSCODE..."
-              />
-              {/* Blinking Cursor Simulation (visible only when empty and not focused, or just CSS based) */}
-              {!passcode && (
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-4 bg-military-white/40 cursor-blink pointer-events-none"></div>
-              )}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col gap-3 w-full font-rajdhani tracking-widest font-bold">
-              <button
-                onClick={() => handleAuthenticate(false)}
-                disabled={authStatus !== "idle"}
-                className="w-full py-2 border border-military-white hover:bg-military-white hover:text-military-black transition-all uppercase disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-military-white"
-              >
-                [AUTHENTICATE]
-              </button>
-              <button
-                onClick={() => handleAuthenticate(true)}
-                disabled={authStatus !== "idle"}
-                className="w-full py-2 border border-military-white/20 text-military-white/60 hover:border-military-amber hover:text-military-amber transition-all uppercase disabled:opacity-50"
-              >
-                [INITIATE GUEST OVERRIDE]
-              </button>
-            </div>
+          {/* Footer Security Note */}
+          <div className="absolute bottom-8 text-[11px] font-medium text-white/40 tracking-wider text-center w-full shadow-black drop-shadow-sm">
+            Guest Access: Enter any passcode to enter as Visitor. Enter admin key for full clearance.
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Footer Security Note */}
-      <div className="p-4 text-center z-10 text-[10px] sm:text-xs text-military-white/40 tracking-wider font-rajdhani pb-6">
-        <p>Enter passcode <span className="text-military-white/60">COMMANDER</span> or <span className="text-military-white/60">ADMIN</span> for Class-Alpha access.</p>
-        <p>Any other key defaults to Level-1 Guest mode.</p>
-      </div>
+      {/* Desktop UI */}
+      {isUnlocked && (
+        <div className="absolute inset-0 pt-8 animate-fade-in flex flex-col pointer-events-auto">
+          
+          {/* Notification Banner */}
+          {showBanner && (
+            <div className="absolute top-4 right-4 z-50 animate-slide-down">
+              <div className="glass-panel rounded-2xl p-4 w-80 shadow-2xl flex items-start gap-3">
+                <div className={`mt-0.5 w-2 h-2 rounded-full ${isVisitor ? "bg-yellow-400" : "bg-green-400"} shadow-lg`}></div>
+                <div>
+                  <h4 className="text-sm font-bold mb-1 opacity-90">{isVisitor ? "Guest Session Active" : "Class-Alpha Clearance Granted"}</h4>
+                  <p className="text-xs opacity-70 leading-relaxed">
+                    {isVisitor ? "View-only mode enabled. System restrictions apply." : "System unlocked. All restricted directories are now accessible."}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Desktop Icons / Apps */}
+          <div className="flex-1 p-6 flex flex-col gap-6 items-start">
+            
+            {/* Standard Portfolio Apps */}
+            <div className="flex flex-col items-center gap-1 group cursor-pointer w-24">
+              <div className="w-16 h-16 glass-panel rounded-2xl flex items-center justify-center shadow-lg group-hover:bg-white/10 transition-colors">
+                <Icons.User className="w-8 h-8 opacity-80" />
+              </div>
+              <span className="text-xs font-medium bg-black/30 px-2 py-0.5 rounded shadow-sm text-white/90">Dossier</span>
+            </div>
+
+            <div className="flex flex-col items-center gap-1 group cursor-pointer w-24">
+              <div className="w-16 h-16 glass-panel rounded-2xl flex items-center justify-center shadow-lg group-hover:bg-white/10 transition-colors">
+                <Icons.Folder className="w-8 h-8 opacity-80" />
+              </div>
+              <span className="text-xs font-medium bg-black/30 px-2 py-0.5 rounded shadow-sm text-white/90">Arsenal</span>
+            </div>
+
+            {/* Classified Folders (Admin Only) */}
+            {!isVisitor && (
+              <>
+                <div className="flex flex-col items-center gap-1 group cursor-pointer w-24 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                  <div className="w-16 h-16 glass-panel rounded-2xl flex items-center justify-center shadow-lg border-red-500/30 group-hover:bg-red-500/10 transition-colors relative">
+                    <Icons.Shield className="w-8 h-8 text-red-400/80" />
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border border-black/50"></div>
+                  </div>
+                  <span className="text-xs font-bold text-red-200 bg-black/40 px-2 py-0.5 rounded shadow-sm">Classified</span>
+                </div>
+                
+                <div className="flex flex-col items-center gap-1 group cursor-pointer w-24 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                  <div className="w-16 h-16 glass-panel rounded-2xl flex items-center justify-center shadow-lg group-hover:bg-white/10 transition-colors">
+                    <Icons.Terminal className="w-8 h-8 opacity-80" />
+                  </div>
+                  <span className="text-xs font-medium bg-black/30 px-2 py-0.5 rounded shadow-sm text-white/90">System Ctrl</span>
+                </div>
+              </>
+            )}
+
+          </div>
+
+          {/* macOS Bottom Dock */}
+          <div className="pb-4 w-full flex justify-center z-40">
+            <div className="glass-panel rounded-3xl px-3 py-2 flex items-end gap-2 h-16 border-white/20 shadow-2xl shadow-black/50">
+              
+              <div className="dock-item w-12 h-12 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center cursor-pointer shadow-lg hover:bg-white/20">
+                <Icons.User className="w-6 h-6 opacity-80" />
+              </div>
+              
+              <div className="dock-item w-12 h-12 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center cursor-pointer shadow-lg hover:bg-white/20">
+                <Icons.Folder className="w-6 h-6 opacity-80" />
+              </div>
+              
+              <div className="dock-item w-12 h-12 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center cursor-pointer shadow-lg hover:bg-white/20">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 opacity-80">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </div>
+
+              {!isVisitor && (
+                <>
+                  <div className="w-px h-8 bg-white/20 self-center mx-1"></div>
+                  <div className="dock-item w-12 h-12 bg-red-500/10 rounded-2xl border border-red-500/30 flex items-center justify-center cursor-pointer shadow-lg hover:bg-red-500/20">
+                    <Icons.Terminal className="w-6 h-6 text-red-400" />
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
 }
