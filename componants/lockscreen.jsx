@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 export default function LockScreen() {
   const [passcode, setPasscode] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [authStatus, setAuthStatus] = useState("idle"); // idle, verifying, success
+  const [accessLevel, setAccessLevel] = useState("none"); // none, visitor, admin
   const [time, setTime] = useState("");
   const [dateStr, setDateStr] = useState("");
 
@@ -33,8 +35,22 @@ export default function LockScreen() {
 
   const handleUnlock = (e) => {
     e?.preventDefault();
-    // Simulate unlock transition
-    setIsUnlocked(true);
+    if (authStatus !== "idle") return;
+    
+    setAuthStatus("verifying");
+    
+    setTimeout(() => {
+      const code = passcode.trim().toUpperCase();
+      if (code === "ADMIN" || code === "COMMANDER") {
+        setAccessLevel("admin");
+      } else {
+        setAccessLevel("visitor");
+      }
+      setAuthStatus("success");
+      
+      // Immediately transition to unlocked state, no delay for messages
+      setIsUnlocked(true);
+    }, 800); // Small fake verifying delay for the spinner
   };
 
   if (isUnlocked) {
@@ -77,7 +93,7 @@ export default function LockScreen() {
         <div className="flex flex-col items-center mt-10">
           {/* Avatar */}
           <div className="w-[6rem] h-[6rem] rounded-full bg-[#1e293b] flex items-center justify-center mb-3 shadow-lg border border-white/5">
-            <span className="text-white text-4xl font-semibold">D</span>
+            <span className="text-white text-4xl font-semibold">A</span>
           </div>
 
           {/* Name */}
@@ -86,39 +102,48 @@ export default function LockScreen() {
           </h2>
 
           {/* Authentication Form */}
+          {/* Authentication Form */}
           <form
             onSubmit={handleUnlock}
-            className="flex flex-col items-center gap-2 animate-fade-in"
+            className="flex flex-col items-center gap-2 animate-fade-in min-h-[5rem]"
           >
-            <input
-              type="password"
-              value={passcode}
-              onChange={(e) => setPasscode(e.target.value)}
-              placeholder="Enter Password"
-              className="w-[16rem] rounded-md px-3 py-2 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
-              style={{
-                background: "rgba(255, 255, 255, 0.15)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
-                boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
-              }}
-              autoFocus
-            />
+            {authStatus === "idle" ? (
+              <>
+                <input
+                  type="password"
+                  value={passcode}
+                  onChange={(e) => setPasscode(e.target.value)}
+                  placeholder="Enter Password"
+                  className="w-[16rem] rounded-md px-3 py-2 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.15)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: "1px solid rgba(255, 255, 255, 0.2)",
+                    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
+                  }}
+                  autoFocus
+                />
 
-            <button
-              type="submit"
-              className="mt-1 rounded-lg px-5 py-2 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
-              style={{
-                background: "rgba(255, 255, 255, 0.15)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
-                boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              Login
-            </button>
+                <button
+                  type="submit"
+                  className="mt-1 rounded-lg px-5 py-2 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
+                  style={{
+                    background: "rgba(255, 255, 255, 0.15)",
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: "1px solid rgba(255, 255, 255, 0.2)",
+                    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  Login
+                </button>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full w-full mt-4">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              </div>
+            )}
           </form>
         </div>
       </div>
