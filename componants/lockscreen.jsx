@@ -108,7 +108,7 @@ export default function LockScreen() {
 
             <button
               type="submit"
-              className="mt-1 rounded-lg px-4 py-1.5 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
+              className="mt-1 rounded-lg px-5 py-2 text-[12px] font-medium tracking-wide transition-all shadow-md text-white/80 hover:text-white"
               style={{
                 background: "rgba(255, 255, 255, 0.15)",
                 backdropFilter: "blur(20px)",
