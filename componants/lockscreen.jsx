@@ -59,15 +59,7 @@ export default function LockScreen() {
   }
 
   return (
-    <div
-      className="min-h-screen relative flex flex-col items-center justify-between text-white font-sans overflow-hidden select-none"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2670&auto=format&fit=crop')", // High quality abstract landscape
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="min-h-screen relative flex flex-col items-center justify-between text-white font-sans overflow-hidden select-none bg-black">
       {/* Top Header Placeholder (No actual menu bar visible in the provided image) */}
       <div className="w-full h-8"></div>
 
@@ -113,10 +105,10 @@ export default function LockScreen() {
                   type="password"
                   value={passcode}
                   onChange={(e) => setPasscode(e.target.value)}
-                  placeholder="Enter Password"
+                  placeholder="Enter Access Key"
                   className="w-[16rem] rounded-md px-3 py-2 text-[13px] outline-none placeholder-white/50 focus:placeholder-transparent text-white transition-all shadow-md"
                   style={{
-                    background: "rgba(255, 255, 255, 0.15)",
+                    background: "rgba(0, 0, 5, 0.15)",
                     backdropFilter: "blur(20px)",
                     WebkitBackdropFilter: "blur(20px)",
                     border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -136,7 +128,7 @@ export default function LockScreen() {
                     boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.2)",
                   }}
                 >
-                  Login
+                  Authenticate
                 </button>
               </>
             ) : (
@@ -161,8 +153,8 @@ export default function LockScreen() {
         >
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
-        <div className="w-4 h-0.5 bg-black/70 rounded-full mt-1"></div>
-        <div className="absolute bottom-10 tracking-[0.4em] text-[10px] font-semibold text-white/20 uppercase pointer-events-none select-none">
+        <div className="w-4 h-0.5 bg-white/70 rounded-full mt-1 mb-2"></div>
+        <div className="tracking-[0.4em] text-[10px] font-semibold text-white/50 uppercase pointer-events-none select-none">
           Kavach
         </div>
       </div>
