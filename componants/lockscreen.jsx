@@ -11,6 +11,8 @@ export default function LockScreen() {
   const [time, setTime] = useState("");
   const [dateStr, setDateStr] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [showPasscode, setShowPasscode] = useState(false);
+  const [selectionIndex, setSelectionIndex] = useState(0);
 
   useEffect(() => {
     const updateTime = () => {
@@ -269,44 +271,104 @@ export default function LockScreen() {
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
               
-              {/* Custom Spring-Animated Passcode Display */}
-              <div className="absolute inset-0 flex items-center justify-center gap-1.5 pointer-events-none z-20">
-                <AnimatePresence>
-                  {passcode.split("").map((_, idx) => (
-                    <motion.span
-                      key={idx}
-                      initial={{ scale: 0, opacity: 0, y: 3 }}
-                      animate={{ scale: 1, opacity: 1, y: 0 }}
-                      exit={{ scale: 0, opacity: 0, y: -3 }}
-                      transition={{ type: "spring", stiffness: 450, damping: 20 }}
-                      className="text-[12px] font-mono text-[#D4D5C8] leading-none select-none"
-                    >
-                      •
-                    </motion.span>
-                  ))}
-                </AnimatePresence>
+              {/* Custom Spring-Animated Passcode Display with Caret Tracking */}
+              <div className="absolute inset-0 flex items-center justify-center gap-1 pointer-events-none z-20 select-none">
                 
-                {/* Blinking block terminal cursor when empty & focused */}
+                {/* Empty & focused state: Blinking cursor in the center */}
                 {passcode.length === 0 && isFocused && (
-                  <span className="w-1.5 h-3 bg-[#8E9B72] ml-1 cursor-blink" />
+                  <span className="w-1.5 h-3 bg-[#8E9B72] cursor-blink" />
                 )}
 
-                {/* Show muted placeholder text when empty and not focused */}
+                {/* Empty & unfocused state: Muted asterisks placeholder */}
                 {passcode.length === 0 && !isFocused && (
-                  <span className="text-[11px] font-mono text-[#5E6255] tracking-wide select-none">
-                    • • • • • • • •
+                  <span className="text-[11px] font-mono text-[#5E6255] tracking-[0.25em] pl-[0.25em]">
+                    ********
                   </span>
                 )}
+
+                {/* Characters present: Render each char (masked or visible) with relative caret position */}
+                {passcode.length > 0 && (
+                  <div className="flex items-center justify-center font-mono text-[12px] text-[#D4D5C8] tracking-normal select-none">
+                    <AnimatePresence initial={false}>
+                      {passcode.split("").map((char, idx) => {
+                        const displayChar = showPasscode ? char : "*";
+                        return (
+                          <div key={idx} className="relative flex items-center justify-center w-[11px] h-5">
+                            
+                            {/* Blinking vertical cursor line before this character if selectionIndex === idx and focused */}
+                            {isFocused && selectionIndex === idx && (
+                              <span className="absolute left-0 w-[1.5px] h-3.5 bg-[#8E9B72] cursor-blink" />
+                            )}
+                            
+                            {/* The spring-animated masked character */}
+                            <motion.span
+                              initial={{ scale: 0, opacity: 0, y: 3 }}
+                              animate={{ scale: 1, opacity: 1, y: 0 }}
+                              exit={{ scale: 0, opacity: 0, y: -3 }}
+                              transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                              className="absolute leading-none"
+                            >
+                              {displayChar}
+                            </motion.span>
+
+                            {/* Blinking vertical cursor line after the last character if selectionIndex === passcode.length and idx === passcode.length - 1 and focused */}
+                            {isFocused && selectionIndex === passcode.length && idx === passcode.length - 1 && (
+                              <span className="absolute right-0 w-[1.5px] h-3.5 bg-[#8E9B72] cursor-blink" />
+                            )}
+                          </div>
+                        );
+                      })}
+                    </AnimatePresence>
+                  </div>
+                )}
               </div>
+
+              {/* Toggle visibility eye button */}
+              {passcode.length > 0 && (
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => setShowPasscode(!showPasscode)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#73786B] hover:text-[#D4D5C8] active:text-[#8E9B72] transition-colors focus:outline-none z-40 p-1 cursor-pointer"
+                >
+                  {showPasscode ? (
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                    </svg>
+                  ) : (
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  )}
+                </button>
+              )}
 
               {/* The functional invisible input */}
               <input
                 type="password"
                 value={passcode}
-                onChange={(e) => setPasscode(e.target.value)}
-                onFocus={() => setIsFocused(true)}
+                onChange={(e) => {
+                  setPasscode(e.target.value);
+                  setSelectionIndex(e.target.selectionStart);
+                }}
+                onFocus={(e) => {
+                  setIsFocused(true);
+                  setSelectionIndex(e.target.selectionStart);
+                }}
                 onBlur={() => setIsFocused(false)}
-                className="w-full bg-transparent border-none outline-none rounded-none px-4 py-3 text-sm font-mono text-transparent select-none caret-transparent relative z-30 cursor-text"
+                onSelect={(e) => {
+                  setSelectionIndex(e.target.selectionStart);
+                }}
+                onKeyUp={(e) => {
+                  setSelectionIndex(e.target.selectionStart);
+                }}
+                onMouseDown={(e) => {
+                  setTimeout(() => {
+                    setSelectionIndex(e.target.selectionStart);
+                  }, 10);
+                }}
+                className="w-full bg-transparent border-none outline-none rounded-none pl-4 pr-10 py-3 text-sm font-mono text-transparent text-center select-all caret-transparent relative z-30 cursor-text"
                 disabled={authStatus !== "idle"}
                 autoFocus
               />
