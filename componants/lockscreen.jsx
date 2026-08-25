@@ -94,12 +94,12 @@ export default function LockScreen() {
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span 
-                className="absolute inline-flex h-full w-full rounded-full bg-[#8E9B72] opacity-75"
+                className="absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75"
                 style={{ animation: "breath 4s ease-in-out infinite" }}
               />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8E9B72]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
             </span>
-            <span className="text-[#8E9B72] font-semibold tracking-widest text-[11px]">
+            <span className="text-[#22C55E] font-semibold tracking-widest text-[11px]">
               ACTIVE
             </span>
           </div>
