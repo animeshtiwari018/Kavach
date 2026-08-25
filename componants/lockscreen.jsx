@@ -71,6 +71,10 @@ export default function LockScreen() {
           50% { transform: scale(1.05); opacity: 1.0; }
           100% { transform: scale(0.9); opacity: 0.6; }
         }
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
         .lock-grid {
           background-color: #0A0C09;
           background-image: 
@@ -82,6 +86,9 @@ export default function LockScreen() {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
+        }
+        .cursor-blink {
+          animation: blink 1.2s infinite steps(1);
         }
       `,
         }}
@@ -281,11 +288,7 @@ export default function LockScreen() {
                 
                 {/* Blinking block terminal cursor when empty & focused */}
                 {passcode.length === 0 && isFocused && (
-                  <motion.span
-                    animate={{ opacity: [1, 0, 1] }}
-                    transition={{ repeat: Infinity, duration: 1.0, ease: "steps(2)" }}
-                    className="w-1.5 h-3 bg-[#8E9B72] ml-1"
-                  />
+                  <span className="w-1.5 h-3 bg-[#8E9B72] ml-1 cursor-blink" />
                 )}
 
                 {/* Show muted placeholder text when empty and not focused */}
