@@ -13,6 +13,8 @@ export default function LockScreen() {
   const [isFocused, setIsFocused] = useState(false);
   const [showPasscode, setShowPasscode] = useState(false);
   const [selectionIndex, setSelectionIndex] = useState(0);
+  const [isBtnHovered, setIsBtnHovered] = useState(false);
+  const [isBtnPressed, setIsBtnPressed] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -475,42 +477,198 @@ export default function LockScreen() {
               />
             </div>
 
-            {/* Authorize Access submit button */}
-            <div className="relative w-full">
+            {/* Authorize Access submit button with mechanical tactical styling */}
+            <div className="relative w-full group/btn">
+              {/* Background fill */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                animate={{
+                  backgroundColor: authStatus !== "idle"
+                    ? "#1A1E16"
+                    : isBtnPressed 
+                    ? "#8E9B72" 
+                    : isBtnHovered 
+                    ? "#252B20" 
+                    : "#1A1E16"
+                }}
+                transition={{ duration: 0.2 }}
+              />
+
+              {/* Tactical Inner Dotted Border Frame */}
+              <motion.div 
+                className="absolute top-[3px] bottom-[3px] left-[3px] right-[3px] border border-dotted pointer-events-none z-10"
+                animate={{
+                  borderColor: isBtnPressed ? "rgba(10, 12, 9, 0.4)" : isBtnHovered ? "#737B65" : "#4A5042"
+                }}
+                transition={{ duration: 0.2 }}
+              />
+
+              {/* Welded Corner Rivets */}
+              <motion.span 
+                className="absolute top-[6px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.span 
+                className="absolute top-[6px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.span 
+                className="absolute bottom-[6.5px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.span 
+                className="absolute bottom-[6.5px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                transition={{ duration: 0.2 }}
+              />
+
+              {/* HUD Targeting notch crosshairs on side borders */}
+              <motion.span
+                className="absolute left-[-2px] top-1/2 -translate-y-1/2 text-[8px] font-bold select-none pointer-events-none z-20"
+                animate={{ color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                transition={{ duration: 0.2 }}
+              >
+                +
+              </motion.span>
+              <motion.span
+                className="absolute right-[-2.5px] top-1/2 -translate-y-1/2 text-[8px] font-bold select-none pointer-events-none z-20"
+                animate={{ color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                transition={{ duration: 0.2 }}
+              >
+                +
+              </motion.span>
+
+              {/* Animated Corner Unicode Glyphs */}
+              <motion.span
+                className="absolute -top-[5.5px] -left-[1px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  scale: isBtnHovered ? 1.05 : 1,
+                  x: isBtnHovered ? 0.5 : 0,
+                  y: isBtnHovered ? 0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >┌</motion.span>
+              <motion.span
+                className="absolute -top-[5.5px] -right-[1.5px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  scale: isBtnHovered ? 1.05 : 1,
+                  x: isBtnHovered ? -0.5 : 0,
+                  y: isBtnHovered ? 0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >┐</motion.span>
+              <motion.span
+                className="absolute -bottom-[7.5px] -left-[1px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  scale: isBtnHovered ? 1.05 : 1,
+                  x: isBtnHovered ? 0.5 : 0,
+                  y: isBtnHovered ? -0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >└</motion.span>
+              <motion.span
+                className="absolute -bottom-[7.5px] -right-[1.5px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  scale: isBtnHovered ? 1.05 : 1,
+                  x: isBtnHovered ? -0.5 : 0,
+                  y: isBtnHovered ? -0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >┘</motion.span>
+
+              {/* Animated Mechanical Border Lines */}
+              <motion.div
+                className="absolute top-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
+                animate={{
+                  scaleX: isBtnHovered ? 1 : 0.95,
+                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+              <motion.div
+                className="absolute bottom-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
+                animate={{
+                  scaleX: isBtnHovered ? 1 : 0.95,
+                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+              <motion.div
+                className="absolute left-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
+                animate={{
+                  scaleY: isBtnHovered ? 1 : 0.90,
+                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+              <motion.div
+                className="absolute right-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
+                animate={{
+                  scaleY: isBtnHovered ? 1 : 0.90,
+                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+
               <button
                 type="submit"
                 disabled={authStatus !== "idle"}
-                className="w-full relative bg-[#1A1E16] border border-[#4A5042] hover:bg-[#252B20] hover:border-[#737B65] active:bg-[#8E9B72] active:text-[#0A0C09] active:border-[#8E9B72] text-[#C9CBC0] rounded-none py-3 text-[11px] tracking-[0.25em] font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed uppercase group-active:scale-[0.99]"
-                style={{
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.4)",
+                onMouseEnter={() => setIsBtnHovered(true)}
+                onMouseLeave={() => {
+                  setIsBtnHovered(false);
+                  setIsBtnPressed(false);
                 }}
+                onMouseDown={() => setIsBtnPressed(true)}
+                onMouseUp={() => setIsBtnPressed(false)}
+                className="w-full relative bg-transparent border-none text-[#C9CBC0] rounded-none py-3 text-[11px] tracking-[0.25em] font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed uppercase z-20 focus:outline-none flex items-center justify-center cursor-pointer select-none"
               >
-                {authStatus === "idle" ? (
-                  "AUTHORIZE ACCESS"
-                ) : (
-                  <span className="flex items-center justify-center gap-2 text-[#8E9B72]">
-                    <svg
-                      className="animate-spin h-3.5 w-3.5 text-[#8E9B72]"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
+                <motion.span
+                  animate={{
+                    color: authStatus !== "idle"
+                      ? "#C9CBC0"
+                      : isBtnPressed
+                      ? "#0A0C09"
+                      : isBtnHovered
+                      ? "#E8EDF7"
+                      : "#C9CBC0"
+                  }}
+                  transition={{ duration: 0.15 }}
+                  className="flex items-center justify-center gap-2"
+                >
+                  {authStatus === "idle" ? (
+                    "AUTHORIZE ACCESS"
+                  ) : (
+                    <>
+                      <svg
+                        className="animate-spin h-3.5 w-3.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
                         stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    VERIFYING...
-                  </span>
-                )}
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      VERIFYING...
+                    </>
+                  )}
+                </motion.span>
               </button>
             </div>
           </form>
