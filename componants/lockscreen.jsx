@@ -84,7 +84,7 @@ export default function LockScreen() {
               rgba(6, 8, 6, 0.78),
               rgba(6, 8, 6, 0.90)
             ),
-            url("/images/bg1.jpg");
+            url("/images/bg2.jpg");
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -103,11 +103,29 @@ export default function LockScreen() {
       <div className="w-full flex justify-between items-start text-xs border-b border-[#3A4034] pb-4 relative z-20">
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span 
-                className="absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75"
-                style={{ animation: "breath 4s ease-in-out infinite" }}
+            <span className="relative flex h-2 w-2 items-center justify-center">
+              {/* Outer pulsing ring 1 */}
+              <motion.span
+                className="absolute inline-flex h-full w-full rounded-full bg-[#22C55E]"
+                animate={{ scale: [1, 2.2, 1], opacity: [0.5, 0, 0.5] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut",
+                }}
               />
+              {/* Mid pulsing ring 2 */}
+              <motion.span
+                className="absolute inline-flex h-full w-full rounded-full bg-[#22C55E]"
+                animate={{ scale: [1, 1.6, 1], opacity: [0.7, 0, 0.7] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
+              />
+              {/* Center solid indicator dot */}
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
             </span>
             <span className="text-[#22C55E] font-semibold tracking-widest text-[11px]">
@@ -134,20 +152,21 @@ export default function LockScreen() {
         {/* User / Operator Info Section */}
         <div className="flex flex-col items-center mb-8">
           {/* Avatar Mechanical Plate */}
-          <div 
+          <div
             className="relative w-24 h-24 rounded-full border border-[#3A4034] flex items-center justify-center p-1 bg-[#11140F] mb-3 group transition-all duration-500"
             style={{
-              boxShadow: "inset 0 2px 4px rgba(0,0,0,0.6), 0 1px 2px rgba(255,255,255,0.05)"
+              boxShadow:
+                "inset 0 2px 4px rgba(0,0,0,0.6), 0 1px 2px rgba(255,255,255,0.05)",
             }}
           >
             <div className="absolute inset-0 rounded-full border border-dashed border-[#24291F] opacity-40 animate-[spin_180s_linear_infinite]" />
             <div className="w-full h-full rounded-full border border-[#24291F] bg-[#11140F] overflow-hidden flex items-center justify-center relative">
-              
               {/* Subtle diagonal metallic reflection highlight */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-[0.03] pointer-events-none"
                 style={{
-                  background: "linear-gradient(135deg, white 0%, transparent 50%, white 100%)"
+                  background:
+                    "linear-gradient(135deg, white 0%, transparent 50%, white 100%)",
                 }}
               />
 
@@ -190,90 +209,97 @@ export default function LockScreen() {
             {/* Password input container with Framer Motion interactive corners */}
             <div className="relative w-full group">
               {/* Background fill */}
-              <div 
-                className="absolute inset-0 pointer-events-none" 
-                style={{ backgroundColor: "rgba(10, 12, 9, 0.72)" }} 
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ backgroundColor: "rgba(10, 12, 9, 0.72)" }}
               />
-              
+
               {/* Animated Corner Unicode Glyphs */}
-              <motion.span 
+              <motion.span
                 className="absolute -top-[5.5px] -left-[1px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
                   x: isFocused ? 0.5 : 0,
-                  y: isFocused ? 0.5 : 0
+                  y: isFocused ? 0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >┌</motion.span>
-              <motion.span 
+              >
+                ┌
+              </motion.span>
+              <motion.span
                 className="absolute -top-[5.5px] -right-[1.5px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
                   x: isFocused ? -0.5 : 0,
-                  y: isFocused ? 0.5 : 0
+                  y: isFocused ? 0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >┐</motion.span>
-              <motion.span 
+              >
+                ┐
+              </motion.span>
+              <motion.span
                 className="absolute -bottom-[7.5px] -left-[1px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
                   x: isFocused ? 0.5 : 0,
-                  y: isFocused ? -0.5 : 0
+                  y: isFocused ? -0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >└</motion.span>
-              <motion.span 
+              >
+                └
+              </motion.span>
+              <motion.span
                 className="absolute -bottom-[7.5px] -right-[1.5px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
                   x: isFocused ? -0.5 : 0,
-                  y: isFocused ? -0.5 : 0
+                  y: isFocused ? -0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >┘</motion.span>
-              
+              >
+                ┘
+              </motion.span>
+
               {/* Animated Mechanical Border Lines */}
-              <motion.div 
+              <motion.div
                 className="absolute top-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
                 animate={{
                   scaleX: isFocused ? 1 : 0.95,
-                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute bottom-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
                 animate={{
                   scaleX: isFocused ? 1 : 0.95,
-                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute left-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
                 animate={{
-                  scaleY: isFocused ? 1 : 0.90,
-                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                  scaleY: isFocused ? 1 : 0.9,
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute right-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
                 animate={{
-                  scaleY: isFocused ? 1 : 0.90,
-                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                  scaleY: isFocused ? 1 : 0.9,
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
-              
+
               {/* Custom Spring-Animated Passcode Display with Caret Tracking */}
               <div className="absolute inset-0 flex items-center justify-center gap-1 pointer-events-none z-20 select-none">
-                
                 {/* Empty & focused state: Blinking cursor in the center */}
                 {passcode.length === 0 && isFocused && (
                   <span className="w-1.5 h-3 bg-[#8E9B72] cursor-blink" />
@@ -293,28 +319,36 @@ export default function LockScreen() {
                       {passcode.split("").map((char, idx) => {
                         const displayChar = showPasscode ? char : "*";
                         return (
-                          <div key={idx} className="relative flex items-center justify-center w-[11px] h-5">
-                            
+                          <div
+                            key={idx}
+                            className="relative flex items-center justify-center w-[11px] h-5"
+                          >
                             {/* Blinking vertical cursor line before this character if selectionIndex === idx and focused */}
                             {isFocused && selectionIndex === idx && (
                               <span className="absolute left-0 w-[1.5px] h-3.5 bg-[#8E9B72] cursor-blink" />
                             )}
-                            
+
                             {/* The spring-animated masked character */}
                             <motion.span
                               initial={{ scale: 0, opacity: 0, y: 3 }}
                               animate={{ scale: 1, opacity: 1, y: 0 }}
                               exit={{ scale: 0, opacity: 0, y: -3 }}
-                              transition={{ type: "spring", stiffness: 450, damping: 22 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 450,
+                                damping: 22,
+                              }}
                               className="absolute leading-none"
                             >
                               {displayChar}
                             </motion.span>
 
                             {/* Blinking vertical cursor line after the last character if selectionIndex === passcode.length and idx === passcode.length - 1 and focused */}
-                            {isFocused && selectionIndex === passcode.length && idx === passcode.length - 1 && (
-                              <span className="absolute right-0 w-[1.5px] h-3.5 bg-[#8E9B72] cursor-blink" />
-                            )}
+                            {isFocused &&
+                              selectionIndex === passcode.length &&
+                              idx === passcode.length - 1 && (
+                                <span className="absolute right-0 w-[1.5px] h-3.5 bg-[#8E9B72] cursor-blink" />
+                              )}
                           </div>
                         );
                       })}
@@ -332,13 +366,37 @@ export default function LockScreen() {
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-[#73786B] hover:text-[#D4D5C8] active:text-[#8E9B72] transition-colors focus:outline-none z-40 p-1 cursor-pointer"
                 >
                   {showPasscode ? (
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
+                      />
                     </svg>
                   ) : (
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
                     </svg>
                   )}
                 </button>
@@ -381,7 +439,7 @@ export default function LockScreen() {
                 disabled={authStatus !== "idle"}
                 className="w-full relative bg-[#1A1E16] border border-[#4A5042] hover:bg-[#252B20] hover:border-[#737B65] active:bg-[#8E9B72] active:text-[#0A0C09] active:border-[#8E9B72] text-[#C9CBC0] rounded-none py-3 text-[11px] tracking-[0.25em] font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed uppercase group-active:scale-[0.99]"
                 style={{
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.4)"
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.4)",
                 }}
               >
                 {authStatus === "idle" ? (
@@ -428,19 +486,44 @@ export default function LockScreen() {
             <path d="M7 11V7a5 5 0 0110 0v4"></path>
           </svg>
           <span className="uppercase">
-            SECURED <span className="text-[#22C55E]">•</span> ENCRYPTED <span className="text-[#73786B]/40">•</span> ACTIVE
+            SECURED <span className="text-[#22C55E]">•</span> ENCRYPTED{" "}
+            <span className="text-[#73786B]/40">•</span> ACTIVE
           </span>
         </div>
       </div>
 
       {/* Footer Branding section */}
-      <div className="w-full flex flex-col items-center gap-1.5 pb-2 relative z-20">
-        <h1 
-          className="tracking-[0.8em] text-md font-bold text-[#B6B8AA] pl-[0.8em] font-mono leading-none animate-[pulse_6s_ease-in-out_infinite]"
-          style={{ opacity: 0.4 }}
-        >
-          KAVACH
-        </h1>
+      <div className="w-full flex flex-col items-center gap-2 pb-2 relative z-20 select-none">
+        <div className="flex justify-center items-center gap-1.5 select-none h-4">
+          {"KAVACH".split("").map((letter, idx) => (
+            <motion.span
+              key={idx}
+              initial={{ opacity: 0.1, y: 3 }}
+              animate={{
+                opacity: [0.25, 0.45, 0.25],
+                y: 0,
+              }}
+              transition={{
+                opacity: {
+                  repeat: Infinity,
+                  duration: 5,
+                  ease: "easeInOut",
+                  delay: idx * 0.35,
+                },
+                y: {
+                  type: "spring",
+                  stiffness: 150,
+                  damping: 15,
+                  delay: idx * 0.1,
+                },
+              }}
+              className="text-md font-bold text-[#B6B8AA] font-mono leading-none pl-[0.1em]"
+              style={{ textShadow: "0 0 8px rgba(182, 184, 170, 0.1)" }}
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </div>
         <div className="text-[8px] tracking-[0.25em] text-[#5E6255] font-bold uppercase select-none">
           SECURE OPERATING ENVIRONMENT
         </div>
