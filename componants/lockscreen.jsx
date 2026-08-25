@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function LockScreen() {
   const [passcode, setPasscode] = useState("");
@@ -9,6 +10,7 @@ export default function LockScreen() {
   const [accessLevel, setAccessLevel] = useState("none"); // none, visitor, admin
   const [time, setTime] = useState("");
   const [dateStr, setDateStr] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -176,17 +178,132 @@ export default function LockScreen() {
           </div>
 
           <form onSubmit={handleUnlock} className="w-full flex flex-col gap-3">
-            {/* Password input container */}
-            <div className="relative w-full">
+            {/* Password input container with Framer Motion interactive corners */}
+            <div className="relative w-full group">
+              {/* Background fill */}
+              <div 
+                className="absolute inset-0 pointer-events-none" 
+                style={{ backgroundColor: "rgba(10, 12, 9, 0.72)" }} 
+              />
+              
+              {/* Animated Corner Unicode Glyphs */}
+              <motion.span 
+                className="absolute -top-[5.5px] -left-[1px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isFocused ? "#8E9B72" : "#3A4034",
+                  scale: isFocused ? 1.05 : 1,
+                  x: isFocused ? 0.5 : 0,
+                  y: isFocused ? 0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >┌</motion.span>
+              <motion.span 
+                className="absolute -top-[5.5px] -right-[1.5px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isFocused ? "#8E9B72" : "#3A4034",
+                  scale: isFocused ? 1.05 : 1,
+                  x: isFocused ? -0.5 : 0,
+                  y: isFocused ? 0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >┐</motion.span>
+              <motion.span 
+                className="absolute -bottom-[7.5px] -left-[1px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isFocused ? "#8E9B72" : "#3A4034",
+                  scale: isFocused ? 1.05 : 1,
+                  x: isFocused ? 0.5 : 0,
+                  y: isFocused ? -0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >└</motion.span>
+              <motion.span 
+                className="absolute -bottom-[7.5px] -right-[1.5px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                animate={{
+                  color: isFocused ? "#8E9B72" : "#3A4034",
+                  scale: isFocused ? 1.05 : 1,
+                  x: isFocused ? -0.5 : 0,
+                  y: isFocused ? -0.5 : 0
+                }}
+                transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              >┘</motion.span>
+              
+              {/* Animated Mechanical Border Lines */}
+              <motion.div 
+                className="absolute top-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
+                animate={{
+                  scaleX: isFocused ? 1 : 0.95,
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+              <motion.div 
+                className="absolute bottom-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
+                animate={{
+                  scaleX: isFocused ? 1 : 0.95,
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+              <motion.div 
+                className="absolute left-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
+                animate={{
+                  scaleY: isFocused ? 1 : 0.90,
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+              <motion.div 
+                className="absolute right-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
+                animate={{
+                  scaleY: isFocused ? 1 : 0.90,
+                  backgroundColor: isFocused ? "#8E9B72" : "#3A4034"
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+              
+              {/* Custom Spring-Animated Passcode Display */}
+              <div className="absolute inset-0 flex items-center justify-center gap-1.5 pointer-events-none z-20">
+                <AnimatePresence>
+                  {passcode.split("").map((_, idx) => (
+                    <motion.span
+                      key={idx}
+                      initial={{ scale: 0, opacity: 0, y: 3 }}
+                      animate={{ scale: 1, opacity: 1, y: 0 }}
+                      exit={{ scale: 0, opacity: 0, y: -3 }}
+                      transition={{ type: "spring", stiffness: 450, damping: 20 }}
+                      className="text-[12px] font-mono text-[#D4D5C8] leading-none select-none"
+                    >
+                      •
+                    </motion.span>
+                  ))}
+                </AnimatePresence>
+                
+                {/* Blinking block terminal cursor when empty & focused */}
+                {passcode.length === 0 && isFocused && (
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ repeat: Infinity, duration: 1.0, ease: "steps(2)" }}
+                    className="w-1.5 h-3 bg-[#8E9B72] ml-1"
+                  />
+                )}
+
+                {/* Show muted placeholder text when empty and not focused */}
+                {passcode.length === 0 && !isFocused && (
+                  <span className="text-[11px] font-mono text-[#5E6255] tracking-wide select-none">
+                    • • • • • • • •
+                  </span>
+                )}
+              </div>
+
+              {/* The functional invisible input */}
               <input
                 type="password"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
-                placeholder="• • • • • • • •"
-                className="w-full bg-[#101209]/72 border border-[#3A4034] rounded-none px-4 py-3 text-sm font-mono tracking-[0.4em] text-center text-[#D4D5C8] outline-none focus:border-[#8E9B72] placeholder-[#5E6255] transition-all duration-300 focus:placeholder-transparent"
-                style={{
-                  backgroundColor: "rgba(10, 12, 9, 0.72)"
-                }}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                className="w-full bg-transparent border-none outline-none rounded-none px-4 py-3 text-sm font-mono text-transparent select-none caret-transparent relative z-30 cursor-text"
                 disabled={authStatus !== "idle"}
                 autoFocus
               />
@@ -246,7 +363,7 @@ export default function LockScreen() {
             <path d="M7 11V7a5 5 0 0110 0v4"></path>
           </svg>
           <span className="uppercase">
-            SECURED <span className="text-[#8E9B72]">•</span> ENCRYPTED <span className="text-[#73786B]/40">•</span> ACTIVE
+            SECURED <span className="text-[#22C55E]">•</span> ENCRYPTED <span className="text-[#73786B]/40">•</span> ACTIVE
           </span>
         </div>
       </div>
