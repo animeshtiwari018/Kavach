@@ -214,9 +214,52 @@ export default function LockScreen() {
                 style={{ backgroundColor: "rgba(10, 12, 9, 0.72)" }}
               />
 
+              {/* Tactical Inner Dotted Border Frame */}
+              <div 
+                className="absolute top-[3px] bottom-[3px] left-[3px] right-[3px] border border-dotted border-[#24291F] group-focus-within:border-[#3A4034]/70 transition-colors duration-300 pointer-events-none z-10" 
+              />
+
+              {/* Corner welded rivets */}
+              <motion.span 
+                className="absolute top-[6px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span 
+                className="absolute top-[6px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span 
+                className="absolute bottom-[6.5px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span 
+                className="absolute bottom-[6.5px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
+                animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
+                transition={{ duration: 0.3 }}
+              />
+
+              {/* HUD Targeting notch crosshairs on side borders */}
+              <motion.span
+                className="absolute left-[-2px] top-1/2 -translate-y-1/2 text-[8px] font-bold select-none pointer-events-none z-20"
+                animate={{ color: isFocused ? "#8E9B72" : "#3A4034" }}
+                transition={{ duration: 0.3 }}
+              >
+                +
+              </motion.span>
+              <motion.span
+                className="absolute right-[-2.5px] top-1/2 -translate-y-1/2 text-[8px] font-bold select-none pointer-events-none z-20"
+                animate={{ color: isFocused ? "#8E9B72" : "#3A4034" }}
+                transition={{ duration: 0.3 }}
+              >
+                +
+              </motion.span>
+
               {/* Animated Corner Unicode Glyphs */}
               <motion.span
-                className="absolute -top-[5.5px] -left-[1px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                className="absolute -top-[5.5px] -left-[1px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
@@ -228,7 +271,7 @@ export default function LockScreen() {
                 ┌
               </motion.span>
               <motion.span
-                className="absolute -top-[5.5px] -right-[1.5px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                className="absolute -top-[5.5px] -right-[1.5px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
@@ -240,7 +283,7 @@ export default function LockScreen() {
                 ┐
               </motion.span>
               <motion.span
-                className="absolute -bottom-[7.5px] -left-[1px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                className="absolute -bottom-[7.5px] -left-[1px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
@@ -252,7 +295,7 @@ export default function LockScreen() {
                 └
               </motion.span>
               <motion.span
-                className="absolute -bottom-[7.5px] -right-[1.5px] text-[10px] font-mono leading-none select-none pointer-events-none z-20"
+                className="absolute -bottom-[7.5px] -right-[1.5px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
                   color: isFocused ? "#8E9B72" : "#3A4034",
                   scale: isFocused ? 1.05 : 1,
