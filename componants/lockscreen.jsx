@@ -84,7 +84,7 @@ export default function LockScreen() {
               rgba(6, 8, 6, 0.78),
               rgba(6, 8, 6, 0.90)
             ),
-            url("/images/bg2.jpg");
+            url("/images/bg2.png");
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
