@@ -72,8 +72,10 @@ export default function LockScreen() {
         .lock-grid {
           background-color: #0A0C09;
           background-image: 
-            radial-gradient(circle at center, rgba(6, 8, 6, 0.4) 0%, rgba(6, 8, 6, 0.95) 80%),
-            linear-gradient(rgba(6, 8, 6, 0.78), rgba(6, 8, 6, 0.90)),
+            linear-gradient(
+              rgba(6, 8, 6, 0.78),
+              rgba(6, 8, 6, 0.90)
+            ),
             url("/images/bg1.jpg");
           background-size: cover;
           background-position: center;
