@@ -21,6 +21,7 @@ export default function Homepage({ onLogout }) {
   const [isShutdown, setIsShutdown] = useState(false);
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
   const [spotlightQuery, setSpotlightQuery] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
 
   // Window list state
   const [apps, setApps] = useState([
@@ -75,6 +76,22 @@ export default function Homepage({ onLogout }) {
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Show access granted notification on mount
+  useEffect(() => {
+    const showTimer = setTimeout(() => {
+      setShowNotification(true);
+    }, 400);
+
+    const dismissTimer = setTimeout(() => {
+      setShowNotification(false);
+    }, 6400);
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(dismissTimer);
+    };
   }, []);
 
   // Set active focus on window click and raise its z-index
@@ -243,6 +260,56 @@ export default function Homepage({ onLogout }) {
               />
             </motion.form>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Security Access Granted Notification */}
+      <AnimatePresence>
+        {showNotification && (
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 80, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 280, damping: 24 }}
+            className={`fixed top-12 right-6 z-[99] w-[320px] rounded-lg border p-4 shadow-2xl backdrop-blur-xl flex gap-3 items-start cursor-default select-none ${
+              isDarkMode
+                ? "bg-[#0b0c09]/90 border-[#8e9b72]/40 text-[#D4D5C8]"
+                : "bg-white/95 border-[#7a7a96]/20 text-neutral-800"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Status Radar Pulse Indicator */}
+            <div className="flex-shrink-0 mt-1 relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-600"></span>
+            </div>
+
+            {/* Notification content */}
+            <div className="flex-1 min-w-0 font-mono">
+              <div className="text-[10px] tracking-widest text-[#8e9b72]/95 font-bold uppercase mb-0.5">
+                Security Alert
+              </div>
+              <h4 className="text-xs font-bold tracking-wide text-green-500 mb-1.5">
+                VISITOR ACCESS GRANTED
+              </h4>
+              <div className="text-[11px] leading-relaxed opacity-95">
+                <p className={`font-semibold ${isDarkMode ? "text-white/90" : "text-neutral-800"}`}>
+                  Welcome to KAVACH.
+                </p>
+                <p className={`text-[10.5px] mt-0.5 ${isDarkMode ? "text-white/60" : "text-neutral-500"}`}>
+                  Explore the system at your discretion.
+                </p>
+              </div>
+            </div>
+
+            {/* Dismiss Button */}
+            <button
+              onClick={() => setShowNotification(false)}
+              className="flex-shrink-0 text-current opacity-40 hover:opacity-100 transition-opacity cursor-pointer text-xs p-0.5"
+            >
+              ✕
+            </button>
+          </motion.div>
         )}
       </AnimatePresence>
 
