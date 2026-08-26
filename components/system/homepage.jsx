@@ -6,21 +6,31 @@ import Window from "../window";
 import TerminalApp from "../apps/terminal";
 import BrowserApp from "../apps/browser";
 import SettingsApp from "../apps/settings";
+import Menubar from "../menubar";
+import ControlCenter from "../control-center";
 
-export default function Homepage() {
+export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
-  const [time, setTime] = useState("");
-  const [dateStr, setDateStr] = useState("");
+  const [time, setTime] = useState(new Date());
+
+  // System states
+  const [isControlCenterOpen, setIsControlCenterOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [brightness, setBrightness] = useState(100);
+  const [isSleeping, setIsSleeping] = useState(false);
+  const [isShutdown, setIsShutdown] = useState(false);
+  const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
+  const [spotlightQuery, setSpotlightQuery] = useState("");
 
   // Window list state
   const [apps, setApps] = useState([
     {
       id: "terminal",
       title: "Terminal Console",
-      isOpen: true, // Default open Terminal for better interactive first look
+      isOpen: true,
       isMinimized: false,
       zIndex: 10,
-      defaultX: 80,
+      defaultX: 60,
       defaultY: 60,
       defaultWidth: 520,
       defaultHeight: 350,
@@ -34,7 +44,7 @@ export default function Homepage() {
       isOpen: false,
       isMinimized: false,
       zIndex: 10,
-      defaultX: 140,
+      defaultX: 120,
       defaultY: 100,
       defaultWidth: 600,
       defaultHeight: 400,
@@ -48,7 +58,7 @@ export default function Homepage() {
       isOpen: false,
       isMinimized: false,
       zIndex: 10,
-      defaultX: 200,
+      defaultX: 180,
       defaultY: 140,
       defaultWidth: 420,
       defaultHeight: 345,
@@ -61,28 +71,10 @@ export default function Homepage() {
   const [activeAppId, setActiveAppId] = useState("terminal");
   const [topZIndex, setTopZIndex] = useState(10);
 
-  // Dynamic system clock
+  // Dynamic system clock updating every second
   useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true,
-        })
-      );
-      setDateStr(
-        now.toLocaleDateString("en-US", {
-          weekday: "short",
-          month: "short",
-          day: "numeric",
-        })
-      );
-    };
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   // Set active focus on window click and raise its z-index
@@ -101,10 +93,8 @@ export default function Homepage() {
       prev.map((app) => (app.id === id ? { ...app, isOpen: false } : app))
     );
     if (activeAppId === id) {
-      // Set focus to the next open window, if any
       const openApps = apps.filter((a) => a.isOpen && a.id !== id);
       if (openApps.length > 0) {
-        // Find open app with highest z-index
         const topApp = openApps.reduce((prev, current) =>
           prev.zIndex > current.zIndex ? prev : current
         );
@@ -119,7 +109,6 @@ export default function Homepage() {
     setApps((prev) =>
       prev.map((app) => (app.id === id ? { ...app, isMinimized: true } : app))
     );
-    // Move focus to next top open app
     const openApps = apps.filter((a) => a.isOpen && a.id !== id && !a.isMinimized);
     if (openApps.length > 0) {
       const topApp = openApps.reduce((prev, current) =>
@@ -135,71 +124,172 @@ export default function Homepage() {
     const app = apps.find((a) => a.id === id);
 
     if (!app.isOpen) {
-      // Open and focus
       setApps((prev) =>
         prev.map((a) => (a.id === id ? { ...a, isOpen: true, isMinimized: false } : a))
       );
       focusApp(id);
     } else if (app.isMinimized) {
-      // Restore and focus
       setApps((prev) =>
         prev.map((a) => (a.id === id ? { ...a, isMinimized: false } : a))
       );
       focusApp(id);
     } else if (activeAppId === id) {
-      // Minimize if already open and active
       minimizeApp(id);
     } else {
-      // Focus if open but backgrounded
       focusApp(id);
     }
   };
 
+  const handleDesktopClick = () => {
+    setActiveAppId(null);
+    setIsControlCenterOpen(false);
+  };
+
+  // Keyboard shortcut for Spotlight (Cmd/Ctrl + Space)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.code === "Space") {
+        e.preventDefault();
+        setIsSpotlightOpen((prev) => !prev);
+      } else if (e.key === "Escape") {
+        setIsSpotlightOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleSpotlightSearch = (e) => {
+    e.preventDefault();
+    const query = spotlightQuery.trim().toLowerCase();
+    
+    // Check if query matches any app icon name
+    const foundApp = apps.find(a => a.iconName.toLowerCase() === query || a.title.toLowerCase().includes(query));
+    if (foundApp) {
+      toggleDockApp(foundApp.id);
+      setIsSpotlightOpen(false);
+      setSpotlightQuery("");
+    }
+  };
+
+  // Get active window for the menubar indicator
+  const activeWindow = apps.find((a) => a.id === activeAppId && a.isOpen && !a.isMinimized);
+
   return (
-    <div className="min-h-screen w-full bg-black text-[#D4D5C8] font-mono selection:bg-[#8E9B72]/30 selection:text-transparent flex flex-col relative overflow-hidden select-none">
-      
-      {/* Top OS Menubar (Tactical Minimalist) */}
-      <div className="h-9 w-full bg-[#0A0C09]/90 border-b border-[#3A4034] flex items-center justify-between px-4 z-50 text-[11px] tracking-wider relative backdrop-blur-md">
-        {/* Left Side: System Control Menu */}
-        <div className="flex items-center gap-4 text-[#73786B] font-semibold">
-          <span className="text-[#8E9B72] text-[12px] font-bold cursor-pointer hover:text-white transition-colors">
-            🛡️
-          </span>
-          <span className="text-white hover:text-white font-bold cursor-default">
-            Kavach
-          </span>
-          <span className="hover:text-white cursor-default transition-colors">File</span>
-          <span className="hover:text-white cursor-default transition-colors">Edit</span>
-          <span className="hover:text-white cursor-default transition-colors">View</span>
-          <span className="hover:text-white cursor-default transition-colors">Special</span>
-        </div>
+    <div 
+      className={`min-h-screen w-full relative overflow-hidden flex flex-col select-none transition-colors duration-300 ${
+        isDarkMode ? "bg-black text-[#D4D5C8]" : "bg-neutral-100 text-neutral-800"
+      }`}
+      onClick={handleDesktopClick}
+    >
+      {/* Top macOS Menubar */}
+      <Menubar
+        time={time}
+        onLogout={onLogout}
+        onSleep={() => setIsSleeping(true)}
+        onShutdown={() => setIsShutdown(true)}
+        onRestart={() => window.location.reload()}
+        onSpotlightClick={(e) => {
+          e.stopPropagation();
+          setIsSpotlightOpen(!isSpotlightOpen);
+        }}
+        onControlCenterClick={(e) => {
+          e.stopPropagation();
+          setIsControlCenterOpen(!isControlCenterOpen);
+        }}
+        isDarkMode={isDarkMode}
+        activeWindow={activeWindow}
+      />
 
-        {/* Center Title or Indicator */}
-        <div className="hidden md:block text-[9px] text-[#5E6255] tracking-[0.3em] font-bold">
-          // SECURE INTERCONNECT ACTIVE //
-        </div>
+      {/* Control Center Panel */}
+      {isControlCenterOpen && (
+        <ControlCenter
+          onClose={() => setIsControlCenterOpen(false)}
+          isDarkMode={isDarkMode}
+          onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+          brightness={brightness}
+          onBrightnessChange={(val) => setBrightness(val)}
+        />
+      )}
 
-        {/* Right Side: Status diagnostics, node identity & clock */}
-        <div className="flex items-center gap-4 text-[#73786B] font-semibold select-none">
-          <span className="text-[10px] text-[#5E6255] font-bold tracking-wide">
-            NODE_01
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
-            SECURE
-          </span>
-          <span className="text-white">
-            {dateStr.toUpperCase()} {time}
-          </span>
-        </div>
-      </div>
+      {/* Spotlight Search Overlay Dialog */}
+      <AnimatePresence>
+        {isSpotlightOpen && (
+          <div 
+            className="fixed inset-0 bg-transparent z-[100] flex items-start justify-center pt-24"
+            onClick={() => setIsSpotlightOpen(false)}
+          >
+            <motion.form
+              onSubmit={handleSpotlightSearch}
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{ duration: 0.15 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`w-[450px] shadow-2xl rounded-lg p-3 border flex items-center gap-3 backdrop-blur-xl ${
+                isDarkMode 
+                  ? "bg-gray-900/90 border-gray-800/60 text-white" 
+                  : "bg-white/95 border-gray-200 text-gray-800"
+              }`}
+            >
+              <span className="text-lg opacity-60">🔍</span>
+              <input
+                type="text"
+                placeholder="Spotlight Search (Type Terminal, Browser, Settings...)"
+                value={spotlightQuery}
+                onChange={(e) => setSpotlightQuery(e.target.value)}
+                className="flex-1 bg-transparent border-none outline-none font-sans text-sm"
+                autoFocus
+              />
+            </motion.form>
+          </div>
+        )}
+      </AnimatePresence>
 
-      {/* Desktop Canvas Workspace Area */}
+      {/* Screen Brightness Mask Overlay */}
       <div
+        className="absolute inset-0 bg-black pointer-events-none z-[999] transition-opacity duration-300"
+        style={{ opacity: Math.max(0, 0.95 - brightness / 100) }}
+      />
+
+      {/* System Sleep Mode Overlay */}
+      {isSleeping && (
+        <div 
+          onClick={() => setIsSleeping(false)}
+          className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center cursor-pointer select-none"
+        >
+          <motion.span 
+            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            className="text-[10px] font-mono text-[#5E6255] tracking-[0.3em]"
+          >
+            [ SYSTEM IN SLEEP CYCLE - CLICK TO WAKE ]
+          </motion.span>
+        </div>
+      )}
+
+      {/* System Power Off / Shutdown Mode Overlay */}
+      {isShutdown && (
+        <div className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center text-center p-6 select-none cursor-default font-mono">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.location.reload()}
+            className="w-16 h-16 rounded-full border border-[#3A4034] flex items-center justify-center bg-[#0A0C09] hover:bg-[#121610] hover:border-[#8E9B72] transition-colors cursor-pointer group mb-4"
+          >
+            <span className="text-[#73786B] group-hover:text-[#8E9B72] text-xl font-bold">⏽</span>
+          </motion.div>
+          <span className="text-[10px] text-[#73786B] tracking-[0.3em] uppercase font-bold">
+            Kavach System Shutdown - Click Power Icon to Boot
+          </span>
+        </div>
+      )}
+
+      {/* Main Desktop Canvas Workspace Area */}
+      <main 
         ref={desktopRef}
-        onClick={() => setActiveAppId(null)}
-        className="flex-1 w-full relative p-4 flex items-center justify-center bg-black cursor-default"
-        style={{ height: "calc(100vh - 36px - 70px)" }} // Remaining screen height
+        className="flex-1 w-full relative pt-[42px] flex items-center justify-center bg-transparent cursor-default"
+        style={{ height: "calc(100vh - 36px - 70px)" }}
       >
         {/* Static Background Shield Watermark for Depth */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
@@ -208,7 +298,7 @@ export default function Homepage() {
           </svg>
         </div>
 
-        {/* Render Active Windows with z-index ordering */}
+        {/* Dynamic Windows Rendering */}
         <AnimatePresence>
           {apps.map(
             (app) =>
@@ -233,43 +323,50 @@ export default function Homepage() {
               )
           )}
         </AnimatePresence>
-      </div>
+      </main>
 
-      {/* Floating macOS-like Bottom App Dock */}
-      <div className="h-[70px] w-full flex items-center justify-center bg-transparent pointer-events-none z-50 select-none pb-3">
-        <div className="flex items-end gap-4 px-6 py-2 rounded-2xl bg-[#121610]/75 border border-[#3A4034] shadow-2xl backdrop-blur-lg pointer-events-auto select-none relative transition-all duration-300">
-          
+      {/* Floating Bottom App Dock */}
+      <div className="h-[70px] w-full flex items-center justify-center bg-transparent pointer-events-none z-40 select-none pb-3">
+        <div className={`flex items-end gap-4 px-6 py-2 rounded-2xl border shadow-2xl backdrop-blur-lg pointer-events-auto select-none relative transition-colors duration-300 ${
+          isDarkMode 
+            ? "bg-[#121610]/75 border-[#3A4034]/70" 
+            : "bg-white/70 border-neutral-300"
+        }`}>
           {apps.map((app) => {
             const isRunning = app.isOpen;
             const isFocused = activeAppId === app.id && isRunning && !app.isMinimized;
 
             return (
               <div key={app.id} className="flex flex-col items-center gap-1.5 relative">
-                
-                {/* macOS Magnify effect using Framer Motion */}
                 <motion.button
                   onClick={() => toggleDockApp(app.id)}
                   whileHover={{ scale: 1.15, y: -6 }}
                   transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className={`w-11 h-11 rounded-xl flex items-center justify-center cursor-pointer border transition-colors relative font-mono text-[16px] shadow-lg ${
+                  className={`w-11 h-11 rounded-xl flex items-center justify-center cursor-pointer border transition-all duration-200 relative font-mono text-[16px] shadow-lg ${
                     isFocused
-                      ? "bg-[#252B20] border-[#8E9B72]"
-                      : "bg-[#0A0C09]/90 border-[#3A4034] hover:bg-[#1A2016]/90 hover:border-[#5E6255]"
+                      ? isDarkMode 
+                        ? "bg-[#252B20] border-[#8E9B72]" 
+                        : "bg-neutral-200 border-blue-500"
+                      : isDarkMode
+                        ? "bg-[#0A0C09]/90 border-[#3A4034]/80 hover:bg-[#1A2016]/90 hover:border-[#5E6255]"
+                        : "bg-white border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400"
                   }`}
                   title={app.iconName}
                 >
                   {app.icon}
                 </motion.button>
 
-                {/* Dock Running Indicator Dot (macOS style) */}
+                {/* Dock Running Indicator Dot */}
                 <div className="h-1 w-full flex justify-center absolute -bottom-1">
                   {isRunning && (
                     <motion.span
                       layoutId={`running-dot-${app.id}`}
                       className={`h-1.5 w-1.5 rounded-full shadow ${
                         isFocused 
-                          ? "bg-[#8E9B72] shadow-[#8E9B72]/50" 
-                          : "bg-[#3A4034]"
+                          ? isDarkMode 
+                            ? "bg-[#8E9B72] shadow-[#8E9B72]/50" 
+                            : "bg-blue-500 shadow-blue-500/50"
+                          : "bg-neutral-400"
                       }`}
                       animate={{ scale: isFocused ? [1, 1.2, 1] : 1 }}
                       transition={{ duration: 0.3 }}
@@ -281,7 +378,6 @@ export default function Homepage() {
           })}
         </div>
       </div>
-
     </div>
   );
 }
