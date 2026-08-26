@@ -106,10 +106,10 @@ export default function Menubar({
     ? "bg-[#7a7a96]/40 backdrop-blur-xl border border-[#7a7a96]/35 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]"
     : "bg-[#7a7a96]/30 backdrop-blur-xl border border-[#7a7a96]/25 shadow-[0_8px_32px_0_rgba(122,122,150,0.1)]";
   const dropdownBgClass = isDarkMode
-    ? "bg-[#0b0c10]/75 border border-[#7a7a96]/20 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+    ? "bg-white/[0.08] border border-white/[0.15] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
     : "bg-white/80 border border-[#7a7a96]/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(122,122,150,0.15)]";
-  const textClass = isDarkMode ? "text-[#e2e2ec]" : "text-gray-800";
-  const hoverClass = isDarkMode ? "hover:bg-[#7a7a96]/20 hover:text-white" : "hover:bg-[#7a7a96]/15 hover:text-black";
+  const textClass = isDarkMode ? "text-[#f3f4f6]" : "text-gray-800";
+  const hoverClass = isDarkMode ? "hover:bg-white/[0.12] hover:text-white" : "hover:bg-[#7a7a96]/15 hover:text-black";
 
   return (
     <div
@@ -119,14 +119,14 @@ export default function Menubar({
       <div className="flex-1 flex items-center">
         {/* Apple Menu */}
         <button
-          className="flex items-center mr-4 hover:bg-white/10 px-2 py-0.5 rounded cursor-pointer"
+          className="flex items-center mr-4 cursor-pointer"
           onClick={() => toggleMenu("apple")}
         >
           <AppleIcon className="w-27 h-11" />
         </button>
         {activeMenu === "apple" && (
           <div
-            className={`absolute top-[30px] left-0 ${dropdownBgClass} rounded-lg ${textClass} py-1 w-56 z-50`}
+            className={`absolute top-full mt-1.5 left-0 ${dropdownBgClass} rounded-lg ${textClass} py-1 w-56 z-50`}
           >
             <button
               className={`w-full text-left px-4 py-1.5 ${hoverClass} cursor-pointer`}
@@ -243,7 +243,7 @@ export default function Menubar({
           {showWifiToggle && (
             <div
               ref={wifiRef}
-              className={`absolute top-[30px] right-0 ${dropdownBgClass} rounded-lg ${textClass} py-3 px-4 w-64 z-50`}
+              className={`absolute top-full mt-1.5 right-0 ${dropdownBgClass} rounded-lg ${textClass} py-3 px-4 w-64 z-50`}
             >
               <div className="flex items-center justify-between">
                 <span className="font-bold">Wi-Fi</span>
