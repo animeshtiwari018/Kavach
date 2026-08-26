@@ -478,7 +478,7 @@ export default function LockScreen() {
             </div>
 
             {/* Authorize Access submit button with mechanical tactical styling */}
-            <div className="relative w-full group/btn">
+            <div className="relative w-3/4 self-center group/btn">
               {/* Background fill */}
               <motion.div
                 className="absolute inset-0 pointer-events-none"
@@ -627,7 +627,7 @@ export default function LockScreen() {
                 }}
                 onMouseDown={() => setIsBtnPressed(true)}
                 onMouseUp={() => setIsBtnPressed(false)}
-                className="w-full relative bg-transparent border-none text-[#C9CBC0] rounded-none py-3 text-[11px] tracking-[0.25em] font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed uppercase z-20 focus:outline-none flex items-center justify-center cursor-pointer select-none"
+                className="w-full relative bg-transparent border-none text-[#C9CBC0] rounded-none py-2.5 text-[10px] tracking-[0.25em] font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed uppercase z-20 focus:outline-none flex items-center justify-center cursor-pointer select-none"
               >
                 <motion.span
                   animate={{
@@ -643,7 +643,7 @@ export default function LockScreen() {
                   className="flex items-center justify-center gap-2"
                 >
                   {authStatus === "idle" ? (
-                    "AUTHORIZE ACCESS"
+                    "AUTHENTICATE"
                   ) : (
                     <>
                       <svg
