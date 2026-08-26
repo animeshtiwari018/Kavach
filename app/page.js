@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Preloader from "@/componants/preloader";
-import LockScreen from "@/componants/lockscreen";
-import Homepage from "@/componants/homepage";
+import Preloader from "@/components/system/preloader";
+import LockScreen from "@/components/system/lockscreen";
+import Homepage from "@/components/system/homepage";
 
 export default function Home() {
   const [bootComplete, setBootComplete] = useState(false);
