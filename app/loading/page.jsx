@@ -1,6 +1,6 @@
 "use client";
 
-import Preloader from "@/componants/preloader";
+import Preloader from "@/components/system/preloader";
 
 export default function LoadingPage() {
   return (
