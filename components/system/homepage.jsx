@@ -109,19 +109,21 @@ export default function Homepage({ onLogout }) {
     setTopZIndex(newZ);
 
     setApps((prev) =>
-      prev.map((app) => (app.id === id ? { ...app, zIndex: newZ, isMinimized: false } : app))
+      prev.map((app) =>
+        app.id === id ? { ...app, zIndex: newZ, isMinimized: false } : app,
+      ),
     );
   };
 
   const closeApp = (id) => {
     setApps((prev) =>
-      prev.map((app) => (app.id === id ? { ...app, isOpen: false } : app))
+      prev.map((app) => (app.id === id ? { ...app, isOpen: false } : app)),
     );
     if (activeAppId === id) {
       const openApps = apps.filter((a) => a.isOpen && a.id !== id);
       if (openApps.length > 0) {
         const topApp = openApps.reduce((prev, current) =>
-          prev.zIndex > current.zIndex ? prev : current
+          prev.zIndex > current.zIndex ? prev : current,
         );
         setActiveAppId(topApp.id);
       } else {
@@ -132,12 +134,14 @@ export default function Homepage({ onLogout }) {
 
   const minimizeApp = (id) => {
     setApps((prev) =>
-      prev.map((app) => (app.id === id ? { ...app, isMinimized: true } : app))
+      prev.map((app) => (app.id === id ? { ...app, isMinimized: true } : app)),
     );
-    const openApps = apps.filter((a) => a.isOpen && a.id !== id && !a.isMinimized);
+    const openApps = apps.filter(
+      (a) => a.isOpen && a.id !== id && !a.isMinimized,
+    );
     if (openApps.length > 0) {
       const topApp = openApps.reduce((prev, current) =>
-        prev.zIndex > current.zIndex ? prev : current
+        prev.zIndex > current.zIndex ? prev : current,
       );
       setActiveAppId(topApp.id);
     } else {
@@ -150,12 +154,14 @@ export default function Homepage({ onLogout }) {
 
     if (!app.isOpen) {
       setApps((prev) =>
-        prev.map((a) => (a.id === id ? { ...a, isOpen: true, isMinimized: false } : a))
+        prev.map((a) =>
+          a.id === id ? { ...a, isOpen: true, isMinimized: false } : a,
+        ),
       );
       focusApp(id);
     } else if (app.isMinimized) {
       setApps((prev) =>
-        prev.map((a) => (a.id === id ? { ...a, isMinimized: false } : a))
+        prev.map((a) => (a.id === id ? { ...a, isMinimized: false } : a)),
       );
       focusApp(id);
     } else if (activeAppId === id) {
@@ -187,9 +193,13 @@ export default function Homepage({ onLogout }) {
   const handleSpotlightSearch = (e) => {
     e.preventDefault();
     const query = spotlightQuery.trim().toLowerCase();
-    
+
     // Check if query matches any app icon name
-    const foundApp = apps.find(a => a.iconName.toLowerCase() === query || a.title.toLowerCase().includes(query));
+    const foundApp = apps.find(
+      (a) =>
+        a.iconName.toLowerCase() === query ||
+        a.title.toLowerCase().includes(query),
+    );
     if (foundApp) {
       toggleDockApp(foundApp.id);
       setIsSpotlightOpen(false);
@@ -198,12 +208,16 @@ export default function Homepage({ onLogout }) {
   };
 
   // Get active window for the menubar indicator
-  const activeWindow = apps.find((a) => a.id === activeAppId && a.isOpen && !a.isMinimized);
+  const activeWindow = apps.find(
+    (a) => a.id === activeAppId && a.isOpen && !a.isMinimized,
+  );
 
   return (
-    <div 
+    <div
       className={`min-h-screen w-full relative overflow-hidden flex flex-col select-none transition-colors duration-300 ${
-        isDarkMode ? "bg-black text-[#D4D5C8]" : "bg-neutral-100 text-neutral-800"
+        isDarkMode
+          ? "bg-black text-[#D4D5C8]"
+          : "bg-neutral-100 text-neutral-800"
       }`}
       onClick={handleDesktopClick}
     >
@@ -240,7 +254,7 @@ export default function Homepage({ onLogout }) {
       {/* Spotlight Search Overlay Dialog */}
       <AnimatePresence>
         {isSpotlightOpen && (
-          <div 
+          <div
             className="fixed inset-0 bg-transparent z-[100] flex items-start justify-center pt-24"
             onClick={() => setIsSpotlightOpen(false)}
           >
@@ -252,8 +266,8 @@ export default function Homepage({ onLogout }) {
               transition={{ duration: 0.15 }}
               onClick={(e) => e.stopPropagation()}
               className={`w-[450px] shadow-2xl rounded-lg p-3 border flex items-center gap-3 backdrop-blur-xl ${
-                isDarkMode 
-                  ? "bg-gray-900/90 border-gray-800/60 text-white" 
+                isDarkMode
+                  ? "bg-gray-900/90 border-gray-800/60 text-white"
                   : "bg-white/95 border-gray-200 text-gray-800"
               }`}
             >
@@ -301,10 +315,14 @@ export default function Homepage({ onLogout }) {
                 VISITOR ACCESS GRANTED
               </h4>
               <div className="text-[11px] leading-relaxed opacity-95">
-                <p className={`font-semibold ${isDarkMode ? "text-white/90" : "text-neutral-800"}`}>
+                <p
+                  className={`font-semibold ${isDarkMode ? "text-white/90" : "text-neutral-800"}`}
+                >
                   Welcome to KAVACH.
                 </p>
-                <p className={`text-[10.5px] mt-0.5 ${isDarkMode ? "text-white/60" : "text-neutral-500"}`}>
+                <p
+                  className={`text-[10.5px] mt-0.5 ${isDarkMode ? "text-white/60" : "text-neutral-500"}`}
+                >
                   Explore the system at your discretion.
                 </p>
               </div>
@@ -329,11 +347,11 @@ export default function Homepage({ onLogout }) {
 
       {/* System Sleep Mode Overlay */}
       {isSleeping && (
-        <div 
+        <div
           onClick={() => setIsSleeping(false)}
           className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center cursor-pointer select-none"
         >
-          <motion.span 
+          <motion.span
             animate={{ opacity: [0.3, 0.8, 0.3] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             className="text-[10px] font-mono text-[#5E6255] tracking-[0.3em]"
@@ -346,13 +364,15 @@ export default function Homepage({ onLogout }) {
       {/* System Power Off / Shutdown Mode Overlay */}
       {isShutdown && (
         <div className="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center text-center p-6 select-none cursor-default font-mono">
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => window.location.reload()}
             className="w-16 h-16 rounded-full border border-[#3A4034] flex items-center justify-center bg-[#0A0C09] hover:bg-[#121610] hover:border-[#8E9B72] transition-colors cursor-pointer group mb-4"
           >
-            <span className="text-[#73786B] group-hover:text-[#8E9B72] text-xl font-bold">⏽</span>
+            <span className="text-[#73786B] group-hover:text-[#8E9B72] text-xl font-bold">
+              ⏽
+            </span>
           </motion.div>
           <span className="text-[10px] text-[#73786B] tracking-[0.3em] uppercase font-bold">
             Kavach System Shutdown - Click Power Icon to Boot
@@ -361,15 +381,25 @@ export default function Homepage({ onLogout }) {
       )}
 
       {/* Main Desktop Canvas Workspace Area */}
-      <main 
+      <main
         ref={desktopRef}
         className="flex-1 w-full relative pt-[42px] flex items-center justify-center bg-transparent cursor-default"
         style={{ height: "calc(100vh - 36px - 70px)" }}
       >
         {/* Static Background Shield Watermark for Depth */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
-          <svg className="w-96 h-96 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          <svg
+            className="w-96 h-96 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="1"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+            />
           </svg>
         </div>
 
@@ -395,41 +425,35 @@ export default function Homepage({ onLogout }) {
                 >
                   {app.component}
                 </Window>
-              )
+              ),
           )}
         </AnimatePresence>
       </main>
 
       {/* Floating Bottom App Dock */}
       <div className="h-[70px] w-full flex items-center justify-center bg-transparent pointer-events-none z-40 select-none pb-3">
-        <div className={`flex items-end gap-4 px-6 py-2 rounded-2xl border shadow-2xl backdrop-blur-lg pointer-events-auto select-none relative transition-colors duration-300 ${
-          isDarkMode 
-            ? "bg-[#121610]/75 border-[#3A4034]/70" 
-            : "bg-white/70 border-neutral-300"
-        }`}>
+        <div
+          className={`flex items-end gap-4 px-6 py-2 rounded-2xl border shadow-2xl backdrop-blur-lg pointer-events-auto select-none relative transition-colors duration-300 ${
+            isDarkMode
+              ? "bg-[#121610]/75 border-[#3A4034]/70"
+              : "bg-white/70 border-neutral-300"
+          }`}
+        >
           {apps.map((app) => {
             const isRunning = app.isOpen;
-            const isFocused = activeAppId === app.id && isRunning && !app.isMinimized;
+            const isFocused =
+              activeAppId === app.id && isRunning && !app.isMinimized;
 
             return (
-              <div key={app.id} className="flex flex-col items-center gap-1.5 relative">
+              <div
+                key={app.id}
+                className="flex flex-col items-center gap-1.5 relative"
+              >
                 <motion.button
                   onClick={() => toggleDockApp(app.id)}
                   whileHover={{ scale: 1.15, y: -6 }}
                   transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className={`flex items-center justify-center cursor-pointer transition-all duration-200 relative ${
-                    app.id === "terminal"
-                      ? "w-14 h-14"
-                      : `w-11 h-11 rounded-xl border font-mono text-[16px] shadow-lg ${
-                          isFocused
-                            ? isDarkMode 
-                              ? "bg-[#252B20] border-[#8E9B72]" 
-                              : "bg-neutral-200 border-blue-500"
-                            : isDarkMode
-                              ? "bg-[#0A0C09]/90 border-[#3A4034]/80 hover:bg-[#1A2016]/90 hover:border-[#5E6255]"
-                              : "bg-white border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400"
-                        }`
-                  }`}
+                  className="w-14 h-14 flex items-center justify-center cursor-pointer transition-all duration-200 relative font-mono text-[30px]"
                   title={app.iconName}
                 >
                   {app.icon}
@@ -441,9 +465,9 @@ export default function Homepage({ onLogout }) {
                     <motion.span
                       layoutId={`running-dot-${app.id}`}
                       className={`h-1.5 w-1.5 rounded-full shadow ${
-                        isFocused 
-                          ? isDarkMode 
-                            ? "bg-[#8E9B72] shadow-[#8E9B72]/50" 
+                        isFocused
+                          ? isDarkMode
+                            ? "bg-[#8E9B72] shadow-[#8E9B72]/50"
                             : "bg-blue-500 shadow-blue-500/50"
                           : "bg-neutral-400"
                       }`}
