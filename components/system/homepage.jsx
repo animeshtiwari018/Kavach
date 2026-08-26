@@ -35,7 +35,15 @@ export default function Homepage({ onLogout }) {
       defaultY: 60,
       defaultWidth: 520,
       defaultHeight: 350,
-      icon: "[_]",
+      icon: (
+        <img
+          src="/images/Terminal.png"
+          alt="Terminal"
+          className="w-14 h-14 object-contain select-none pointer-events-none"
+          draggable="false"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      ),
       iconName: "Terminal",
       component: <TerminalApp />,
     },
@@ -409,14 +417,18 @@ export default function Homepage({ onLogout }) {
                   onClick={() => toggleDockApp(app.id)}
                   whileHover={{ scale: 1.15, y: -6 }}
                   transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className={`w-11 h-11 rounded-xl flex items-center justify-center cursor-pointer border transition-all duration-200 relative font-mono text-[16px] shadow-lg ${
-                    isFocused
-                      ? isDarkMode 
-                        ? "bg-[#252B20] border-[#8E9B72]" 
-                        : "bg-neutral-200 border-blue-500"
-                      : isDarkMode
-                        ? "bg-[#0A0C09]/90 border-[#3A4034]/80 hover:bg-[#1A2016]/90 hover:border-[#5E6255]"
-                        : "bg-white border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400"
+                  className={`flex items-center justify-center cursor-pointer transition-all duration-200 relative ${
+                    app.id === "terminal"
+                      ? "w-14 h-14"
+                      : `w-11 h-11 rounded-xl border font-mono text-[16px] shadow-lg ${
+                          isFocused
+                            ? isDarkMode 
+                              ? "bg-[#252B20] border-[#8E9B72]" 
+                              : "bg-neutral-200 border-blue-500"
+                            : isDarkMode
+                              ? "bg-[#0A0C09]/90 border-[#3A4034]/80 hover:bg-[#1A2016]/90 hover:border-[#5E6255]"
+                              : "bg-white border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400"
+                        }`
                   }`}
                   title={app.iconName}
                 >
