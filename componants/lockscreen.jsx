@@ -471,7 +471,7 @@ export default function LockScreen() {
                     setSelectionIndex(e.target.selectionStart);
                   }, 10);
                 }}
-                className="w-full bg-transparent border-none outline-none rounded-none pl-4 pr-10 py-3 text-sm font-mono text-transparent text-center select-all caret-transparent relative z-30 cursor-text"
+                className="w-full bg-transparent border-none outline-none rounded-none pl-10 pr-10 py-3 text-[15px] font-mono text-transparent text-center tracking-[4.5px] select-all caret-transparent relative z-30 cursor-text selection:bg-[#8E9B72]/30 selection:text-transparent"
                 disabled={authStatus !== "idle"}
                 autoFocus
               />
