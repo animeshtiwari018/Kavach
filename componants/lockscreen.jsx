@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-export default function LockScreen() {
+export default function LockScreen({ onUnlock }) {
   const [passcode, setPasscode] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [authStatus, setAuthStatus] = useState("idle"); // idle, verifying, success
@@ -56,6 +56,11 @@ export default function LockScreen() {
 
       // Immediately transition to unlocked state, no delay for messages
       setIsUnlocked(true);
+      if (onUnlock) {
+        setTimeout(() => {
+          onUnlock();
+        }, 200);
+      }
     }, 800); // Small fake verifying delay for the spinner
   };
 
