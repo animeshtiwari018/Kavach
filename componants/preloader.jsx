@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -29,9 +30,25 @@ export default function Preloader({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-black select-none p-4">
-      <div className="flex flex-col items-center gap-4 max-w-xs w-full">
+      <motion.div 
+        className="flex flex-col items-center gap-4 max-w-xs w-full"
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         {/* Skull Image Container */}
-        <div className="w-40 h-40 flex items-center justify-center">
+        <motion.div 
+          className="w-40 h-40 flex items-center justify-center"
+          animate={{ 
+            scale: [0.97, 1.03, 0.97]
+          }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 3, 
+            ease: "easeInOut" 
+          }}
+          whileHover={{ scale: 1.06 }}
+        >
           {imageError ? (
             /* Premium, clean geometric skull SVG fallback if the PNG is not yet present */
             <svg
@@ -39,7 +56,7 @@ export default function Preloader({ onComplete }) {
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"
-              className="w-16 h-16 text-neutral-600 animate-pulse transition-all duration-300"
+              className="w-16 h-16 text-neutral-600 transition-all duration-300"
             >
               <path
                 strokeLinecap="round"
@@ -68,16 +85,18 @@ export default function Preloader({ onComplete }) {
               onDragStart={(e) => e.preventDefault()}
             />
           )}
-        </div>
+        </motion.div>
 
         {/* Loading Bar */}
         <div className="w-[200px] sm:w-[290px] h-[4px] bg-[#1A1E24] rounded-full overflow-hidden relative">
-          <div
-            className="h-full bg-white rounded-full transition-all duration-100 ease-linear"
-            style={{ width: `${progress}%` }}
+          <motion.div
+            className="h-full bg-white rounded-full"
+            initial={{ width: "0%" }}
+            animate={{ width: `${progress}%` }}
+            transition={{ ease: "linear", duration: 0.1 }}
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
