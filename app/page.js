@@ -10,7 +10,7 @@ export default function Home() {
   const [unlocked, setUnlocked] = useState(false);
 
   if (unlocked) {
-    return <Homepage />;
+    return <Homepage onLogout={() => setUnlocked(false)} />;
   }
 
   if (bootComplete) {
