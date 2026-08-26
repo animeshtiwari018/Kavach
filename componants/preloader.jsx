@@ -7,7 +7,7 @@ export default function Preloader({ onComplete }) {
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
-    // Realistic boot loading simulation with randomized increments and pauses
+    // Consistent linear progress loading simulation (reaches 100% in 2 seconds)
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -19,27 +19,10 @@ export default function Preloader({ onComplete }) {
           return 100;
         }
 
-        // Random increment to simulate loading chunks of resources
-        const currentStep = Math.random();
-        let increment = 0;
-
-        if (prev < 30) {
-          // Slow start
-          increment = currentStep * 8;
-        } else if (prev < 70) {
-          // Normal middle section
-          increment = currentStep * 12;
-        } else if (prev < 90) {
-          // Slow crawl near the end
-          increment = currentStep * 4;
-        } else {
-          // Fast finish
-          increment = currentStep * 6;
-        }
-
+        const increment = 5;
         return Math.min(prev + increment, 100);
       });
-    }, 200);
+    }, 100);
 
     return () => clearInterval(interval);
   }, []);
@@ -90,7 +73,7 @@ export default function Preloader({ onComplete }) {
         {/* Loading Bar */}
         <div className="w-[200px] sm:w-[290px] h-[4px] bg-[#1A1E24] rounded-full overflow-hidden relative">
           <div
-            className="h-full bg-white rounded-full transition-all duration-150 ease-out"
+            className="h-full bg-white rounded-full transition-all duration-100 ease-linear"
             style={{ width: `${progress}%` }}
           />
         </div>
