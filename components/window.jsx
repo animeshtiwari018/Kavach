@@ -64,8 +64,8 @@ export default function Window({
       style={{
         zIndex: isActive ? 40 : 30,
         position: isMaximized ? "fixed" : "absolute",
-        top: isMaximized ? "40px" : undefined, // Height of the Menubar
-        left: isMaximized ? "0px" : undefined,
+        top: isMaximized ? "40px" : "0px", // Height of the Menubar
+        left: isMaximized ? "0px" : "0px",
       }}
     >
       {/* Weld Corner Rivets (Cohesive Tactical Design) */}
