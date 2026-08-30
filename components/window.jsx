@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useDragControls } from "motion/react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Window({
   title,
@@ -16,14 +16,17 @@ export default function Window({
   defaultX = 100,
   defaultY = 100,
   desktopRef,
+  onPositionChange,
 }) {
   const [isMaximized, setIsMaximized] = useState(false);
   const dragControls = useDragControls();
+  const windowRef = useRef(null);
 
   if (!isOpen) return null;
 
   return (
     <motion.div
+      ref={windowRef}
       drag
       dragControls={dragControls}
       dragListener={false}
@@ -41,6 +44,18 @@ export default function Window({
       }}
       transition={{ type: "spring", stiffness: 350, damping: 26 }}
       onPointerDown={onFocus}
+      onDragEnd={(event, info) => {
+        if (isMaximized) return;
+        const desktopRect = desktopRef.current?.getBoundingClientRect();
+        if (desktopRect && windowRef.current) {
+          const rect = windowRef.current.getBoundingClientRect();
+          const relativeX = rect.left - desktopRect.left;
+          const relativeY = rect.top - desktopRect.top;
+          if (onPositionChange) {
+            onPositionChange(relativeX, relativeY);
+          }
+        }
+      }}
       className={`absolute flex flex-col rounded-md border text-[#D4D5C8] font-mono shadow-2xl overflow-hidden select-none z-30 ${
         isActive 
           ? "border-[#8E9B72] bg-[#0A0C09]/98 shadow-[#8E9B72]/5" 
