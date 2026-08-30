@@ -10,6 +10,7 @@ import Menubar from "../menubar";
 import ControlCenter from "../control-center";
 import Dock from "../dock";
 import Launchpad from "../launchpad";
+import FaceTimeApp from "../apps/facetime";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -204,7 +205,9 @@ export default function Homepage({ onLogout }) {
       focusApp(appMapId);
     } else {
       let componentToRender;
-      if (appWindow.id === "vscode") {
+      if (appWindow.id === "facetime") {
+        componentToRender = <FaceTimeApp />;
+      } else if (appWindow.id === "vscode") {
         componentToRender = (
           <iframe
             src="https://github1s.com"
