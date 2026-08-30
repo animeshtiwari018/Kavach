@@ -256,6 +256,14 @@ export default function Homepage({ onLogout }) {
     setIsLaunchpadOpen(true);
   };
 
+  const handlePositionChange = (id, x, y) => {
+    setApps((prev) =>
+      prev.map((app) =>
+        app.id === id ? { ...app, defaultX: x, defaultY: y } : app,
+      ),
+    );
+  };
+
   const handleDesktopClick = () => {
     setActiveAppId(null);
     setIsControlCenterOpen(false);
@@ -507,6 +515,7 @@ export default function Homepage({ onLogout }) {
                   defaultX={app.defaultX}
                   defaultY={app.defaultY}
                   desktopRef={desktopRef}
+                  onPositionChange={(x, y) => handlePositionChange(app.id, x, y)}
                 >
                   {app.component}
                 </Window>
