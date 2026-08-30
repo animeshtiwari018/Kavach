@@ -9,6 +9,7 @@ import SettingsApp from "../apps/settings";
 import Menubar from "../menubar";
 import ControlCenter from "../control-center";
 import Dock from "../dock";
+import Launchpad from "../launchpad";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -22,6 +23,7 @@ export default function Homepage({ onLogout }) {
   const [isShutdown, setIsShutdown] = useState(false);
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
   const [spotlightQuery, setSpotlightQuery] = useState("");
+  const [isLaunchpadOpen, setIsLaunchpadOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
 
   // Window list state
@@ -251,7 +253,7 @@ export default function Homepage({ onLogout }) {
   };
 
   const handleLaunchpadClick = () => {
-    setIsSpotlightOpen(true);
+    setIsLaunchpadOpen(true);
   };
 
   const handleDesktopClick = () => {
@@ -522,6 +524,14 @@ export default function Homepage({ onLogout }) {
           .map((a) => (a.id === "browser" ? "safari" : a.id))}
         isDarkMode={isDarkMode}
       />
+
+      {/* Launchpad Overlay */}
+      {isLaunchpadOpen && (
+        <Launchpad
+          onAppClick={handleDockAppClick}
+          onClose={() => setIsLaunchpadOpen(false)}
+        />
+      )}
     </div>
   );
 }
