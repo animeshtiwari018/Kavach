@@ -11,6 +11,7 @@ export default function FaceTimeApp() {
   const [activeCall, setActiveCall] = useState(null); // null or contact object
   const [searchQuery, setSearchQuery] = useState("");
   const videoRef = useRef(null);
+  const streamRef = useRef(null);
 
   const contacts = [
     { id: 1, name: "Animesh Tiwari", role: "Workstation Owner", status: "Available" },
@@ -34,6 +35,7 @@ export default function FaceTimeApp() {
       });
 
       setStream(mediaStream);
+      streamRef.current = mediaStream;
       setPermissionStatus("granted");
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
@@ -50,8 +52,11 @@ export default function FaceTimeApp() {
 
     // Cleanup on unmount
     return () => {
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => {
+          track.stop();
+        });
+        streamRef.current = null;
       }
     };
   }, []);
