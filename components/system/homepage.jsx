@@ -8,6 +8,7 @@ import BrowserApp from "../apps/browser";
 import SettingsApp from "../apps/settings";
 import Menubar from "../menubar";
 import ControlCenter from "../control-center";
+import Dock from "../dock";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -55,9 +56,17 @@ export default function Homepage({ onLogout }) {
       zIndex: 10,
       defaultX: 120,
       defaultY: 100,
-      defaultWidth: 600,
-      defaultHeight: 400,
-      icon: "🌐",
+      defaultWidth: 520,
+      defaultHeight: 350,
+      icon: (
+        <img
+          src="/images/browser.png"
+          alt="Browser"
+          className="w-14 h-14 object-contain select-none pointer-events-none"
+          draggable="false"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      ),
       iconName: "Browser",
       component: <BrowserApp />,
     },
@@ -169,6 +178,80 @@ export default function Homepage({ onLogout }) {
     } else {
       focusApp(id);
     }
+  };
+
+  const handleDockAppClick = (appWindow) => {
+    const appMapId = appWindow.id === "safari" ? "browser" : appWindow.id;
+    const exists = apps.some((a) => a.id === appMapId);
+
+    if (exists) {
+      const app = apps.find((a) => a.id === appMapId);
+      if (!app.isOpen) {
+        setApps((prev) =>
+          prev.map((a) =>
+            a.id === appMapId ? { ...a, isOpen: true, isMinimized: false } : a,
+          ),
+        );
+      } else if (app.isMinimized) {
+        setApps((prev) =>
+          prev.map((a) =>
+            a.id === appMapId ? { ...a, isMinimized: false } : a,
+          ),
+        );
+      }
+      focusApp(appMapId);
+    } else {
+      let componentToRender;
+      if (appWindow.id === "vscode") {
+        componentToRender = (
+          <iframe
+            src="https://github1s.com"
+            className="w-full h-full border-none bg-black"
+            title="VS Code"
+          />
+        );
+      } else if (appWindow.id === "github") {
+        componentToRender = (
+          <iframe
+            src="https://github.com"
+            className="w-full h-full border-none bg-[#070906]"
+            title="GitHub"
+          />
+        );
+      } else {
+        componentToRender = (
+          <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#070906] text-[#D4D5C8] font-mono text-center">
+            <h3 className="text-sm font-bold text-[#8E9B72] mb-2">{appWindow.title.toUpperCase()}</h3>
+            <p className="text-xs text-[#73786B] max-w-xs leading-relaxed">
+              This application is sandboxed. Connect module keys or input operational clearance to unlock full workstation integration.
+            </p>
+          </div>
+        );
+      }
+
+      const newZ = topZIndex + 1;
+      setTopZIndex(newZ);
+      setApps((prev) => [
+        ...prev,
+        {
+          id: appMapId,
+          title: appWindow.title,
+          isOpen: true,
+          isMinimized: false,
+          zIndex: newZ,
+          defaultX: appWindow.position.x,
+          defaultY: appWindow.position.y,
+          defaultWidth: appWindow.size.width,
+          defaultHeight: appWindow.size.height,
+          component: componentToRender,
+        },
+      ]);
+      setActiveAppId(appMapId);
+    }
+  };
+
+  const handleLaunchpadClick = () => {
+    setIsSpotlightOpen(true);
   };
 
   const handleDesktopClick = () => {
@@ -431,56 +514,14 @@ export default function Homepage({ onLogout }) {
       </main>
 
       {/* Floating Bottom App Dock */}
-      <div className="h-[70px] w-full flex items-center justify-center bg-transparent pointer-events-none z-40 select-none pb-3">
-        <div
-          className={`flex items-end gap-4 px-6 py-2 rounded-2xl border shadow-2xl backdrop-blur-lg pointer-events-auto select-none relative transition-colors duration-300 ${
-            isDarkMode
-              ? "bg-[#121610]/75 border-[#3A4034]/70"
-              : "bg-white/70 border-neutral-300"
-          }`}
-        >
-          {apps.map((app) => {
-            const isRunning = app.isOpen;
-            const isFocused =
-              activeAppId === app.id && isRunning && !app.isMinimized;
-
-            return (
-              <div
-                key={app.id}
-                className="flex flex-col items-center gap-1.5 relative"
-              >
-                <motion.button
-                  onClick={() => toggleDockApp(app.id)}
-                  whileHover={{ scale: 1.15, y: -6 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className="w-14 h-14 flex items-center justify-center cursor-pointer transition-all duration-200 relative font-mono text-[30px]"
-                  title={app.iconName}
-                >
-                  {app.icon}
-                </motion.button>
-
-                {/* Dock Running Indicator Dot */}
-                <div className="h-1 w-full flex justify-center absolute -bottom-1">
-                  {isRunning && (
-                    <motion.span
-                      layoutId={`running-dot-${app.id}`}
-                      className={`h-1.5 w-1.5 rounded-full shadow ${
-                        isFocused
-                          ? isDarkMode
-                            ? "bg-[#8E9B72] shadow-[#8E9B72]/50"
-                            : "bg-blue-500 shadow-blue-500/50"
-                          : "bg-neutral-400"
-                      }`}
-                      animate={{ scale: isFocused ? [1, 1.2, 1] : 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <Dock
+        onAppClick={handleDockAppClick}
+        onLaunchpadClick={handleLaunchpadClick}
+        activeAppIds={apps
+          .filter((a) => a.isOpen && !a.isMinimized)
+          .map((a) => (a.id === "browser" ? "safari" : a.id))}
+        isDarkMode={isDarkMode}
+      />
     </div>
   );
 }
