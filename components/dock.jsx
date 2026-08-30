@@ -122,9 +122,8 @@ export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], 
       {/* Mobile expanded overflow menu */}
       {isMobile && showMobileMenu && (
         <div
-          className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 w-[280px] 
-          ${isDarkMode ? "bg-[#121610]/95 border-[#3A4034]/70" : "bg-white/90"} backdrop-blur-xl 
-          rounded-xl border border-white/20 shadow-lg p-4 mb-2`}
+          className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 w-[280px] backdrop-blur-xl rounded-xl border border-white/20 shadow-lg p-4 mb-2
+          ${isDarkMode ? "bg-white/20" : "bg-white/90"}`}
         >
           <div className="grid grid-cols-4 gap-4">
             {hiddenApps.map((app) => (
@@ -158,9 +157,8 @@ export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], 
 
       {/* Main dock container */}
       <div
-        className={`px-3 py-2 rounded-2xl 
-          ${isDarkMode ? "bg-[#121610]/75 border-[#3A4034]/70" : "bg-white/60"} backdrop-blur-xl 
-          flex items-end border border-white/20 shadow-lg
+        className={`px-3 py-2 rounded-2xl backdrop-blur-xl border border-white/20 flex items-end shadow-lg
+          ${isDarkMode ? "bg-white/20" : "bg-white/60"}
           ${isMobile ? "h-20" : "h-16"}`}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
