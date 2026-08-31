@@ -14,6 +14,7 @@ import FaceTimeApp from "../apps/facetime";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
+  const constraintsRef = useRef(null);
   const [time, setTime] = useState(new Date());
 
   // System states
@@ -112,6 +113,28 @@ export default function Homepage({ onLogout }) {
       clearTimeout(showTimer);
       clearTimeout(dismissTimer);
     };
+  }, []);
+
+  // Center initial preloaded apps on screen mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const w = window.innerWidth;
+      const h = window.innerHeight - 110; // available desktop height
+      
+      setApps((prev) =>
+        prev.map((app, index) => {
+          const offset = index * 25;
+          const centeredX = Math.max(20, Math.floor((w - app.defaultWidth) / 2) + offset);
+          const centeredY = Math.max(20, Math.floor((h - app.defaultHeight) / 2) + offset);
+          
+          return {
+            ...app,
+            defaultX: centeredX,
+            defaultY: centeredY,
+          };
+        }),
+      );
+    }
   }, []);
 
   // Set active focus on window click and raise its z-index
@@ -236,21 +259,32 @@ export default function Homepage({ onLogout }) {
 
       const newZ = topZIndex + 1;
       setTopZIndex(newZ);
-      setApps((prev) => [
-        ...prev,
-        {
-          id: appMapId,
-          title: appWindow.title,
-          isOpen: true,
-          isMinimized: false,
-          zIndex: newZ,
-          defaultX: appWindow.position.x,
-          defaultY: appWindow.position.y,
-          defaultWidth: appWindow.size.width,
-          defaultHeight: appWindow.size.height,
-          component: componentToRender,
-        },
-      ]);
+      setApps((prev) => {
+        const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
+        const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+        const appWidth = appWindow.size.width;
+        const appHeight = appWindow.size.height;
+        const openCount = prev.filter((a) => a.isOpen).length;
+        const offset = openCount * 25;
+        const centeredX = Math.max(20, Math.floor((screenW - appWidth) / 2) + (offset % 100));
+        const centeredY = Math.max(20, Math.floor((screenH - appHeight) / 2) + (offset % 60));
+
+        return [
+          ...prev,
+          {
+            id: appMapId,
+            title: appWindow.title,
+            isOpen: true,
+            isMinimized: false,
+            zIndex: newZ,
+            defaultX: centeredX,
+            defaultY: centeredY,
+            defaultWidth: appWidth,
+            defaultHeight: appHeight,
+            component: componentToRender,
+          },
+        ];
+      });
       setActiveAppId(appMapId);
     }
   };
@@ -490,6 +524,12 @@ export default function Homepage({ onLogout }) {
         className="flex-1 w-full relative pt-[42px] flex items-center justify-center bg-transparent cursor-default"
         style={{ height: "calc(100vh - 36px - 70px)" }}
       >
+        {/* Safe Drag Boundary Container */}
+        <div
+          ref={constraintsRef}
+          className="absolute inset-x-2 top-[44px] bottom-[80px] pointer-events-none"
+        />
+
         {/* Static Background Shield Watermark for Depth */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
           <svg
@@ -526,6 +566,7 @@ export default function Homepage({ onLogout }) {
                   defaultX={app.defaultX}
                   defaultY={app.defaultY}
                   desktopRef={desktopRef}
+                  constraintsRef={constraintsRef}
                   onPositionChange={(x, y) => handlePositionChange(app.id, x, y)}
                   onSizeChange={(w, h) => handleSizeChange(app.id, w, h)}
                 >
