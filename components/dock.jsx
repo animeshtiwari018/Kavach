@@ -74,8 +74,8 @@ export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], 
       id: app.id,
       title: app.title,
       component: app.component,
-      position: { x: Math.random() * 200 + 100, y: Math.random() * 100 + 50 },
-      size: { width: 800, height: 600 },
+      position: { x: Math.random() * 100 + 80, y: Math.random() * 30 + 15 },
+      size: { width: 700, height: 460 },
     });
 
     if (showMobileMenu) {
