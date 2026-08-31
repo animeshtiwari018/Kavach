@@ -4,11 +4,11 @@ import { useState } from "react";
 import {
   Search,
   Plus,
-  FileText,
   Tag,
   Clock,
   ShieldCheck,
   Check,
+  AlertTriangle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -74,6 +74,7 @@ export default function NotesApp() {
   const [selectedCollection, setSelectedCollection] = useState("ALL RECORDS");
   const [searchQuery, setSearchQuery] = useState("");
   const [isSavedNotice, setIsSavedNotice] = useState(false);
+  const [showSecurityAlert, setShowSecurityAlert] = useState(false);
 
   const activeRecord =
     records.find((r) => r.id === activeRecordId) || records[0];
@@ -90,29 +91,16 @@ export default function NotesApp() {
     return matchesCollection && matchesSearch;
   });
 
+  const triggerSecurityWarning = () => {
+    setShowSecurityAlert(true);
+  };
+
   const handleCreateNewRecord = () => {
-    const nextNum = (records.length + 43).toString().padStart(3, "0");
-    const newRec = {
-      id: nextNum,
-      fullId: `KVC-0${nextNum}`,
-      title: "UNTITLED RECORD",
-      collection:
-        selectedCollection === "ALL RECORDS" ? "LEARNING" : selectedCollection,
-      status: "DRAFT",
-      created: new Date()
-        .toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        })
-        .toUpperCase(),
-      content: "Type telemetry log or field journal note here...",
-    };
-    setRecords([newRec, ...records]);
-    setActiveRecordId(newRec.id);
+    triggerSecurityWarning();
   };
 
   const handleUpdateActiveRecord = (field, value) => {
+    triggerSecurityWarning();
     setRecords((prev) =>
       prev.map((r) => (r.id === activeRecordId ? { ...r, [field]: value } : r)),
     );
@@ -125,7 +113,7 @@ export default function NotesApp() {
   };
 
   return (
-    <div className="w-full h-full flex bg-[#070906] text-[#D4D5C8] font-mono text-[11px] select-none overflow-hidden border-t border-[#24291F]">
+    <div className="w-full h-full flex bg-[#070906] text-[#D4D5C8] font-mono text-[11px] select-none overflow-hidden border-t border-[#24291F] relative">
       {/* Sidebar Navigation */}
       <div className="w-56 border-r border-[#24291F] bg-[#0A0C09] flex flex-col h-full">
         {/* Search Input Box */}
@@ -230,6 +218,7 @@ export default function NotesApp() {
               <input
                 type="text"
                 value={activeRecord.title}
+                onKeyDown={triggerSecurityWarning}
                 onChange={(e) =>
                   handleUpdateActiveRecord(
                     "title",
@@ -246,6 +235,7 @@ export default function NotesApp() {
                   <span className="text-[#5E6255]">CLASSIFICATION:</span>
                   <select
                     value={activeRecord.collection}
+                    onMouseDown={triggerSecurityWarning}
                     onChange={(e) =>
                       handleUpdateActiveRecord("collection", e.target.value)
                     }
@@ -281,6 +271,7 @@ export default function NotesApp() {
             <div className="flex-1 p-4 overflow-y-auto bg-[#070906]">
               <textarea
                 value={activeRecord.content}
+                onKeyDown={triggerSecurityWarning}
                 onChange={(e) =>
                   handleUpdateActiveRecord("content", e.target.value)
                 }
@@ -304,7 +295,10 @@ export default function NotesApp() {
                 </strong>
               </span>
               <span className="flex items-center gap-1.5">
-                SYNC: <strong className="text-green-400">LOCAL SECURED</strong>
+                SYNC:{" "}
+                <strong className="text-green-400">
+                  LOCAL SECURED
+                </strong>
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
               </span>
             </div>
@@ -315,6 +309,61 @@ export default function NotesApp() {
           </div>
         )}
       </div>
+
+      {/* Tactical Security Warning Modal Overlay */}
+      <AnimatePresence>
+        {showSecurityAlert && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 select-none"
+            onClick={() => setShowSecurityAlert(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 15 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-[300px] border border-red-500/50 bg-[#0B0F17]/95 rounded-lg p-5 shadow-[0_0_30px_rgba(239,68,68,0.3)] backdrop-blur-xl relative font-mono text-[#D4D5C8] flex flex-col items-center text-center space-y-4"
+            >
+              {/* Corner Accent Brackets */}
+              <div className="absolute top-[5px] left-[5px] w-2 h-2 border-t border-l border-red-500/70" />
+              <div className="absolute top-[5px] right-[5px] w-2 h-2 border-t border-r border-red-500/70" />
+              <div className="absolute bottom-[5px] left-[5px] w-2 h-2 border-b border-l border-red-500/70" />
+              <div className="absolute bottom-[5px] right-[5px] w-2 h-2 border-b border-r border-red-500/70" />
+
+              {/* Pulsing Alert Icon */}
+              <div className="relative flex items-center justify-center w-10 h-10 rounded-full border border-red-500/40 bg-red-500/10 mt-1">
+                <span className="absolute inset-0 rounded-full border border-red-500/30 animate-ping opacity-30" />
+                <AlertTriangle className="w-5 h-5 text-red-500" />
+              </div>
+
+              {/* Header Title */}
+              <div className="space-y-1">
+                <h3 className="text-xs font-bold text-red-500 tracking-[0.2em] uppercase">
+                  SECURITY PROTOCOL VIOLATION
+                </h3>
+                <div className="w-12 h-[1px] bg-red-500/30 mx-auto my-1.5" />
+              </div>
+
+              {/* Security Warning Message Text */}
+              <div className="text-[10px] font-bold text-[#D4D5C8] leading-relaxed max-w-[240px] uppercase tracking-wide">
+                YOU ARE NOT ALLOWED TO MANIPULATE CRITICAL DATA. YOU WILL BE SHOT DOWN SHORTLY.
+              </div>
+
+              {/* Acknowledge Button */}
+              <button
+                onClick={() => setShowSecurityAlert(false)}
+                className="mt-2 w-full py-1.5 bg-red-950/40 hover:bg-red-900/70 border border-red-500/50 hover:border-red-400 text-red-400 hover:text-white rounded text-[10px] font-bold tracking-widest uppercase transition-all shadow-[0_0_12px_rgba(239,68,68,0.2)] cursor-pointer"
+              >
+                [ ACKNOWLEDGE WARNING ]
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
