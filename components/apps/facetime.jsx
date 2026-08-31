@@ -2,6 +2,24 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Video, VideoOff, Mic, MicOff, PhoneOff, User, Search, RefreshCw } from "lucide-react";
+import { motion } from "motion/react";
+
+const containerVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0 },
+};
 
 export default function FaceTimeApp() {
   const [permissionStatus, setPermissionStatus] = useState("idle"); // idle, requesting, granted, denied
@@ -179,18 +197,48 @@ export default function FaceTimeApp() {
         )}
 
         {permissionStatus === "denied" && (
-          <div className="text-center max-w-xs space-y-3 p-4 border border-red-900/50 bg-red-950/20 rounded">
-            <span className="text-red-400 font-bold block text-xs">CAMERA SECURITY EXCLUSION</span>
-            <p className="text-[10px] text-[#73786B] leading-relaxed">
-              Workstation media stream blocked. Please permit camera and microphone access in your browser settings to interface FaceTime.
-            </p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="max-w-xs w-full border border-[#8e9b72]/20 bg-[#0b0c09]/95 rounded-lg p-6 shadow-2xl backdrop-blur-xl relative font-mono text-[#D4D5C8] flex flex-col items-center text-center space-y-5"
+          >
+            {/* Weld Corner Accent Brackets */}
+            <div className="absolute top-[6px] left-[6px] w-2.5 h-2.5 border-t-2 border-l-2 border-[#8e9b72]/40" />
+            <div className="absolute top-[6px] right-[6px] w-2.5 h-2.5 border-t-2 border-r-2 border-[#8e9b72]/40" />
+            <div className="absolute bottom-[6px] left-[6px] w-2.5 h-2.5 border-b-2 border-l-2 border-[#8e9b72]/40" />
+            <div className="absolute bottom-[6px] right-[6px] w-2.5 h-2.5 border-b-2 border-r-2 border-[#8e9b72]/40" />
+
+            {/* Pulsing Warning Icon Badge */}
+            <div className="relative flex items-center justify-center w-12 h-12 rounded-full border border-[#C98E54]/30 bg-[#C98E54]/5 mt-2">
+              <span className="absolute inset-0 rounded-full border border-[#C98E54]/20 animate-ping opacity-25" />
+              <VideoOff className="w-5 h-5 text-[#C98E54]" />
+            </div>
+
+            {/* Header Block */}
+            <div className="space-y-1">
+              <h3 className="text-xs font-bold text-[#8e9b72] tracking-[0.2em] uppercase">
+                CAMERA SECURITY EXCLUSION
+              </h3>
+              <div className="w-12 h-[1px] bg-[#8e9b72]/20 mx-auto my-2" />
+              <h4 className="text-[10px] font-bold text-[#C98E54] tracking-widest uppercase">
+                VISUAL LINK INITIALIZATION BLOCKED
+              </h4>
+            </div>
+
+            {/* Main Text Content */}
+            <div className="text-[10px] text-[#73786B] leading-relaxed max-w-[240px]">
+              Workstation camera access is restricted. Authorization required to establish secure visual communication.
+            </div>
+
+            {/* Request Button */}
             <button
               onClick={startCamera}
-              className="px-3 py-1 bg-red-900/40 hover:bg-red-800/60 text-white rounded font-bold transition-colors cursor-pointer border border-red-700/50"
+              className="mt-2 w-full max-w-[220px] py-2 bg-[#121610] hover:bg-[#1a2016] border border-[#8e9b72]/40 hover:border-[#8e9b72]/85 text-[#8e9b72] hover:text-white rounded text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 shadow-[0_0_10px_rgba(142,155,114,0.05)] hover:shadow-[0_0_15px_rgba(142,155,114,0.15)] cursor-pointer"
             >
-              REQUEST PROTOCOL ACCESS
+              [ REQUEST PROTOCOL ACCESS ]
             </button>
-          </div>
+          </motion.div>
         )}
 
         {permissionStatus === "granted" && (
@@ -203,6 +251,49 @@ export default function FaceTimeApp() {
               muted
               className="w-full h-full object-cover transform -scale-x-100"
             />
+
+            {/* Tactical Operation Status HUD */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="absolute top-4 left-4 z-10 p-3 bg-[#0A0C09]/80 border border-[#8E9B72]/30 backdrop-blur-md rounded font-mono text-[9px] text-[#73786B] w-48 shadow-lg select-none pointer-events-none"
+            >
+              {/* Corner accent lines */}
+              <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#8E9B72]/60" />
+              <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#8E9B72]/60" />
+              <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#8E9B72]/60" />
+              <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#8E9B72]/60" />
+
+              <motion.div variants={itemVariants} className="flex items-center justify-between text-[#8E9B72] font-bold tracking-wider mb-1">
+                <span>OPERATION STATUS</span>
+                <span className="flex h-1.5 w-1.5 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
+                </span>
+              </motion.div>
+              
+              <motion.div variants={itemVariants} className="border-b border-[#24291F]/40 my-1.5" />
+              
+              <div className="space-y-1 text-[9px] tracking-wide">
+                <motion.div variants={itemVariants} className="flex justify-between">
+                  <span className="opacity-60">OPERATION:</span>
+                  <span className="text-[#D4D5C8] font-bold">KAVACH-01</span>
+                </motion.div>
+                <motion.div variants={itemVariants} className="flex justify-between">
+                  <span className="opacity-60">UNIT:</span>
+                  <span className="text-[#D4D5C8]">TECHNICAL CELL</span>
+                </motion.div>
+                <motion.div variants={itemVariants} className="flex justify-between">
+                  <span className="opacity-60">CHANNEL:</span>
+                  <span className="text-[#D4D5C8]">SEC-07</span>
+                </motion.div>
+                <motion.div variants={itemVariants} className="flex justify-between items-center mt-1 pt-1 border-t border-[#24291F]/30">
+                  <span className="opacity-60">STATUS:</span>
+                  <span className="text-green-400 font-bold bg-green-950/30 px-1 border border-green-800/30 rounded-[2px] text-[8px] tracking-wider animate-pulse">ACTIVE</span>
+                </motion.div>
+              </div>
+            </motion.div>
 
             {/* Calling Overlay */}
             {activeCall && (
