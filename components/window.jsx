@@ -16,6 +16,7 @@ export default function Window({
   defaultX = 100,
   defaultY = 100,
   desktopRef,
+  constraintsRef,
   onPositionChange,
   onSizeChange,
 }) {
@@ -107,7 +108,7 @@ export default function Window({
       dragControls={dragControls}
       dragListener={false}
       dragMomentum={false}
-      dragConstraints={desktopRef}
+      dragConstraints={constraintsRef || desktopRef}
       dragElastic={0.05}
       initial={{ opacity: 0, scale: 0.95, x: defaultX, y: defaultY }}
       animate={{
