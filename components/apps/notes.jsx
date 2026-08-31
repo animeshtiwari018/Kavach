@@ -9,6 +9,8 @@ import {
   ShieldCheck,
   Check,
   AlertTriangle,
+  Radio,
+  Target,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -132,8 +134,9 @@ export default function NotesApp() {
 
         {/* Record List */}
         <div className="flex-1 overflow-y-auto p-1.5 space-y-1">
-          <div className="text-[9px] text-[#5E6255] font-bold px-1 py-0.5 tracking-wider">
-            RECORD LIST ({filteredRecords.length})
+          <div className="flex items-center justify-between text-[9px] text-[#5E6255] font-bold px-1 py-0.5 tracking-wider">
+            <span>RECORD LIST ({filteredRecords.length})</span>
+            <span className="text-[8px] text-[#8E9B72]/70">[UNIT-7]</span>
           </div>
           {filteredRecords.map((rec) => {
             const isActive = rec.id === activeRecordId;
@@ -200,13 +203,20 @@ export default function NotesApp() {
       </div>
 
       {/* Main Journal Record Content Workspace */}
-      <div className="flex-1 flex flex-col bg-[#070906] h-full overflow-hidden">
+      <div className="flex-1 flex flex-col bg-[#070906] h-full overflow-hidden relative">
         {activeRecord ? (
           <>
+
+
             {/* Record Header Strip */}
-            <div className="p-4 border-b border-[#24291F] bg-[#0A0C09]/60 flex flex-col space-y-2">
+            <div className="p-4 border-b border-[#24291F] bg-[#0A0C09]/60 flex flex-col space-y-2 relative">
               <div className="flex items-center justify-between text-[9px] text-[#5E6255] tracking-widest">
-                <span>RECORD {activeRecord.id}</span>
+                <span className="flex items-center gap-2">
+                  <span>RECORD {activeRecord.id}</span>
+                  <span className="text-[8px] bg-[#121610] px-1 py-0.5 border border-[#3A4034] text-[#8E9B72] rounded-[2px]">
+                    RESTRICTED
+                  </span>
+                </span>
                 {isSavedNotice && (
                   <span className="text-green-400 flex items-center gap-1 font-bold animate-pulse">
                     <Check className="w-3 h-3" /> AUTO-SAVED
@@ -268,7 +278,14 @@ export default function NotesApp() {
             </div>
 
             {/* Record Main Content Textarea */}
-            <div className="flex-1 p-4 overflow-y-auto bg-[#070906]">
+            <div className="flex-1 p-4 overflow-y-auto bg-[#070906] relative">
+              {/* Subtle Stencil Target Corner Accents */}
+              <div className="absolute top-2 left-2 text-[8px] text-[#3A4034] pointer-events-none">
+                + 047
+              </div>
+              <div className="absolute top-2 right-2 text-[8px] text-[#3A4034] pointer-events-none">
+                [ ✛ ]
+              </div>
               <textarea
                 value={activeRecord.content}
                 onKeyDown={triggerSecurityWarning}
@@ -281,12 +298,16 @@ export default function NotesApp() {
             </div>
 
             {/* Footer Telemetry Strip */}
-            <div className="px-4 py-2 border-t border-[#24291F] bg-[#0A0C09] flex items-center justify-between text-[9.5px] text-[#5E6255]">
+            <div className="px-4 py-1.5 border-t border-[#24291F] bg-[#0A0C09] flex items-center justify-between text-[9px] text-[#5E6255]">
               <span>
                 RECORD ID:{" "}
                 <strong className="text-[#8E9B72]">
                   {activeRecord.fullId}
                 </strong>
+              </span>
+              <span className="flex items-center gap-1 text-[#73786B]">
+                <Radio className="w-3 h-3 text-[#8E9B72]" />
+                <span>FREQ: 433.92 MHz</span>
               </span>
               <span>
                 CHARACTERS:{" "}
