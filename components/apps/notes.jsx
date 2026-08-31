@@ -10,18 +10,30 @@ import {
   Check,
   AlertTriangle,
   Radio,
-  Target,
+  UserCheck,
+  Pin,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const INITIAL_RECORDS = [
   {
+    id: "001",
+    fullId: "KVC-0001",
+    title: "ABOUT ME // OPERATOR DOSSIER",
+    collection: "PERSONAL",
+    status: "VERIFIED",
+    created: "31 AUG 2026",
+    isPinned: true,
+    content: `OPERATOR DOSSIER // ANIMESH TIWARI\n\nROLE: Full Stack Developer & Systems Architect\nLOCATION: New Delhi, India\nCORE FOCUS: High-Performance Web Applications, Systems Architecture, and Microservices Security.\n\nOPERATIONAL BACKGROUND:\nI am a passionate Full Stack Software Engineer focused on crafting high-speed, secure, and intuitive web platforms. Specialized in building modern React/Next.js client applications, scalable Node.js/Express REST microservices, and high-availability database pipelines.\n\nTECHNICAL DOMAINS:\n• Frontend: React 19, Next.js 15, JavaScript (ES6+), Tailwind CSS, Framer Motion\n• Backend: Node.js, Express.js, REST API Architecture, JWT Authentication & RBAC\n• Databases: MongoDB, Redis Caching\n• Systems & Tools: Git/GitHub, Docker, Linux, C++ & Data Structures (DSA)\n\nPHILOSOPHY:\n"Precision over assumptions. Execution over unnecessary activity. Building systems that are reliable, fast, and secure."`,
+  },
+  {
     id: "047",
     fullId: "KVC-0047",
-    title: "BACKEND ROUTING",
+    title: "BACKEND ROUTING PROTOCOLS",
     collection: "LEARNING",
     status: "ACTIVE",
     created: "31 AUG 2026",
+    isPinned: false,
     content: `Routing is the entry point to a server application. A route defines how the system responds to a particular request endpoint (HTTP method + URI pattern).\n\nIn Kavach architecture, all API routes are wrapped in zero-knowledge middleware to guarantee packet integrity and token verification before payload execution.`,
   },
   {
@@ -31,6 +43,7 @@ const INITIAL_RECORDS = [
     collection: "LEARNING",
     status: "ACTIVE",
     created: "30 AUG 2026",
+    isPinned: false,
     content: `JSON Web Tokens (JWT) are used for stateless authentication across security nodes. Tokens are signed with an RS256 private key and verified at the ingress proxy level.`,
   },
   {
@@ -40,6 +53,7 @@ const INITIAL_RECORDS = [
     collection: "PROJECTS",
     status: "SYNCED",
     created: "28 AUG 2026",
+    isPinned: false,
     content: `Primary cluster replica set configuration. Indexes created on user hash keys and session expiration timestamps to ensure automatic TTL cleanup.`,
   },
   {
@@ -49,30 +63,22 @@ const INITIAL_RECORDS = [
     collection: "PROJECTS",
     status: "ACTIVE",
     created: "25 AUG 2026",
+    isPinned: false,
     content: `Kavach Workstation shell interface. Combines macOS-style desktop interactions with tactical military-grade visual telemetry and isolated application execution sandboxes.`,
-  },
-  {
-    id: "043",
-    fullId: "KVC-0043",
-    title: "NEURAL NETWORK IDEAS",
-    collection: "IDEAS",
-    status: "DRAFT",
-    created: "20 AUG 2026",
-    content: `Autonomous threat detection agent operating on local memory telemetry logs to detect abnormal kernel calls or illegal socket connection attempts.`,
   },
 ];
 
 const COLLECTIONS = [
   "ALL RECORDS",
+  "PERSONAL",
   "LEARNING",
   "PROJECTS",
   "IDEAS",
-  "PERSONAL",
 ];
 
 export default function NotesApp() {
   const [records, setRecords] = useState(INITIAL_RECORDS);
-  const [activeRecordId, setActiveRecordId] = useState("047");
+  const [activeRecordId, setActiveRecordId] = useState("001");
   const [selectedCollection, setSelectedCollection] = useState("ALL RECORDS");
   const [searchQuery, setSearchQuery] = useState("");
   const [isSavedNotice, setIsSavedNotice] = useState(false);
@@ -81,7 +87,6 @@ export default function NotesApp() {
   const activeRecord =
     records.find((r) => r.id === activeRecordId) || records[0];
 
-  // Filter records based on collection and search query
   const filteredRecords = records.filter((rec) => {
     const matchesCollection =
       selectedCollection === "ALL RECORDS" ||
@@ -117,14 +122,14 @@ export default function NotesApp() {
   return (
     <div className="w-full h-full flex bg-[#070906] text-[#D4D5C8] font-mono text-[11px] select-none overflow-hidden border-t border-[#24291F] relative">
       {/* Sidebar Navigation */}
-      <div className="w-56 border-r border-[#24291F] bg-[#0A0C09] flex flex-col h-full">
-        {/* Search Input Box */}
+      <div className="w-60 border-r border-[#24291F] bg-[#0A0C09] flex flex-col h-full shrink-0">
+        {/* Search Bar */}
         <div className="p-2 border-b border-[#24291F] bg-[#121610]">
-          <div className="flex items-center gap-1.5 px-2 py-1 bg-[#0A0C09] border border-[#24291F] rounded">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#0A0C09] border border-[#24291F] rounded focus-within:border-[#8E9B72] transition-colors">
             <Search className="w-3.5 h-3.5 text-[#8E9B72]" />
             <input
               type="text"
-              placeholder="SEARCH RECORDS"
+              placeholder="SEARCH NOTES"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-transparent border-none outline-none text-white text-[10px] placeholder:text-[#5E6255] uppercase"
@@ -135,9 +140,10 @@ export default function NotesApp() {
         {/* Record List */}
         <div className="flex-1 overflow-y-auto p-1.5 space-y-1">
           <div className="flex items-center justify-between text-[9px] text-[#5E6255] font-bold px-1 py-0.5 tracking-wider">
-            <span>RECORD LIST ({filteredRecords.length})</span>
-            <span className="text-[8px] text-[#8E9B72]/70">[UNIT-7]</span>
+            <span>NOTES LIST ({filteredRecords.length})</span>
+            <span className="text-[8px] text-[#8E9B72]/80">[UNIT-7]</span>
           </div>
+
           {filteredRecords.map((rec) => {
             const isActive = rec.id === activeRecordId;
             return (
@@ -152,12 +158,13 @@ export default function NotesApp() {
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-white text-[10.5px] truncate">
-                    ▣ {rec.id} {rec.title}
+                  <span className="font-bold text-white text-[10.5px] truncate flex items-center gap-1">
+                    {rec.isPinned && <Pin className="w-3 h-3 text-amber-400 rotate-45" />}
+                    {rec.title}
                   </span>
                 </div>
                 <div className="flex items-center justify-between mt-1 text-[9px] opacity-70">
-                  <span>{rec.collection}</span>
+                  <span className="text-[#8E9B72] font-bold">{rec.collection}</span>
                   <span>{rec.created}</span>
                 </div>
               </motion.div>
@@ -165,7 +172,7 @@ export default function NotesApp() {
           })}
         </div>
 
-        {/* Collections Category Filter */}
+        {/* Collections Filter */}
         <div className="p-2 border-t border-[#24291F] bg-[#0C0E0B] space-y-1">
           <div className="text-[9px] text-[#5E6255] font-bold px-1 tracking-wider uppercase">
             COLLECTIONS
@@ -197,23 +204,21 @@ export default function NotesApp() {
             className="w-full py-1.5 bg-[#121610] hover:bg-[#1a2016] border border-[#8E9B72]/50 hover:border-[#8E9B72] text-[#8E9B72] hover:text-white rounded text-[10px] font-bold tracking-widest uppercase transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" />
-            [+ NEW RECORD]
+            [+ NEW NOTE]
           </button>
         </div>
       </div>
 
-      {/* Main Journal Record Content Workspace */}
+      {/* Main Journal Content Area */}
       <div className="flex-1 flex flex-col bg-[#070906] h-full overflow-hidden relative">
         {activeRecord ? (
           <>
-
-
-            {/* Record Header Strip */}
+            {/* Header Strip */}
             <div className="p-4 border-b border-[#24291F] bg-[#0A0C09]/60 flex flex-col space-y-2 relative">
               <div className="flex items-center justify-between text-[9px] text-[#5E6255] tracking-widest">
                 <span className="flex items-center gap-2">
                   <span>RECORD {activeRecord.id}</span>
-                  <span className="text-[8px] bg-[#121610] px-1 py-0.5 border border-[#3A4034] text-[#8E9B72] rounded-[2px]">
+                  <span className="text-[8px] bg-[#121610] px-1.5 py-0.5 border border-[#3A4034] text-[#8E9B72] rounded font-bold">
                     RESTRICTED
                   </span>
                 </span>
@@ -235,14 +240,14 @@ export default function NotesApp() {
                     e.target.value.toUpperCase(),
                   )
                 }
-                className="bg-transparent border-none outline-none text-white text-base font-bold tracking-widest text-[#8E9B72] caret-[#8E9B72]"
+                className="bg-transparent border-none outline-none text-white text-base font-bold tracking-wider text-[#8E9B72] caret-[#8E9B72]"
               />
 
               {/* Metadata Grid */}
               <div className="pt-2 border-t border-[#24291F]/60 grid grid-cols-3 gap-2 text-[10px]">
                 <div className="flex items-center gap-2">
                   <Tag className="w-3 h-3 text-[#5E6255]" />
-                  <span className="text-[#5E6255]">CLASSIFICATION:</span>
+                  <span className="text-[#5E6255]">CATEGORY:</span>
                   <select
                     value={activeRecord.collection}
                     onMouseDown={triggerSecurityWarning}
@@ -251,10 +256,10 @@ export default function NotesApp() {
                     }
                     className="bg-[#121610] border border-[#24291F] text-white rounded px-1.5 py-0.5 outline-none cursor-pointer text-[9.5px]"
                   >
+                    <option value="PERSONAL">PERSONAL</option>
                     <option value="LEARNING">LEARNING</option>
                     <option value="PROJECTS">PROJECTS</option>
                     <option value="IDEAS">IDEAS</option>
-                    <option value="PERSONAL">PERSONAL</option>
                   </select>
                 </div>
 
@@ -277,15 +282,8 @@ export default function NotesApp() {
               </div>
             </div>
 
-            {/* Record Main Content Textarea */}
-            <div className="flex-1 p-4 overflow-y-auto bg-[#070906] relative">
-              {/* Subtle Stencil Target Corner Accents */}
-              <div className="absolute top-2 left-2 text-[8px] text-[#3A4034] pointer-events-none">
-                + 047
-              </div>
-              <div className="absolute top-2 right-2 text-[8px] text-[#3A4034] pointer-events-none">
-                [ ✛ ]
-              </div>
+            {/* Note Content Textarea */}
+            <div className="flex-1 p-5 overflow-y-auto bg-[#070906] relative">
               <textarea
                 value={activeRecord.content}
                 onKeyDown={triggerSecurityWarning}
@@ -331,7 +329,7 @@ export default function NotesApp() {
         )}
       </div>
 
-      {/* Tactical Security Warning Modal Overlay */}
+      {/* Security Warning Modal */}
       <AnimatePresence>
         {showSecurityAlert && (
           <motion.div
@@ -349,19 +347,11 @@ export default function NotesApp() {
               onClick={(e) => e.stopPropagation()}
               className="w-[300px] border border-red-500/50 bg-[#0B0F17]/95 rounded-lg p-5 shadow-[0_0_30px_rgba(239,68,68,0.3)] backdrop-blur-xl relative font-mono text-[#D4D5C8] flex flex-col items-center text-center space-y-4"
             >
-              {/* Corner Accent Brackets */}
-              <div className="absolute top-[5px] left-[5px] w-2 h-2 border-t border-l border-red-500/70" />
-              <div className="absolute top-[5px] right-[5px] w-2 h-2 border-t border-r border-red-500/70" />
-              <div className="absolute bottom-[5px] left-[5px] w-2 h-2 border-b border-l border-red-500/70" />
-              <div className="absolute bottom-[5px] right-[5px] w-2 h-2 border-b border-r border-red-500/70" />
-
-              {/* Pulsing Alert Icon */}
               <div className="relative flex items-center justify-center w-10 h-10 rounded-full border border-red-500/40 bg-red-500/10 mt-1">
                 <span className="absolute inset-0 rounded-full border border-red-500/30 animate-ping opacity-30" />
                 <AlertTriangle className="w-5 h-5 text-red-500" />
               </div>
 
-              {/* Header Title */}
               <div className="space-y-1">
                 <h3 className="text-xs font-bold text-red-500 tracking-[0.2em] uppercase">
                   SECURITY PROTOCOL VIOLATION
@@ -369,12 +359,10 @@ export default function NotesApp() {
                 <div className="w-12 h-[1px] bg-red-500/30 mx-auto my-1.5" />
               </div>
 
-              {/* Security Warning Message Text */}
               <div className="text-[10px] font-bold text-[#D4D5C8] leading-relaxed max-w-[240px] uppercase tracking-wide">
                 YOU ARE NOT ALLOWED TO MANIPULATE CRITICAL DATA. YOU WILL BE SHOT DOWN SHORTLY.
               </div>
 
-              {/* Acknowledge Button */}
               <button
                 onClick={() => setShowSecurityAlert(false)}
                 className="mt-2 w-full py-1.5 bg-red-950/40 hover:bg-red-900/70 border border-red-500/50 hover:border-red-400 text-red-400 hover:text-white rounded text-[10px] font-bold tracking-widest uppercase transition-all shadow-[0_0_12px_rgba(239,68,68,0.2)] cursor-pointer"
