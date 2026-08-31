@@ -540,6 +540,33 @@ export default function Homepage({ onLogout }) {
           className="absolute inset-x-2 top-[44px] bottom-[80px] pointer-events-none"
         />
 
+        {/* Desktop Left-Side App Shortcut Icons */}
+        <div className="absolute top-[60px] left-6 z-20 flex flex-col items-center gap-6 select-none">
+          <motion.div
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              handleDockAppClick({
+                id: "mission-archive",
+                title: "Projects (Mission Archive)",
+                size: { width: 780, height: 520 },
+              })
+            }
+            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+          >
+            <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#8E9B72]/40 group-hover:border-[#8E9B72] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(142,155,114,0.3)]">
+              <img
+                src="/images/kavach.png"
+                alt="Projects"
+                className="w-10 h-10 object-contain pointer-events-none select-none"
+              />
+            </div>
+            <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#8E9B72] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
+              Projects
+            </span>
+          </motion.div>
+        </div>
+
         {/* Static Background Shield Watermark for Depth */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
           <svg
