@@ -591,6 +591,31 @@ export default function Homepage({ onLogout }) {
               Skills
             </span>
           </motion.div>
+
+          {/* About Me (Notes App) Icon */}
+          <motion.div
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              handleDockAppClick({
+                id: "notes",
+                title: "Field Journal (About Me)",
+                size: { width: 720, height: 480 },
+              })
+            }
+            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+          >
+            <div className="w-14 h-14 bg-[#0A0C09]/90 border border-amber-500/40 group-hover:border-amber-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+              <img
+                src="/notes.png"
+                alt="About Me"
+                className="w-10 h-10 object-contain pointer-events-none select-none"
+              />
+            </div>
+            <span className="text-[10px] font-mono font-bold text-white group-hover:text-amber-400 bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
+              About Me
+            </span>
+          </motion.div>
         </div>
 
         {/* Static Background Shield Watermark for Depth */}
