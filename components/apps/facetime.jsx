@@ -210,9 +210,9 @@ export default function FaceTimeApp() {
             <div className="absolute bottom-[6px] right-[6px] w-2.5 h-2.5 border-b-2 border-r-2 border-[#8e9b72]/40" />
 
             {/* Pulsing Warning Icon Badge */}
-            <div className="relative flex items-center justify-center w-12 h-12 rounded-full border border-[#C98E54]/30 bg-[#C98E54]/5 mt-2">
-              <span className="absolute inset-0 rounded-full border border-[#C98E54]/20 animate-ping opacity-25" />
-              <VideoOff className="w-5 h-5 text-[#C98E54]" />
+            <div className="relative flex items-center justify-center w-12 h-12 rounded-full border border-[#D25F5F]/30 bg-[#D25F5F]/5 mt-2">
+              <span className="absolute inset-0 rounded-full border border-[#D25F5F]/20 animate-ping opacity-25" />
+              <VideoOff className="w-5 h-5 text-[#D25F5F]" />
             </div>
 
             {/* Header Block */}
@@ -221,7 +221,7 @@ export default function FaceTimeApp() {
                 CAMERA SECURITY EXCLUSION
               </h3>
               <div className="w-12 h-[1px] bg-[#8e9b72]/20 mx-auto my-2" />
-              <h4 className="text-[10px] font-bold text-[#C98E54] tracking-widest uppercase">
+              <h4 className="text-[10px] font-bold text-[#D25F5F] tracking-widest uppercase">
                 VISUAL LINK INITIALIZATION BLOCKED
               </h4>
             </div>
