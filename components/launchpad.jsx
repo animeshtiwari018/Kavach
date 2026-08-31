@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 // App list config (Launchpad displays all installed applications, excluding itself)
 const launchpadApps = [
+  { id: "mission-archive", title: "Mission Archive", icon: "/images/kavach.png", component: "MissionArchive" },
   { id: "safari", title: "Safari", icon: "/images/browser.png", component: "Safari" },
   { id: "mail", title: "Mail", icon: "/mail.png", component: "Mail" },
   { id: "vscode", title: "VS Code", icon: "/images/vscode.png", component: "VSCode" },
