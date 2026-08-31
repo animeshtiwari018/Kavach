@@ -4,13 +4,14 @@ import { useState } from "react";
 import {
   Search,
   ExternalLink,
-  FolderGit2,
-  Code2,
-  Sparkles,
+  Shield,
   Layers,
-  CheckCircle,
+  CheckCircle2,
+  Radio,
+  FileText,
+  Target,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 
 const GithubIcon = ({ className = "w-3.5 h-3.5" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -18,261 +19,334 @@ const GithubIcon = ({ className = "w-3.5 h-3.5" }) => (
   </svg>
 );
 
-const PROJECTS = [
+const MISSIONS = [
   {
-    id: "01",
-    title: "Student Resource Portal",
-    subtitle: "Centralized academic resource management & study materials platform.",
-    category: "Full Stack Web App",
-    status: "Completed",
+    id: "001",
+    code: "MISSION 001",
+    recordId: "KVC-RECORD-001",
+    title: "STUDENT RESOURCE PORTAL",
+    statement: "Centralized academic resource distribution and verified course materials platform.",
+    classType: "FULL STACK WEB",
+    status: "COMPLETED",
+    clearance: "PUBLIC",
+    date: "31 AUG 2026",
     techStack: ["Next.js", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
     liveUrl: "https://student-resource-portal.example.com",
     repoUrl: "https://github.com/animeshtiwari018/student-resource-portal",
     cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
-    overview: "A high-performance portal built for students to access verified course materials, lecture notes, and assignments without server latency.",
-    keyFeatures: [
-      "Role-Based Access Control (RBAC) for Students and Faculty",
-      "Instant search & category indexing for 500+ course PDFs",
-      "JWT authentication with secure token rotation",
-      "Reduced server load times by 68% during peak exam traffic",
+    briefing: "Engineered a high-availability digital portal to eliminate fragmentation in academic resource distribution. Replaced slow legacy servers with a stateless Next.js architecture and indexed MongoDB document query pipeline.",
+    highlights: [
+      "Role-Based Access Control (RBAC) separating student and faculty clearances",
+      "Instant multi-filter search indexing across 500+ course PDFs",
+      "JWT authentication pipeline with automated token rotation",
+      "Achieved 99.9% uptime and reduced resource fetch latency by 68%",
     ],
+    telemetry: {
+      uptime: "99.9%",
+      latency: "-68%",
+      users: "3,000+ ACTIVE",
+    },
   },
   {
-    id: "02",
-    title: "Kavach OS Portfolio",
-    subtitle: "Interactive workstation portfolio designed as a web operating system.",
-    category: "Systems & UI/UX",
-    status: "Active System",
+    id: "002",
+    code: "MISSION 002",
+    recordId: "KVC-RECORD-002",
+    title: "KAVACH OS PORTFOLIO",
+    statement: "Defense-inspired operating-system workstation portfolio built for security workstations.",
+    classType: "SYSTEMS ARCH",
+    status: "ACTIVE OPERATIONAL",
+    clearance: "RESTRICTED",
+    date: "31 AUG 2026",
     techStack: ["Next.js 15", "React 19", "Framer Motion", "Tailwind CSS"],
     liveUrl: "https://kavach.security",
     repoUrl: "https://github.com/animeshtiwari018/Kavach",
     cover: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=80",
-    overview: "A tactical web-based operating system shell hosting interactive apps, camera telemetry, browser, and project archives.",
-    keyFeatures: [
+    briefing: "Architected a web-based operating system workstation shell for personal portfolio presentation. Combines 60fps window management (drag, resize, focus) with FaceTime webcam telemetry and Field Journal apps.",
+    highlights: [
       "Custom drag & edge-resize physics window management engine",
-      "Zero-latency Fast Refresh state architecture",
-      "Integrated FaceTime telemetry & Field Journal notes app",
-      "Clean dark tactical aesthetic tailored for security workstations",
+      "Zero-latency Fast Refresh dynamic state evaluation loop",
+      "Integrated FaceTime webcam telemetry & Field Journal notes app",
+      "Clean military matte aesthetic tailored for security workstations",
     ],
+    telemetry: {
+      fps: "60 FPS",
+      latency: "0ms STATE",
+      security: "LOCAL SECURED",
+    },
   },
   {
-    id: "03",
-    title: "Backend API Gateway",
-    subtitle: "High-throughput microservice proxy with rate limiting & Redis caching.",
-    category: "Backend Microservices",
-    status: "Completed",
+    id: "003",
+    code: "MISSION 003",
+    recordId: "KVC-RECORD-003",
+    title: "BACKEND API GATEWAY",
+    statement: "High-throughput microservice proxy with sliding-window rate limiting & Redis caching.",
+    classType: "BACKEND PROXY",
+    status: "COMPLETED",
+    clearance: "PUBLIC",
+    date: "25 AUG 2026",
     techStack: ["Node.js", "Redis", "Docker", "Express", "REST API"],
     liveUrl: "https://api-gateway.example.com",
     repoUrl: "https://github.com/animeshtiwari018/backend-api-gateway",
     cover: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80",
-    overview: "An enterprise API gateway handling authentication, IP rate limiting, and request distribution across microservices.",
-    keyFeatures: [
-      "Redis sliding-window token bucket algorithm for DDoS protection",
-      "Sub-4ms average gateway proxy routing delay",
-      "Processed 10,000+ requests per minute under peak benchmark testing",
+    briefing: "Deployed an enterprise ingress reverse proxy managing microservice authentication, request routing, IP rate limiting, and telemetry logging to stop DDoS attacks.",
+    highlights: [
+      "Redis sliding-window token bucket rate limiting for DDoS defense",
+      "Sub-4 millisecond average gateway proxy routing delay",
+      "Processed 10,000+ requests/min under peak load benchmark testing",
       "Dockerized container pipeline with Nginx load balancer",
     ],
+    telemetry: {
+      reqPerMin: "10,000+",
+      delay: "< 4ms",
+      protection: "ACTIVE",
+    },
   },
   {
-    id: "04",
-    title: "Neural Threat Core",
-    subtitle: "Autonomous Linux kernel system call anomaly detection system.",
-    category: "AI & Cyber Security",
-    status: "Completed",
+    id: "004",
+    code: "MISSION 004",
+    recordId: "KVC-RECORD-004",
+    title: "NEURAL THREAT CORE",
+    statement: "Autonomous Linux kernel system call anomaly detection system.",
+    classType: "AI SECURITY",
+    status: "COMPLETED",
+    clearance: "TOP SECRET",
+    date: "15 AUG 2026",
     techStack: ["Python", "PyTorch", "eBPF", "Linux C", "Docker"],
     liveUrl: "https://classified.example.com",
     repoUrl: "https://github.com/animeshtiwari018/neural-core",
     cover: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80",
-    overview: "Machine learning threat detection core inspecting low-level Linux kernel syscalls to stop zero-day exploits in real-time.",
-    keyFeatures: [
+    briefing: "Constructed an autonomous threat detection core inspecting low-level Linux kernel system call sequences to intercept zero-day exploits in real-time.",
+    highlights: [
       "Zero-overhead eBPF ring buffer event capture inside Linux kernel space",
       "99.4% detection accuracy for simulated shellcode injection attacks",
-      "Autoencoder PyTorch model for real-time anomaly inference",
+      "Autoencoder PyTorch neural network model for anomaly inference",
       "Static binary compilation for containerized security deployments",
     ],
+    telemetry: {
+      accuracy: "99.4%",
+      overhead: "0% KERNEL",
+      sandbox: "VERIFIED",
+    },
   },
 ];
 
 export default function MissionArchiveApp() {
-  const [selectedId, setSelectedId] = useState("01");
+  const [selectedId, setSelectedId] = useState("001");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const currentProject = PROJECTS.find((p) => p.id === selectedId) || PROJECTS[0];
+  const currentMission = MISSIONS.find((m) => m.id === selectedId) || MISSIONS[0];
 
-  const filteredProjects = PROJECTS.filter(
-    (p) =>
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.category.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredMissions = MISSIONS.filter(
+    (m) =>
+      m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      m.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      m.classType.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="w-full h-full flex bg-[#070906] text-[#D4D5C8] font-mono text-[11px] select-none overflow-hidden border-t border-[#24291F]">
-      {/* Sidebar: Projects List */}
+      {/* Sidebar: Army Operations Mission List */}
       <div className="w-64 border-r border-[#24291F] bg-[#0A0C09] flex flex-col h-full shrink-0">
         {/* Header */}
         <div className="p-3 border-b border-[#24291F] bg-[#0C0E0B] flex items-center justify-between">
-          <div className="flex items-center gap-2 font-bold text-white text-xs">
-            <FolderGit2 className="w-4 h-4 text-[#8E9B72]" />
-            <span>MY PROJECTS</span>
+          <div className="flex items-center gap-2 font-bold text-white text-xs tracking-wider">
+            <Shield className="w-4 h-4 text-[#8E9B72]" />
+            <span>MISSION ARCHIVE</span>
           </div>
           <span className="text-[9px] text-[#8E9B72] bg-[#121610] px-1.5 py-0.5 border border-[#24291F] rounded font-bold">
-            {PROJECTS.length} TOTAL
+            {MISSIONS.length} MISSIONS
           </span>
         </div>
 
         {/* Search */}
         <div className="p-2 border-b border-[#24291F] bg-[#121610]">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#0A0C09] border border-[#24291F] rounded">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#0A0C09] border border-[#24291F] rounded focus-within:border-[#8E9B72]/60 transition-colors">
             <Search className="w-3.5 h-3.5 text-[#8E9B72]" />
             <input
               type="text"
-              placeholder="Search projects..."
+              placeholder="Search missions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border-none outline-none text-white text-[10px] placeholder:text-[#5E6255]"
+              className="w-full bg-transparent border-none outline-none text-white text-[10px] placeholder:text-[#5E6255] uppercase tracking-wider font-bold"
             />
           </div>
         </div>
 
-        {/* Project List */}
+        {/* Missions List */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1.5">
-          {filteredProjects.map((proj) => {
-            const isSelected = proj.id === selectedId;
+          {filteredMissions.map((m) => {
+            const isSelected = m.id === selectedId;
             return (
               <motion.div
-                key={proj.id}
+                key={m.id}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setSelectedId(proj.id)}
+                onClick={() => setSelectedId(m.id)}
                 className={`p-2.5 rounded cursor-pointer transition-all border ${
                   isSelected
                     ? "bg-[#121610] border-[#8E9B72] text-[#8E9B72] shadow-sm"
                     : "border-transparent hover:bg-[#121610]/50 text-[#73786B] hover:text-white"
                 }`}
               >
+                <div className="flex items-center justify-between text-[9px] mb-0.5 font-bold text-[#8E9B72]">
+                  <span>{m.code}</span>
+                  <span>{m.recordId}</span>
+                </div>
                 <div className="font-bold text-white text-xs truncate">
-                  {proj.title}
+                  {m.title}
                 </div>
                 <div className="flex items-center justify-between mt-1 text-[9.5px]">
-                  <span className="text-[#8E9B72]">{proj.category}</span>
-                  <span className="text-green-400 font-bold">● {proj.status}</span>
+                  <span className="text-[#73786B] font-semibold">{m.classType}</span>
+                  <span className="text-green-400 font-bold">● {m.status}</span>
                 </div>
               </motion.div>
             );
           })}
         </div>
+
+        {/* Sidebar Footer */}
+        <div className="p-2.5 border-t border-[#24291F] bg-[#0C0E0B] text-[9px] text-[#5E6255] space-y-1">
+          <div className="flex justify-between font-bold">
+            <span>OPERATIONAL STATUS:</span>
+            <strong className="text-green-400">ACTIVE & SECURED</strong>
+          </div>
+        </div>
       </div>
 
-      {/* Main Showcase Panel */}
+      {/* Main Mission Dossier Panel */}
       <div className="flex-1 flex flex-col bg-[#070906] h-full overflow-hidden">
-        {/* Top Bar */}
+        {/* Top Header Bar */}
         <div className="px-5 py-2.5 bg-[#0A0C09] border-b border-[#24291F] flex items-center justify-between">
-          <span className="font-bold text-white text-xs tracking-wider flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-[#8E9B72]" />
-            {currentProject.title}
-          </span>
+          <div className="flex items-center gap-2 font-bold text-white text-xs tracking-wider">
+            <Target className="w-4 h-4 text-[#8E9B72]" />
+            <span>{currentMission.code}</span>
+            <span className="text-[#5E6255]">|</span>
+            <span className="text-[#8E9B72]">{currentMission.recordId}</span>
+          </div>
           <div className="flex items-center gap-3">
             <a
-              href={currentProject.liveUrl}
+              href={currentMission.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1 bg-[#121610] hover:bg-[#1a2016] border border-[#8E9B72]/60 hover:border-[#8E9B72] text-[#8E9B72] hover:text-white rounded text-[10px] font-bold tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3.5 py-1 bg-[#121610] hover:bg-[#1a2016] border border-[#8E9B72]/60 hover:border-[#8E9B72] text-[#8E9B72] hover:text-white rounded text-[10px] font-bold tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer shadow-md uppercase"
             >
-              <span>LIVE DEMO</span>
+              <span>[ LIVE DEPLOYMENT ]</span>
               <ExternalLink className="w-3 h-3" />
             </a>
             <a
-              href={currentProject.repoUrl}
+              href={currentMission.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1 bg-[#121610] hover:bg-[#1a2016] border border-[#24291F] hover:border-white/40 text-white rounded text-[10px] font-bold tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3.5 py-1 bg-[#121610] hover:bg-[#1a2016] border border-[#24291F] hover:border-white/40 text-white rounded text-[10px] font-bold tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer uppercase"
             >
-              <span>SOURCE CODE</span>
+              <span>[ SOURCE CODE ]</span>
               <GithubIcon className="w-3 h-3" />
             </a>
           </div>
         </div>
 
-        {/* Project Details Content */}
+        {/* Mission File Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* Hero Banner */}
-          <div className="p-5 border border-[#24291F] bg-[#0A0C09] rounded-lg space-y-3">
+          {/* Mission Dossier Header Card */}
+          <div className="p-5 border border-[#24291F] bg-[#0A0C09] rounded-lg space-y-3 relative shadow-lg">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2 py-0.5 bg-[#121610] border border-[#8E9B72]/40 text-[#8E9B72] font-bold text-[9.5px] rounded">
-                {currentProject.category}
+              <span className="px-2 py-0.5 bg-[#121610] border border-[#8E9B72]/40 text-[#8E9B72] font-bold text-[9.5px] rounded uppercase">
+                CLASS: {currentMission.classType}
               </span>
-              <span className="px-2 py-0.5 bg-green-500/10 border border-green-500/30 text-green-400 font-bold text-[9.5px] rounded">
-                ● {currentProject.status}
+              <span className="px-2 py-0.5 bg-[#121610] border border-[#3A4034] text-[#D4D5C8] font-bold text-[9.5px] rounded uppercase">
+                CLEARANCE: {currentMission.clearance}
+              </span>
+              <span className="px-2 py-0.5 bg-green-500/10 border border-green-500/30 text-green-400 font-bold text-[9.5px] rounded uppercase">
+                ● STATUS: {currentMission.status}
               </span>
             </div>
 
             <h1 className="text-xl font-bold text-white tracking-wide">
-              {currentProject.title}
+              {currentMission.title}
             </h1>
-            <p className="text-xs text-[#8E9B72] leading-relaxed">
-              {currentProject.subtitle}
+            <p className="text-xs text-[#8E9B72] font-semibold italic border-l-2 border-[#8E9B72] pl-3 py-0.5">
+              "{currentMission.statement}"
             </p>
           </div>
 
-          {/* Screenshot Preview Frame */}
-          <div className="border border-[#24291F] bg-[#0A0C09] rounded-lg overflow-hidden space-y-2 p-2">
+          {/* Screenshot Reconnaissance Frame */}
+          <div className="border border-[#24291F] bg-[#0A0C09] rounded-lg overflow-hidden space-y-2 p-2 shadow-lg">
             <div className="aspect-video w-full rounded overflow-hidden bg-black border border-[#24291F]">
               <img
-                src={currentProject.cover}
-                alt={currentProject.title}
+                src={currentMission.cover}
+                alt={currentMission.title}
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="px-2 py-1 flex items-center justify-between text-[9.5px] text-[#73786B]">
-              <span>PROJECT PREVIEW SCREENSHOT</span>
-              <span>KAVACH WORKSTATION ARCHIVE</span>
+            <div className="px-2 py-1 flex items-center justify-between text-[9.5px] text-[#73786B] font-bold">
+              <span>FIELD RECONNAISSANCE CAPTURE</span>
+              <span>TIMESTAMP: {currentMission.date}</span>
             </div>
           </div>
 
-          {/* Overview & Key Highlights */}
+          {/* Mission Briefing & Highlights Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Overview */}
+            {/* Mission Briefing */}
             <div className="p-4 border border-[#24291F] bg-[#0A0C09] rounded-lg space-y-2">
-              <h3 className="font-bold text-white text-xs flex items-center gap-1.5 border-b border-[#24291F] pb-2">
-                <Sparkles className="w-3.5 h-3.5 text-[#8E9B72]" />
-                OVERVIEW
+              <h3 className="font-bold text-white text-xs flex items-center gap-1.5 border-b border-[#24291F] pb-2 tracking-widest uppercase">
+                <FileText className="w-3.5 h-3.5 text-[#8E9B72]" />
+                MISSION BRIEFING
               </h3>
               <p className="text-xs text-[#D4D5C8] leading-relaxed pt-1">
-                {currentProject.overview}
+                {currentMission.briefing}
               </p>
             </div>
 
-            {/* Key Features */}
+            {/* Highlights */}
             <div className="p-4 border border-[#24291F] bg-[#0A0C09] rounded-lg space-y-2">
-              <h3 className="font-bold text-white text-xs flex items-center gap-1.5 border-b border-[#24291F] pb-2">
-                <CheckCircle className="w-3.5 h-3.5 text-green-400" />
-                KEY HIGHLIGHTS
+              <h3 className="font-bold text-white text-xs flex items-center gap-1.5 border-b border-[#24291F] pb-2 tracking-widest uppercase">
+                <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
+                OPERATIONAL HIGHLIGHTS
               </h3>
               <ul className="space-y-1.5 pt-1">
-                {currentProject.keyFeatures.map((feat, idx) => (
+                {currentMission.highlights.map((item, idx) => (
                   <li key={idx} className="text-xs text-[#D4D5C8] flex items-start gap-2">
                     <span className="text-[#8E9B72] font-bold">•</span>
-                    <span>{feat}</span>
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          {/* Tech Stack Used */}
-          <div className="p-4 border border-[#24291F] bg-[#0A0C09] rounded-lg space-y-3">
-            <h3 className="font-bold text-white text-xs flex items-center gap-1.5 border-b border-[#24291F] pb-2">
-              <Layers className="w-3.5 h-3.5 text-[#8E9B72]" />
-              TECHNOLOGIES USED
-            </h3>
-            <div className="flex flex-wrap gap-2 pt-1">
-              {currentProject.techStack.map((tech, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 bg-[#121610] border border-[#24291F] text-[#8E9B72] font-bold text-xs rounded"
-                >
-                  {tech}
-                </span>
-              ))}
+          {/* Technical Arsenal & Telemetry Metrics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Tech Stack Arsenal */}
+            <div className="md:col-span-2 p-4 border border-[#24291F] bg-[#0A0C09] rounded-lg space-y-3">
+              <h3 className="font-bold text-white text-xs flex items-center gap-1.5 border-b border-[#24291F] pb-2 tracking-widest uppercase">
+                <Layers className="w-3.5 h-3.5 text-[#8E9B72]" />
+                TECHNICAL ARSENAL
+              </h3>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {currentMission.techStack.map((tech, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 bg-[#121610] border border-[#24291F] text-[#8E9B72] font-bold text-xs rounded"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Telemetry Metrics */}
+            <div className="p-4 border border-[#24291F] bg-[#0A0C09] rounded-lg space-y-2">
+              <h3 className="font-bold text-white text-xs flex items-center gap-1.5 border-b border-[#24291F] pb-2 tracking-widest uppercase">
+                <Radio className="w-3.5 h-3.5 text-green-400" />
+                AFTER ACTION TELEMETRY
+              </h3>
+              <div className="space-y-1.5 pt-1 text-[10px]">
+                {Object.entries(currentMission.telemetry).map(([key, val]) => (
+                  <div key={key} className="flex justify-between border-b border-[#24291F]/40 pb-1">
+                    <span className="text-[#73786B] uppercase font-bold">{key}:</span>
+                    <span className="text-green-400 font-bold">{val}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
