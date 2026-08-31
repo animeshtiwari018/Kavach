@@ -11,6 +11,7 @@ import ControlCenter from "../control-center";
 import Dock from "../dock";
 import Launchpad from "../launchpad";
 import FaceTimeApp from "../apps/facetime";
+import NotesApp from "../apps/notes";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -321,6 +322,8 @@ export default function Homepage({ onLogout }) {
         return <SettingsApp />;
       case "facetime":
         return <FaceTimeApp />;
+      case "notes":
+        return <NotesApp />;
       case "vscode":
         return (
           <iframe
