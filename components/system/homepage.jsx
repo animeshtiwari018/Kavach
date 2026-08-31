@@ -13,6 +13,7 @@ import Launchpad from "../launchpad";
 import FaceTimeApp from "../apps/facetime";
 import NotesApp from "../apps/notes";
 import GitHubApp from "../apps/github";
+import SpotifyApp from "../apps/spotify";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -335,6 +336,8 @@ export default function Homepage({ onLogout }) {
         );
       case "github":
         return <GitHubApp />;
+      case "spotify":
+        return <SpotifyApp />;
       default:
         return (
           <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#070906] text-[#D4D5C8] font-mono text-center">
