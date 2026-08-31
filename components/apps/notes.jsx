@@ -1,7 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Plus, FileText, Tag, Clock, ShieldCheck, Check } from "lucide-react";
+import {
+  Search,
+  Plus,
+  FileText,
+  Tag,
+  Clock,
+  ShieldCheck,
+  Check,
+} from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const INITIAL_RECORDS = [
@@ -52,7 +60,13 @@ const INITIAL_RECORDS = [
   },
 ];
 
-const COLLECTIONS = ["ALL RECORDS", "LEARNING", "PROJECTS", "IDEAS", "PERSONAL"];
+const COLLECTIONS = [
+  "ALL RECORDS",
+  "LEARNING",
+  "PROJECTS",
+  "IDEAS",
+  "PERSONAL",
+];
 
 export default function NotesApp() {
   const [records, setRecords] = useState(INITIAL_RECORDS);
@@ -61,12 +75,14 @@ export default function NotesApp() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSavedNotice, setIsSavedNotice] = useState(false);
 
-  const activeRecord = records.find((r) => r.id === activeRecordId) || records[0];
+  const activeRecord =
+    records.find((r) => r.id === activeRecordId) || records[0];
 
   // Filter records based on collection and search query
   const filteredRecords = records.filter((rec) => {
     const matchesCollection =
-      selectedCollection === "ALL RECORDS" || rec.collection === selectedCollection;
+      selectedCollection === "ALL RECORDS" ||
+      rec.collection === selectedCollection;
     const matchesSearch =
       rec.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       rec.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -80,13 +96,16 @@ export default function NotesApp() {
       id: nextNum,
       fullId: `KVC-0${nextNum}`,
       title: "UNTITLED RECORD",
-      collection: selectedCollection === "ALL RECORDS" ? "LEARNING" : selectedCollection,
+      collection:
+        selectedCollection === "ALL RECORDS" ? "LEARNING" : selectedCollection,
       status: "DRAFT",
-      created: new Date().toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      }).toUpperCase(),
+      created: new Date()
+        .toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+        .toUpperCase(),
       content: "Type telemetry log or field journal note here...",
     };
     setRecords([newRec, ...records]);
@@ -95,7 +114,7 @@ export default function NotesApp() {
 
   const handleUpdateActiveRecord = (field, value) => {
     setRecords((prev) =>
-      prev.map((r) => (r.id === activeRecordId ? { ...r, [field]: value } : r))
+      prev.map((r) => (r.id === activeRecordId ? { ...r, [field]: value } : r)),
     );
     triggerSavedNotice();
   };
@@ -211,7 +230,12 @@ export default function NotesApp() {
               <input
                 type="text"
                 value={activeRecord.title}
-                onChange={(e) => handleUpdateActiveRecord("title", e.target.value.toUpperCase())}
+                onChange={(e) =>
+                  handleUpdateActiveRecord(
+                    "title",
+                    e.target.value.toUpperCase(),
+                  )
+                }
                 className="bg-transparent border-none outline-none text-white text-base font-bold tracking-widest text-[#8E9B72] caret-[#8E9B72]"
               />
 
@@ -222,7 +246,9 @@ export default function NotesApp() {
                   <span className="text-[#5E6255]">CLASSIFICATION:</span>
                   <select
                     value={activeRecord.collection}
-                    onChange={(e) => handleUpdateActiveRecord("collection", e.target.value)}
+                    onChange={(e) =>
+                      handleUpdateActiveRecord("collection", e.target.value)
+                    }
                     className="bg-[#121610] border border-[#24291F] text-white rounded px-1.5 py-0.5 outline-none cursor-pointer text-[9.5px]"
                   >
                     <option value="LEARNING">LEARNING</option>
@@ -244,7 +270,9 @@ export default function NotesApp() {
                 <div className="flex items-center gap-2 justify-end">
                   <Clock className="w-3 h-3 text-[#5E6255]" />
                   <span className="text-[#5E6255]">CREATED:</span>
-                  <span className="text-[#D4D5C8] font-bold">{activeRecord.created}</span>
+                  <span className="text-[#D4D5C8] font-bold">
+                    {activeRecord.created}
+                  </span>
                 </div>
               </div>
             </div>
@@ -253,7 +281,9 @@ export default function NotesApp() {
             <div className="flex-1 p-4 overflow-y-auto bg-[#070906]">
               <textarea
                 value={activeRecord.content}
-                onChange={(e) => handleUpdateActiveRecord("content", e.target.value)}
+                onChange={(e) =>
+                  handleUpdateActiveRecord("content", e.target.value)
+                }
                 className="w-full h-full bg-transparent border-none outline-none text-[#D4D5C8] font-mono text-xs leading-relaxed resize-none caret-[#8E9B72]"
                 placeholder="Write entry data..."
               />
@@ -261,8 +291,18 @@ export default function NotesApp() {
 
             {/* Footer Telemetry Strip */}
             <div className="px-4 py-2 border-t border-[#24291F] bg-[#0A0C09] flex items-center justify-between text-[9.5px] text-[#5E6255]">
-              <span>RECORD ID: <strong className="text-[#8E9B72]">{activeRecord.fullId}</strong></span>
-              <span>CHARACTERS: <strong className="text-[#D4D5C8]">{activeRecord.content.length}</strong></span>
+              <span>
+                RECORD ID:{" "}
+                <strong className="text-[#8E9B72]">
+                  {activeRecord.fullId}
+                </strong>
+              </span>
+              <span>
+                CHARACTERS:{" "}
+                <strong className="text-[#D4D5C8]">
+                  {activeRecord.content.length}
+                </strong>
+              </span>
               <span className="flex items-center gap-1.5">
                 SYNC: <strong className="text-green-400">LOCAL SECURED</strong>
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
