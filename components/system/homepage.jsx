@@ -59,8 +59,8 @@ export default function Homepage({ onLogout }) {
       zIndex: 10,
       defaultX: 120,
       defaultY: 100,
-      defaultWidth: 520,
-      defaultHeight: 350,
+      defaultWidth: 720,
+      defaultHeight: 480,
       icon: (
         <img
           src="/images/browser.png"
@@ -263,6 +263,14 @@ export default function Homepage({ onLogout }) {
     setApps((prev) =>
       prev.map((app) =>
         app.id === id ? { ...app, defaultX: x, defaultY: y } : app,
+      ),
+    );
+  };
+
+  const handleSizeChange = (id, w, h) => {
+    setApps((prev) =>
+      prev.map((app) =>
+        app.id === id ? { ...app, defaultWidth: w, defaultHeight: h } : app,
       ),
     );
   };
@@ -519,6 +527,7 @@ export default function Homepage({ onLogout }) {
                   defaultY={app.defaultY}
                   desktopRef={desktopRef}
                   onPositionChange={(x, y) => handlePositionChange(app.id, x, y)}
+                  onSizeChange={(w, h) => handleSizeChange(app.id, w, h)}
                 >
                   {app.component}
                 </Window>
