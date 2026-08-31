@@ -50,7 +50,6 @@ export default function Homepage({ onLogout }) {
         />
       ),
       iconName: "Terminal",
-      component: <TerminalApp />,
     },
     {
       id: "browser",
@@ -72,7 +71,6 @@ export default function Homepage({ onLogout }) {
         />
       ),
       iconName: "Browser",
-      component: <BrowserApp />,
     },
     {
       id: "settings",
@@ -86,7 +84,6 @@ export default function Homepage({ onLogout }) {
       defaultHeight: 345,
       icon: "⚙️",
       iconName: "Settings",
-      component: <SettingsApp />,
     },
   ]);
 
@@ -227,36 +224,6 @@ export default function Homepage({ onLogout }) {
       }
       focusApp(appMapId);
     } else {
-      let componentToRender;
-      if (appWindow.id === "facetime") {
-        componentToRender = <FaceTimeApp />;
-      } else if (appWindow.id === "vscode") {
-        componentToRender = (
-          <iframe
-            src="https://github1s.com"
-            className="w-full h-full border-none bg-black"
-            title="VS Code"
-          />
-        );
-      } else if (appWindow.id === "github") {
-        componentToRender = (
-          <iframe
-            src="https://github.com"
-            className="w-full h-full border-none bg-[#070906]"
-            title="GitHub"
-          />
-        );
-      } else {
-        componentToRender = (
-          <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#070906] text-[#D4D5C8] font-mono text-center">
-            <h3 className="text-sm font-bold text-[#8E9B72] mb-2">{appWindow.title.toUpperCase()}</h3>
-            <p className="text-xs text-[#73786B] max-w-xs leading-relaxed">
-              This application is sandboxed. Connect module keys or input operational clearance to unlock full workstation integration.
-            </p>
-          </div>
-        );
-      }
-
       const newZ = topZIndex + 1;
       setTopZIndex(newZ);
       setApps((prev) => {
@@ -281,7 +248,6 @@ export default function Homepage({ onLogout }) {
             defaultY: centeredY,
             defaultWidth: appWidth,
             defaultHeight: appHeight,
-            component: componentToRender,
           },
         ];
       });
@@ -342,6 +308,44 @@ export default function Homepage({ onLogout }) {
       toggleDockApp(foundApp.id);
       setIsSpotlightOpen(false);
       setSpotlightQuery("");
+    }
+  };
+
+  const renderAppComponent = (app) => {
+    switch (app.id) {
+      case "terminal":
+        return <TerminalApp />;
+      case "browser":
+        return <BrowserApp />;
+      case "settings":
+        return <SettingsApp />;
+      case "facetime":
+        return <FaceTimeApp />;
+      case "vscode":
+        return (
+          <iframe
+            src="https://github1s.com"
+            className="w-full h-full border-none bg-black"
+            title="VS Code"
+          />
+        );
+      case "github":
+        return (
+          <iframe
+            src="https://github.com"
+            className="w-full h-full border-none bg-[#070906]"
+            title="GitHub"
+          />
+        );
+      default:
+        return (
+          <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#070906] text-[#D4D5C8] font-mono text-center">
+            <h3 className="text-sm font-bold text-[#8E9B72] mb-2">{(app.title || "").toUpperCase()}</h3>
+            <p className="text-xs text-[#73786B] max-w-xs leading-relaxed">
+              This application is sandboxed. Connect module keys or input operational clearance to unlock full workstation integration.
+            </p>
+          </div>
+        );
     }
   };
 
@@ -570,7 +574,7 @@ export default function Homepage({ onLogout }) {
                   onPositionChange={(x, y) => handlePositionChange(app.id, x, y)}
                   onSizeChange={(w, h) => handleSizeChange(app.id, w, h)}
                 >
-                  {app.component}
+                  {renderAppComponent(app)}
                 </Window>
               ),
           )}
