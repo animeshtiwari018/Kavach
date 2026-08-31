@@ -201,40 +201,40 @@ export default function FaceTimeApp() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="max-w-xs w-full border border-[#8e9b72]/20 bg-[#0b0c09]/95 rounded-lg p-6 shadow-2xl backdrop-blur-xl relative font-mono text-[#D4D5C8] flex flex-col items-center text-center space-y-5"
+            className="w-[270px] border border-[#8e9b72]/20 bg-[#0b0c09]/95 rounded-lg p-4 shadow-2xl backdrop-blur-xl relative font-mono text-[#D4D5C8] flex flex-col items-center text-center space-y-3.5"
           >
             {/* Weld Corner Accent Brackets */}
-            <div className="absolute top-[6px] left-[6px] w-2.5 h-2.5 border-t-2 border-l-2 border-[#8e9b72]/40" />
-            <div className="absolute top-[6px] right-[6px] w-2.5 h-2.5 border-t-2 border-r-2 border-[#8e9b72]/40" />
-            <div className="absolute bottom-[6px] left-[6px] w-2.5 h-2.5 border-b-2 border-l-2 border-[#8e9b72]/40" />
-            <div className="absolute bottom-[6px] right-[6px] w-2.5 h-2.5 border-b-2 border-r-2 border-[#8e9b72]/40" />
+            <div className="absolute top-[5px] left-[5px] w-2 h-2 border-t border-l border-[#8e9b72]/50" />
+            <div className="absolute top-[5px] right-[5px] w-2 h-2 border-t border-r border-[#8e9b72]/50" />
+            <div className="absolute bottom-[5px] left-[5px] w-2 h-2 border-b border-l border-[#8e9b72]/50" />
+            <div className="absolute bottom-[5px] right-[5px] w-2 h-2 border-b border-r border-[#8e9b72]/50" />
 
             {/* Pulsing Warning Icon Badge */}
-            <div className="relative flex items-center justify-center w-12 h-12 rounded-full border border-[#D25F5F]/30 bg-[#D25F5F]/5 mt-2">
-              <span className="absolute inset-0 rounded-full border border-[#D25F5F]/20 animate-ping opacity-25" />
-              <VideoOff className="w-5 h-5 text-[#D25F5F]" />
+            <div className="relative flex items-center justify-center w-9 h-9 rounded-full border border-red-500/30 bg-red-500/10 mt-0.5">
+              <span className="absolute inset-0 rounded-full border border-red-500/20 animate-ping opacity-25" />
+              <VideoOff className="w-4 h-4 text-red-500" />
             </div>
 
             {/* Header Block */}
-            <div className="space-y-1">
-              <h3 className="text-xs font-bold text-[#8e9b72] tracking-[0.2em] uppercase">
+            <div className="space-y-0.5">
+              <h3 className="text-[11px] font-bold text-green-400 tracking-[0.18em] uppercase">
                 CAMERA SECURITY EXCLUSION
               </h3>
-              <div className="w-12 h-[1px] bg-[#8e9b72]/20 mx-auto my-2" />
-              <h4 className="text-[10px] font-bold text-[#D25F5F] tracking-widest uppercase">
+              <div className="w-10 h-[1px] bg-green-500/30 mx-auto my-1.5" />
+              <h4 className="text-[9.5px] font-bold text-red-500 tracking-wider uppercase">
                 VISUAL LINK INITIALIZATION BLOCKED
               </h4>
             </div>
 
             {/* Main Text Content */}
-            <div className="text-[10px] text-[#73786B] leading-relaxed max-w-[240px]">
+            <div className="text-[9.5px] text-[#73786B] leading-relaxed max-w-[220px]">
               Workstation camera access is restricted. Authorization required to establish secure visual communication.
             </div>
 
             {/* Request Button */}
             <button
               onClick={startCamera}
-              className="mt-2 w-full max-w-[220px] py-2 bg-[#121610] hover:bg-[#1a2016] border border-[#8e9b72]/40 hover:border-[#8e9b72]/85 text-[#8e9b72] hover:text-white rounded text-[10px] font-bold tracking-[0.15em] uppercase transition-all duration-300 shadow-[0_0_10px_rgba(142,155,114,0.05)] hover:shadow-[0_0_15px_rgba(142,155,114,0.15)] cursor-pointer"
+              className="mt-1 w-full max-w-[200px] py-1.5 bg-[#121610] hover:bg-[#1a2016] border border-green-500/40 hover:border-green-400 text-green-400 hover:text-white rounded text-[9.5px] font-bold tracking-[0.12em] uppercase transition-all duration-300 shadow-[0_0_10px_rgba(34,197,94,0.05)] hover:shadow-[0_0_15px_rgba(34,197,94,0.15)] cursor-pointer"
             >
               [ REQUEST PROTOCOL ACCESS ]
             </button>
