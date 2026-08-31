@@ -12,6 +12,8 @@ export default function FaceTimeApp() {
   const [searchQuery, setSearchQuery] = useState("");
   const videoRef = useRef(null);
   const streamRef = useRef(null);
+  const isMountedRef = useRef(true);
+  const activeRequestRef = useRef(0);
 
   const contacts = [
     { id: 1, name: "Animesh Tiwari", role: "Workstation Owner", status: "Available" },
@@ -22,17 +24,24 @@ export default function FaceTimeApp() {
 
   // Request camera and microphone access
   const startCamera = async () => {
+    const requestId = ++activeRequestRef.current;
     setPermissionStatus("requesting");
     try {
-      if (stream) {
-        // Stop previous stream if any
-        stream.getTracks().forEach((track) => track.stop());
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
       }
 
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
       });
+
+      // If a newer request has started, or if the component has unmounted, stop this stream immediately
+      if (requestId !== activeRequestRef.current || !isMountedRef.current) {
+        mediaStream.getTracks().forEach((track) => track.stop());
+        return;
+      }
 
       setStream(mediaStream);
       streamRef.current = mediaStream;
@@ -41,17 +50,21 @@ export default function FaceTimeApp() {
         videoRef.current.srcObject = mediaStream;
       }
     } catch (err) {
-      console.error("Camera access error:", err);
-      setPermissionStatus("denied");
+      if (requestId === activeRequestRef.current && isMountedRef.current) {
+        console.error("Camera access error:", err);
+        setPermissionStatus("denied");
+      }
     }
   };
 
   // Start camera feed on component mount
   useEffect(() => {
+    isMountedRef.current = true;
     startCamera();
 
     // Cleanup on unmount
     return () => {
+      isMountedRef.current = false;
       if (streamRef.current) {
         streamRef.current.getTracks().forEach((track) => {
           track.stop();
