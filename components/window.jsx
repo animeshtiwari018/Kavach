@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useDragControls } from "motion/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function Window({
   title,
@@ -17,10 +17,86 @@ export default function Window({
   defaultY = 100,
   desktopRef,
   onPositionChange,
+  onSizeChange,
 }) {
   const [isMaximized, setIsMaximized] = useState(false);
   const dragControls = useDragControls();
   const windowRef = useRef(null);
+
+  const [width, setWidth] = useState(defaultWidth);
+  const [height, setHeight] = useState(defaultHeight);
+  const [isResizing, setIsResizing] = useState(false);
+
+  // Clamp the default size of the window on mount to fit the desktop container
+  useEffect(() => {
+    if (desktopRef && desktopRef.current) {
+      const desktopRect = desktopRef.current.getBoundingClientRect();
+      const maxW = Math.floor(desktopRect.width * 0.9);
+      const maxH = Math.floor(desktopRect.height * 0.85);
+
+      let initialWidth = defaultWidth;
+      let initialHeight = defaultHeight;
+
+      if (initialWidth > maxW) {
+        initialWidth = maxW;
+      }
+      if (initialHeight > maxH) {
+        initialHeight = maxH;
+      }
+
+      initialWidth = Math.max(300, initialWidth);
+      initialHeight = Math.max(200, initialHeight);
+
+      setWidth(initialWidth);
+      setHeight(initialHeight);
+
+      if ((initialWidth !== defaultWidth || initialHeight !== defaultHeight) && onSizeChange) {
+        onSizeChange(initialWidth, initialHeight);
+      }
+    } else {
+      setWidth(defaultWidth);
+      setHeight(defaultHeight);
+    }
+  }, [defaultWidth, defaultHeight, desktopRef]);
+
+  const handleResizeStart = (e, direction) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsResizing(true);
+
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startWidth = width;
+    const startHeight = height;
+
+    let currentWidth = startWidth;
+    let currentHeight = startHeight;
+
+    const handlePointerMove = (moveEvent) => {
+      if (direction === "right" || direction === "bottom-right") {
+        const deltaX = moveEvent.clientX - startX;
+        currentWidth = Math.max(300, startWidth + deltaX);
+        setWidth(currentWidth);
+      }
+      if (direction === "bottom" || direction === "bottom-right") {
+        const deltaY = moveEvent.clientY - startY;
+        currentHeight = Math.max(200, startHeight + deltaY);
+        setHeight(currentHeight);
+      }
+    };
+
+    const handlePointerUp = () => {
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerup", handlePointerUp);
+      setIsResizing(false);
+      if (onSizeChange) {
+        onSizeChange(currentWidth, currentHeight);
+      }
+    };
+
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerUp);
+  };
 
   if (!isOpen) return null;
 
@@ -39,10 +115,14 @@ export default function Window({
         scale: 1,
         x: isMaximized ? 0 : undefined,
         y: isMaximized ? 0 : undefined,
-        width: isMaximized ? "100%" : defaultWidth,
-        height: isMaximized ? "calc(100vh - 40px - 50px)" : defaultHeight, // Subtract top bar & dock height
+        width: isMaximized ? "100%" : width,
+        height: isMaximized ? "calc(100vh - 40px - 50px)" : height, // Subtract top bar & dock height
       }}
-      transition={{ type: "spring", stiffness: 350, damping: 26 }}
+      transition={
+        isResizing
+          ? { type: "tween", duration: 0 }
+          : { type: "spring", stiffness: 350, damping: 26 }
+      }
       onPointerDown={onFocus}
       onDragEnd={(event, info) => {
         if (isMaximized) return;
@@ -141,6 +221,32 @@ export default function Window({
       <div className="flex-1 overflow-auto bg-[#070906]/98 relative cursor-default text-xs font-mono">
         {children}
       </div>
+
+      {/* Resize Handles */}
+      {!isMaximized && (
+        <>
+          {/* Right edge handle */}
+          <div
+            className="absolute top-0 right-0 w-[6px] h-full cursor-ew-resize z-50 select-none hover:bg-[#8E9B72]/10 active:bg-[#8E9B72]/20 transition-colors"
+            onPointerDown={(e) => handleResizeStart(e, "right")}
+          />
+          {/* Bottom edge handle */}
+          <div
+            className="absolute bottom-0 left-0 w-full h-[6px] cursor-ns-resize z-50 select-none hover:bg-[#8E9B72]/10 active:bg-[#8E9B72]/20 transition-colors"
+            onPointerDown={(e) => handleResizeStart(e, "bottom")}
+          />
+          {/* Bottom-right corner handle with decoration */}
+          <div
+            className="absolute bottom-0 right-0 w-[14px] h-[14px] cursor-nwse-resize z-50 select-none hover:bg-[#8E9B72]/20 active:bg-[#8E9B72]/40 transition-colors flex items-end justify-end p-[2px]"
+            onPointerDown={(e) => handleResizeStart(e, "bottom-right")}
+          >
+            <svg width="6" height="6" viewBox="0 0 6 6" className="opacity-60 pointer-events-none">
+              <line x1="6" y1="0" x2="0" y2="6" stroke={isActive ? "#8E9B72" : "#3A4034"} strokeWidth="1" />
+              <line x1="6" y1="3" x2="3" y2="6" stroke={isActive ? "#8E9B72" : "#3A4034"} strokeWidth="1" />
+            </svg>
+          </div>
+        </>
+      )}
     </motion.div>
   );
 }
