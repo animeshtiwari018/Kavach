@@ -6,6 +6,7 @@ import { MoreHorizontal } from "lucide-react";
 // App list config
 const dockApps = [
   { id: "launchpad", title: "Launchpad", icon: "/images/kavach.png", component: "Launchpad", isSystem: true },
+  { id: "mission-archive", title: "Projects", icon: "/images/kavach.png", component: "MissionArchive" },
   { id: "safari", title: "Safari", icon: "/images/browser.png", component: "Safari" },
   { id: "mail", title: "Mail", icon: "/mail.png", component: "Mail" },
   { id: "vscode", title: "VS Code", icon: "/images/vscode.png", component: "VSCode" },
@@ -19,6 +20,7 @@ const dockApps = [
 
 const emojiFallback = {
   launchpad: "🚀",
+  "mission-archive": "🛡️",
   safari: "🌐",
   mail: "✉️",
   vscode: "💻",
