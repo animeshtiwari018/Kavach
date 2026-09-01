@@ -18,6 +18,7 @@ import MissionArchiveApp from "../apps/mission-archive";
 import SkillsApp from "../apps/skills";
 import ServiceRecordApp from "../apps/service-record";
 import SystemAnalysisApp from "../apps/system-analysis";
+import ContactApp from "../apps/contact";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -377,6 +378,11 @@ export default function Homepage({ onLogout }) {
       case "analysis":
       case "analytics":
         return <SystemAnalysisApp />;
+      case "contact":
+      case "communication":
+      case "communications":
+      case "mail-app":
+        return <ContactApp />;
       default:
         return (
           <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#070906] text-[#D4D5C8] font-mono text-center">
@@ -691,6 +697,29 @@ export default function Homepage({ onLogout }) {
             </div>
             <span className="text-[10px] font-mono font-bold text-white group-hover:text-blue-400 bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
               Analysis
+            </span>
+          </motion.div>
+
+          {/* Contact (Communications) Icon */}
+          <motion.div
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              handleDockAppClick({
+                id: "contact",
+                title: "Communications // Contact",
+                size: { width: 780, height: 520 },
+              })
+            }
+            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+          >
+            <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#8E9B72]/40 group-hover:border-[#8E9B72] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(142,155,114,0.3)]">
+              <svg className="w-8 h-8 text-[#8E9B72]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91A2.25 2.25 0 0 1 2.25 6.993V6.75" />
+              </svg>
+            </div>
+            <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#8E9B72] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
+              Contact
             </span>
           </motion.div>
         </div>
