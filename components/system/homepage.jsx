@@ -36,11 +36,32 @@ export default function Homepage({ onLogout }) {
   // Window list state
   const [apps, setApps] = useState([
     {
-      id: "terminal",
-      title: "Terminal Console",
+      id: "notes",
+      title: "Notes — About Me",
       isOpen: true,
       isMinimized: false,
       zIndex: 10,
+      defaultX: 100,
+      defaultY: 60,
+      defaultWidth: 780,
+      defaultHeight: 520,
+      icon: (
+        <img
+          src="/notes.png"
+          alt="About Me"
+          className="w-14 h-14 object-contain select-none pointer-events-none"
+          draggable="false"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      ),
+      iconName: "Notes",
+    },
+    {
+      id: "terminal",
+      title: "Terminal Console",
+      isOpen: false,
+      isMinimized: false,
+      zIndex: 9,
       defaultX: 60,
       defaultY: 60,
       defaultWidth: 520,
@@ -61,7 +82,7 @@ export default function Homepage({ onLogout }) {
       title: "Web Browser",
       isOpen: false,
       isMinimized: false,
-      zIndex: 10,
+      zIndex: 8,
       defaultX: 120,
       defaultY: 100,
       defaultWidth: 720,
@@ -82,7 +103,7 @@ export default function Homepage({ onLogout }) {
       title: "System Settings",
       isOpen: false,
       isMinimized: false,
-      zIndex: 10,
+      zIndex: 7,
       defaultX: 180,
       defaultY: 140,
       defaultWidth: 420,
@@ -92,7 +113,7 @@ export default function Homepage({ onLogout }) {
     },
   ]);
 
-  const [activeAppId, setActiveAppId] = useState("terminal");
+  const [activeAppId, setActiveAppId] = useState("notes");
   const [topZIndex, setTopZIndex] = useState(10);
 
   // Dynamic system clock updating every second
