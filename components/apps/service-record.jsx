@@ -20,43 +20,20 @@ import { motion, AnimatePresence } from "motion/react";
 
 const RANKS_DATA = [
   {
-    id: "rank-02",
-    step: "STEP 02",
-    recordId: "SR-002",
-    rankTitle: "FIELD OPERATIVE",
-    rankCode: "RANK 02",
-    symbol: "★",
-    category: "CURRENT ASSIGNMENT",
-    status: "ACTIVE",
-    posting: "KAVACH WORKSTATION & INDEPENDENT ENGINEERING",
-    role: "Full-Stack Web Developer & Systems Engineer",
-    period: "2025 — PRESENT",
-    previousRank: "CADET",
-    objective:
-      "Engineers high-reliability web applications, custom workstation environments, microservices, and optimized algorithmic data engines.",
-    duties: [
-      "Architected Next.js workstation portfolio shell featuring window drag/resize physics management and webcam telemetry",
-      "Developed high-throughput Node.js microservices with Redis rate-limiting algorithms and JWT security pipelines",
-      "Created modular component systems with Framer Motion animations and custom dark-theme design tokens",
-      "Managed version control, CI/CD workflows, and production deployments on Vercel and Docker",
-    ],
-    skillsDeployed: ["Next.js 15", "React 19", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Framer Motion", "Git"],
-  },
-  {
     id: "rank-01",
     step: "STEP 01",
     recordId: "SR-001",
     rankTitle: "CADET",
     rankCode: "RANK 01",
-    symbol: "◆",
+    symbol: "★",
     category: "INTERNSHIP ASSIGNMENT",
-    status: "COMPLETED",
+    status: "ACTIVE",
     posting: "WEB ENGINEERING INTERNSHIP",
     role: "Full-Stack Web Developer Intern",
-    period: "2024 — 2025",
+    period: "2024 — PRESENT",
     previousRank: "N/A",
     objective:
-      "First professional web engineering internship focused on full-stack web application development, academic resource portals, and REST API integration.",
+      "Web engineering internship posting focused on full-stack web application development, academic resource portals, and REST API integration.",
     duties: [
       "Built Student Resource Portal web app for academic resource distribution and indexed document search pipelines",
       "Developed responsive frontend interfaces using React, JavaScript (ES6+), and Tailwind CSS",
@@ -66,18 +43,18 @@ const RANKS_DATA = [
     skillsDeployed: ["React", "JavaScript (ES6+)", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Git"],
   },
   {
-    id: "rank-03",
-    step: "STEP 03",
-    recordId: "SR-003",
-    rankTitle: "TECHNICAL OFFICER",
-    rankCode: "RANK 03",
+    id: "rank-02",
+    step: "STEP 02",
+    recordId: "SR-002",
+    rankTitle: "FIELD OPERATIVE",
+    rankCode: "RANK 02",
     symbol: "○",
     category: "NEXT LEVEL DIRECTIVE",
     status: "LOCKED",
     posting: "FULL-STACK SOFTWARE ENGINEER",
     role: "Software Engineer / Full-Stack Engineer",
     period: "FUTURE DIRECTIVE",
-    previousRank: "FIELD OPERATIVE",
+    previousRank: "CADET",
     objective:
       "Target professional milestone advancing towards full-time Software Engineer positions, microservice architecture design, and enterprise-grade systems.",
     duties: [
@@ -88,13 +65,34 @@ const RANKS_DATA = [
     skillsDeployed: ["Software Engineering", "Microservices", "System Architecture", "Production Deployment"],
   },
   {
+    id: "rank-03",
+    step: "STEP 03",
+    recordId: "SR-003",
+    rankTitle: "TECHNICAL OFFICER",
+    rankCode: "RANK 03",
+    symbol: "○",
+    category: "FUTURE CAREER OBJECTIVE",
+    status: "LOCKED",
+    posting: "SENIOR FULL-STACK ENGINEER",
+    role: "Senior Full-Stack Developer",
+    period: "FUTURE DIRECTIVE",
+    previousRank: "FIELD OPERATIVE",
+    objective:
+      "Target engineering advancement level focusing on complex system design, microservices, and technical leadership.",
+    duties: [
+      "Lead web engineering architecture and high-performance server solutions",
+      "Architect secure data processing pipelines and automated testing framework",
+    ],
+    skillsDeployed: ["System Architecture", "Microservices", "Security", "Engineering Leadership"],
+  },
+  {
     id: "rank-04",
     step: "STEP 04",
     recordId: "SR-004",
     rankTitle: "COMMAND LEVEL",
     rankCode: "RANK 04",
     symbol: "○",
-    category: "FUTURE CAREER OBJECTIVE",
+    category: "LONG-TERM CAREER OBJECTIVE",
     status: "LOCKED",
     posting: "SENIOR SOFTWARE ARCHITECT / LEAD ENGINEER",
     role: "Senior Engineering Lead & Systems Architect",
@@ -112,7 +110,7 @@ const RANKS_DATA = [
 ];
 
 export default function ServiceRecordApp() {
-  const [selectedRankId, setSelectedRankId] = useState("rank-02");
+  const [selectedRankId, setSelectedRankId] = useState("rank-01");
   const [isAccessingRecord, setIsAccessingRecord] = useState(false);
   const accessTimerRef = useRef(null);
 
@@ -307,14 +305,14 @@ export default function ServiceRecordApp() {
           <div className="p-3 border-b border-[#2A2E29] bg-[#181B18] space-y-2 shrink-0">
             <div className="text-[10px] font-mono font-bold text-[#C2B280] tracking-wider uppercase flex items-center justify-between">
               <span>CAREER PROGRESSION</span>
-              <span className="text-[9px] text-[#708764]">RANK 02 / 04</span>
+              <span className="text-[9px] text-[#708764]">RANK 01 / 04</span>
             </div>
 
             {/* Horizontal Compact Progression Indicator Bar */}
             <div className="text-[8.5px] font-mono text-[#7A8274] pt-1 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none pb-0.5">
-              <span className="text-[#8E9B72] font-bold">CADET</span>
-              <span className="text-[#5C6F52]">──●──</span>
-              <span className="text-[#C2B280] font-bold">FLD OPS</span>
+              <span className="text-[#C2B280] font-bold">CADET</span>
+              <span className="text-[#5E6255]">──○──</span>
+              <span className="text-[#5E6255]">FLD OPS</span>
               <span className="text-[#5E6255]">──○──</span>
               <span className="text-[#5E6255]">TECH OFF</span>
               <span className="text-[#5E6255]">──○──</span>
@@ -438,6 +436,96 @@ export default function ServiceRecordApp() {
                   </div>
                 </div>
               </motion.div>
+            ) : currentRank.status === "LOCKED" ? (
+              /* LOCKED RANK DOSSIER DISPLAY */
+              <motion.div
+                key={currentRank.id}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
+                className="p-6 space-y-6 font-mono text-xs"
+              >
+                {/* Header: Rank Code & Title */}
+                <div className="space-y-1">
+                  <div className="text-[10px] text-[#C95555] tracking-widest font-bold uppercase flex items-center justify-between">
+                    <span>{currentRank.rankCode} // CLASSIFIED DIRECTIVE</span>
+                    <span className="text-[#8A3333] font-bold">[ LOCKED ]</span>
+                  </div>
+
+                  <h1 className="text-2xl font-bold text-[#E2E4DF] tracking-tight pt-0.5 flex items-center gap-2">
+                    <span>{currentRank.rankTitle}</span>
+                    <span className="text-xs text-[#C95555] bg-red-500/10 border border-[#C95555]/40 px-2 py-0.5 rounded font-mono font-bold flex items-center gap-1">
+                      <Lock className="w-3 h-3" /> RESTRICTED
+                    </span>
+                  </h1>
+
+                  <p className="text-[11px] text-[#7A8274] font-semibold tracking-wide pt-0.5">
+                    {currentRank.category}
+                  </p>
+
+                  <div className="w-full border-b border-dashed border-[#2A2E29] pt-3" />
+                </div>
+
+                {/* Lock Notice Banner */}
+                <div className="bg-[#241A1A]/80 border border-[#8A3333]/60 rounded-lg p-5 space-y-3 text-center shadow-md">
+                  <div className="w-10 h-10 mx-auto rounded-full bg-red-500/10 border border-[#C95555]/40 flex items-center justify-center text-[#C95555]">
+                    <Lock className="w-5 h-5 animate-pulse" />
+                  </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-bold text-[#F2B0B0] tracking-wider uppercase">
+                      CLEARANCE RESTRICTED — COMING SOON
+                    </h3>
+                    <p className="text-xs text-[#D8A2A2] max-w-md mx-auto leading-relaxed font-sans">
+                      This career classification file is currently encrypted. Target milestone directive will unlock upon completing active technical operational requirements.
+                    </p>
+                  </div>
+
+                  <div className="pt-2 flex items-center justify-center gap-2 text-[10px] text-[#C2B280] font-bold">
+                    <span>TARGET DIRECTIVE:</span>
+                    <span className="bg-[#141614] px-2.5 py-1 rounded border border-[#4A4736]">
+                      {currentRank.posting}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Expected Directive Objectives */}
+                <div className="space-y-2.5 bg-[#191C19] border border-[#2A2E29] rounded-lg p-4">
+                  <div className="text-[11px] font-bold text-[#C2B280] tracking-wider uppercase flex items-center gap-1.5 border-b border-[#2A2E29] pb-1.5">
+                    <Activity className="w-3.5 h-3.5 text-[#C2B280]" />
+                    <span>PLANNED ASSIGNMENT DIRECTIVES</span>
+                  </div>
+                  <p className="text-xs text-[#7A8274] leading-relaxed pt-0.5 font-sans">
+                    {currentRank.objective}
+                  </p>
+
+                  <div className="pt-2">
+                    <span className="text-[#7A8274] block text-[9.5px] uppercase font-bold mb-1.5">
+                      TARGET SKILLS & CAPABILITIES
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {currentRank.skillsDeployed.map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-0.5 bg-[#141614] border border-[#2A2E29] text-[#7A8274] font-mono text-[10px] rounded"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Telemetry */}
+                <div className="bg-[#181C18]/60 border border-[#2D362A] rounded-lg p-3 space-y-1 text-[10px]">
+                  <div className="flex flex-wrap justify-between text-[#7A8274] font-bold">
+                    <span>FILE: {currentRank.recordId}</span>
+                    <span>SECURITY: ENCRYPTED</span>
+                    <span className="text-[#C95555]">STATUS: LOCKED</span>
+                    <span className="text-[#C2B280]">RECORD UPDATED: 2026</span>
+                  </div>
+                </div>
+              </motion.div>
             ) : (
               /* FULL POSTING DOSSIER DISPLAY */
               <motion.div
@@ -526,7 +614,7 @@ export default function ServiceRecordApp() {
                     <Activity className="w-3.5 h-3.5 text-[#C2B280]" />
                     <span>ASSIGNMENT OBJECTIVE</span>
                   </div>
-                  <p className="text-xs text-[#D0D3CB] leading-relaxed pt-0.5">
+                  <p className="text-xs text-[#D0D3CB] leading-relaxed pt-0.5 font-sans">
                     {currentRank.objective}
                   </p>
                 </div>
@@ -539,7 +627,7 @@ export default function ServiceRecordApp() {
                   </div>
                   <ul className="space-y-1.5 text-[#D0D3CB]">
                     {currentRank.duties.map((duty, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-xs">
+                      <li key={idx} className="flex items-start gap-2 text-xs font-sans">
                         <span className="text-[#5C6F52] shrink-0 font-bold">•</span>
                         <span>{duty}</span>
                       </li>
