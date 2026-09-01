@@ -395,6 +395,4 @@ export default function NotesApp() {
     </div>
   );
 }
->
-  );
-}
+
