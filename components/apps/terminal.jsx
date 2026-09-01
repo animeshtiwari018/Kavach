@@ -125,11 +125,21 @@ const VALID_COMMANDS = [
   "secret",
 ];
 
+const QUICK_SUGGESTIONS = [
+  "help",
+  "ls",
+  "cd missions",
+  "cat profile.txt",
+  "status",
+  "whoami",
+  "clear",
+];
+
 export default function TerminalApp() {
   const [currentPath, setCurrentPath] = useState("");
   const [history, setHistory] = useState([
     { text: "KAVACH SECURE OS [Version 2.6.0]", type: "system" },
-    { text: "Type 'help' to display available command directives.", type: "system" },
+    { text: "Type 'help' or click a command suggestion below.", type: "system" },
     { text: "", type: "system" },
   ]);
 
@@ -177,7 +187,6 @@ export default function TerminalApp() {
       return;
     }
 
-    // Add to history list
     setCmdHistory((prev) => [...prev, trimmed]);
     setHistoryIndex(-1);
 
@@ -209,9 +218,9 @@ contact     Open communication channel
 status      Display system status matrix
 whoami      Identify current operative
 ls          List directory contents
-cd          Navigate directories
+cd          Navigate directories (e.g. cd missions)
 pwd         Show current location
-cat         Read file contents
+cat         Read file contents (e.g. cat profile.txt)
 clear       Clear terminal screen
 history     Show command history`,
         });
@@ -459,14 +468,48 @@ Status  : Open for job postings & internship directives`,
     }
 
     // Tab Autocomplete
-    if (e.key === "Tab") {
-      e.preventDefault();
+    if (e.key === "Tab" || e.key === "ArrowRight") {
       const trimmed = input.trimStart();
       const parts = trimmed.split(/\s+/);
 
-      if (parts.length === 1) {
-        // Complete command
-    // Ghost autocomplete hint calculation
+      if (parts.length === 1 && parts[0]) {
+        const match = VALID_COMMANDS.find((c) => c.startsWith(parts[0]));
+        if (match) {
+          e.preventDefault();
+          setInput(match + " ");
+          return;
+        }
+      } else if (parts.length === 2 && (parts[0] === "cd" || parts[0] === "ls")) {
+        const currentNode = VIRTUAL_FS[currentPath];
+        if (currentNode) {
+          const match = currentNode.dirs.find((d) => d.startsWith(parts[1]));
+          if (match) {
+            e.preventDefault();
+            setInput(`${parts[0]} ${match}`);
+            return;
+          }
+        }
+      } else if (parts.length === 2 && parts[0] === "cat") {
+        const currentNode = VIRTUAL_FS[currentPath];
+        if (currentNode) {
+          const match = Object.keys(currentNode.files).find((f) => f.startsWith(parts[1]));
+          if (match) {
+            e.preventDefault();
+            setInput(`cat ${match}`);
+            return;
+          }
+        }
+      }
+    }
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    executeCommand(input);
+    setInput("");
+  };
+
+  // Ghost autocomplete hint calculation
   const getGhostSuggestion = () => {
     if (!input.trim()) return "";
     const trimmed = input.trimStart();
@@ -486,6 +529,21 @@ Status  : Open for job postings & internship directives`,
     executeCommand(cmdText);
     focusInput();
   };
+
+  // Syntax colors split
+  const parseInputColors = () => {
+    if (!input) return { cmdPart: "", argPart: "" };
+    const firstSpaceIndex = input.search(/\s/);
+    if (firstSpaceIndex === -1) {
+      return { cmdPart: input, argPart: "" };
+    }
+    return {
+      cmdPart: input.slice(0, firstSpaceIndex),
+      argPart: input.slice(firstSpaceIndex),
+    };
+  };
+
+  const { cmdPart, argPart } = parseInputColors();
 
   return (
     <div
@@ -576,18 +634,10 @@ Status  : Open for job postings & internship directives`,
           );
         })}
 
-        {/* Quick Command Suggestions Bar */}
+        {/* Quick Command Suggestions Chips Bar */}
         <div className="pt-2 pb-1 border-t border-[#2A2E29]/60 flex items-center gap-2 flex-wrap font-mono text-[10px] select-none">
           <span className="text-[#7A8274] font-bold">SUGGESTIONS:</span>
-          {[
-            "help",
-            "ls",
-            "cd missions",
-            "cat profile.txt",
-            "status",
-            "whoami",
-            "clear",
-          ].map((cmdText, i) => (
+          {QUICK_SUGGESTIONS.map((cmdText, i) => (
             <button
               key={i}
               type="button"
@@ -627,37 +677,6 @@ Status  : Open for job postings & internship directives`,
             />
           </div>
         </form>
-        <div ref={bottomRef} />
-      </div>
-    </div>
-  );
-}ter gap-1.5 pt-1">
-          <span className="text-[#A8ACA2] shrink-0">kavach@workstation:</span>
-          <span className="text-[#8E9B72] font-bold shrink-0">{getPathPrompt()}</span>
-          <span className="text-[#A8ACA2] shrink-0">$</span>
-
-          <div className="flex-1 flex items-center relative min-w-0">
-            {/* Syntax Highlighted Input Overlay */}
-            <div className="absolute inset-0 flex items-center pointer-events-none whitespace-pre overflow-hidden font-mono">
-              <span className="text-[#E2E4DF] font-semibold">{cmdPart}</span>
-              <span className="text-emerald-400 font-bold">{argPart}</span>
-              <span className="w-2 h-4 bg-emerald-400 opacity-90 inline-block animate-pulse ml-0.5" />
-            </div>
-
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="w-full bg-transparent border-none outline-none text-transparent caret-transparent font-mono text-xs z-10"
-              autoFocus
-              spellCheck={false}
-              autoComplete="off"
-            />
-          </div>
-        </form>
-
         <div ref={bottomRef} />
       </div>
     </div>
