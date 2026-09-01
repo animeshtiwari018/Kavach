@@ -16,6 +16,7 @@ import GitHubApp from "../apps/github";
 import SpotifyApp from "../apps/spotify";
 import MissionArchiveApp from "../apps/mission-archive";
 import SkillsApp from "../apps/skills";
+import ServiceRecordApp from "../apps/service-record";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -367,6 +368,10 @@ export default function Homepage({ onLogout }) {
         return <MissionArchiveApp />;
       case "skills":
         return <SkillsApp />;
+      case "service-record":
+      case "experience":
+      case "record":
+        return <ServiceRecordApp />;
       default:
         return (
           <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#070906] text-[#D4D5C8] font-mono text-center">
@@ -635,6 +640,29 @@ export default function Homepage({ onLogout }) {
             </div>
             <span className="text-[10px] font-mono font-bold text-white group-hover:text-amber-400 bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
               About Me
+            </span>
+          </motion.div>
+
+          {/* Service Record (Rank Progression) Icon */}
+          <motion.div
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              handleDockAppClick({
+                id: "service-record",
+                title: "Kavach Service Record (Experience)",
+                size: { width: 780, height: 520 },
+              })
+            }
+            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+          >
+            <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#C2B280]/40 group-hover:border-[#C2B280] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(194,178,128,0.3)]">
+              <svg className="w-8 h-8 text-[#C2B280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125v3.375m9 0h-9m9-15a3 3 0 0 0-3-3h-3a3 3 0 0 0-3 3v.75M9 3.75V6m0 0h6m-6 0h6M9 6v.75" />
+              </svg>
+            </div>
+            <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#C2B280] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
+              Experience
             </span>
           </motion.div>
         </div>
