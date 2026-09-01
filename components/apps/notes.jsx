@@ -33,14 +33,7 @@ const INITIAL_NOTES = [
     created: "2026-09-01",
     isPinned: true,
     isReadOnly: true,
-    content: `◈ PERSONNEL DOSSIER // OPERATIVE 01
-
-FILE STATUS: ACTIVE
-CLEARANCE: PROTECTED
-SECURITY LEVEL: LEVEL 5
-DATE STAMP: 01 SEP 2026
-
-==================================================
+    content: `==================================================
    SERVICE RECORD
 ==================================================
 
@@ -79,10 +72,7 @@ Build. Learn. Deploy. Improve. Repeat.
 --------------------------------------------------
 ◈ OPERATIONAL PHILOSOPHY
 --------------------------------------------------
-"Stay curious. Think systematically. Build with purpose."
-
-==================================================
-[CONFIDENTIAL // KAVACH SECURITY PROTOCOL]`,
+"Stay curious. Think systematically. Build with purpose."`,
   },
   {
     id: "skills",
@@ -93,12 +83,7 @@ Build. Learn. Deploy. Improve. Repeat.
     created: "2026-09-01",
     isPinned: true,
     isReadOnly: true,
-    content: `◈ TECHNICAL CAPABILITIES // SYSTEM SPECS
-
-FILE STATUS: PROTECTED
-CLASSIFICATION: TECHNICAL DOSSIER
-
-==================================================
+    content: `==================================================
    SYSTEM COMPETENCIES & STACK
 ==================================================
 
@@ -139,12 +124,7 @@ CLASSIFICATION: TECHNICAL DOSSIER
     created: "2026-08-31",
     isPinned: false,
     isReadOnly: true,
-    content: `◈ CURRENT OPERATIONS // CLASSIFIED DEPLOYMENTS
-
-FILE STATUS: ACTIVE
-SECURITY LEVEL: LEVEL 4
-
-==================================================
+    content: `==================================================
    ACTIVE PROJECTS & DIRECTIVES
 ==================================================
 
@@ -174,12 +154,7 @@ SECURITY LEVEL: LEVEL 4
     created: "2026-08-30",
     isPinned: false,
     isReadOnly: true,
-    content: `◈ COMMUNICATION CHANNELS // DIRECT MATRIX
-
-FILE STATUS: PROTECTED
-CLEARANCE: PUBLIC ACCESS
-
-==================================================
+    content: `==================================================
    OPERATIVE CONTACT METADATA
 ==================================================
 
@@ -264,7 +239,7 @@ export default function NotesApp() {
 
   const triggerWarning = (
     title = "CLEARANCE RESTRICTED",
-    message = "You are not allowed to edit this classified personnel file."
+    message = "You are not allowed to edit this classified personnel file.",
   ) => {
     if (warningTimerRef.current) clearTimeout(warningTimerRef.current);
     setWarning({ title, message });
@@ -285,12 +260,12 @@ export default function NotesApp() {
     if (activeNote.isReadOnly) {
       triggerWarning(
         "CLEARANCE RESTRICTED",
-        "You are not allowed to edit this classified personnel file."
+        "You are not allowed to edit this classified personnel file.",
       );
       return;
     }
     setNotes((prev) =>
-      prev.map((n) => (n.id === activeNoteId ? { ...n, [field]: value } : n))
+      prev.map((n) => (n.id === activeNoteId ? { ...n, [field]: value } : n)),
     );
     setSaveStatus(true);
     setTimeout(() => setSaveStatus(false), 1500);
@@ -300,7 +275,7 @@ export default function NotesApp() {
     if (activeNote.isReadOnly) {
       triggerWarning(
         "CLEARANCE RESTRICTED",
-        "You are not allowed to edit this classified personnel file."
+        "You are not allowed to edit this classified personnel file.",
       );
     }
   };
@@ -327,7 +302,7 @@ export default function NotesApp() {
     if (target?.isReadOnly) {
       triggerWarning(
         "ACTION RESTRICTED",
-        "System personnel dossiers cannot be purged."
+        "System personnel dossiers cannot be purged.",
       );
       return;
     }
@@ -374,7 +349,9 @@ export default function NotesApp() {
               <Users className="w-3.5 h-3.5 shrink-0 text-[#7A8274]" />
               <span className="truncate">CLASSIFIED FILES</span>
             </span>
-            <span className="text-[10px] font-mono text-[#7A8274] shrink-0">0</span>
+            <span className="text-[10px] font-mono text-[#7A8274] shrink-0">
+              0
+            </span>
           </button>
         </div>
 
@@ -467,7 +444,7 @@ export default function NotesApp() {
                     !line.startsWith("SECURITY") &&
                     !line.startsWith("DATE") &&
                     !line.startsWith("=") &&
-                    !line.startsWith("-")
+                    !line.startsWith("-"),
                 ) || note.content.substring(0, 28);
 
             return (
@@ -487,24 +464,17 @@ export default function NotesApp() {
 
                 <div className="flex items-center justify-between pl-1 gap-1">
                   <span className="font-semibold text-xs text-[#E2E4DF] truncate flex items-center gap-1 min-w-0 font-mono">
-                    <span className="text-[#C2B280] text-[10px] shrink-0">◈</span>
-                    <span className="truncate tracking-tight">{note.title}</span>
+                    <span className="text-[#C2B280] text-[10px] shrink-0">
+                      ◈
+                    </span>
+                    <span className="truncate tracking-tight">
+                      {note.title}
+                    </span>
                   </span>
                   <span className="text-[9px] font-mono text-[#7A8274] shrink-0">
                     {note.created}
                   </span>
                 </div>
-
-                <div className="flex items-center justify-between mt-1 pl-1 font-mono text-[10px] text-[#A89B74]">
-                  <span className="truncate">{note.code || "FILE // LOG"}</span>
-                  <span className="text-[8px] text-[#708764] font-bold px-1 bg-[#252D22] rounded border border-[#3E4D38]">
-                    {note.isReadOnly ? "PROTECTED" : "ACTIVE"}
-                  </span>
-                </div>
-
-                <p className="text-[10px] text-[#8C9486] truncate mt-1 pl-1 font-mono">
-                  {snippet}
-                </p>
               </div>
             );
           })}
@@ -629,30 +599,10 @@ export default function NotesApp() {
           </div>
         </div>
 
-        {/* Dossier Document Reader & Textarea */}
+        {/* Document Reader & Textarea */}
         <div className="flex-1 p-6 overflow-y-auto flex flex-col space-y-3 font-mono">
-          {/* Covert Intelligence Metadata Bar */}
-          <div className="bg-[#1B201B] border border-[#344030] rounded-lg px-3.5 py-2 flex items-center justify-between text-[10px] text-[#A8ACA2] shadow-sm mb-1">
-            <div className="flex items-center gap-2">
-              <Shield className="w-3.5 h-3.5 text-[#C2B280]" />
-              <span className="font-bold text-[#E2E4DF] tracking-wider">
-                {activeNote.code || "DOSSIER // FILE"}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-[#C2B280] bg-[#2A2B23] border border-[#4A4736] px-2 py-0.5 rounded font-bold text-[9px]">
-                CLEARANCE: {activeNote.isReadOnly ? "PROTECTED" : "UNRESTRICTED"}
-              </span>
-              <span className="text-[#708764] font-bold flex items-center gap-1">
-                <Radio className="w-3 h-3 text-[#708764] animate-pulse" />
-                STATUS: ACTIVE
-              </span>
-            </div>
-          </div>
-
-          {/* Date stamp */}
-          <div className="text-[10px] text-[#7A8274] text-center font-mono tracking-widest uppercase">
-            STAMP: {activeNote.created} // KAVACH INTELLIGENCE ARCHIVE
+          <div className="text-[11px] text-[#7A8274] text-center font-mono tracking-widest uppercase">
+            {activeNote.created}
           </div>
 
           <input
@@ -682,4 +632,3 @@ export default function NotesApp() {
     </div>
   );
 }
-
