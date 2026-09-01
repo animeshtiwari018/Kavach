@@ -162,7 +162,7 @@ export default function NotesApp() {
 
   const handleUpdateNote = (field, value) => {
     setNotes((prev) =>
-      prev.map((n) => (n.id === activeNoteId ? { ...n, [field]: value } : n))
+      prev.map((n) => (n.id === activeNoteId ? { ...n, [field]: value } : n)),
     );
     setSaveStatus(true);
     setTimeout(() => setSaveStatus(false), 1500);
@@ -218,9 +218,7 @@ export default function NotesApp() {
             </span>
           </button>
 
-          <button
-            className="w-full flex items-center justify-between px-2 py-1.5 rounded-md text-xs font-medium text-[#858585] hover:bg-[#2A2D2E] transition-colors mt-0.5"
-          >
+          <button className="w-full flex items-center justify-between px-2 py-1.5 rounded-md text-xs font-medium text-[#858585] hover:bg-[#2A2D2E] transition-colors mt-0.5">
             <span className="flex items-center gap-2">
               <Users className="w-3.5 h-3.5" />
               <span>Shared</span>
@@ -238,7 +236,9 @@ export default function NotesApp() {
             {["#about", "#skills", "#projects", "#contact"].map((tag) => (
               <button
                 key={tag}
-                onClick={() => setSelectedTag(selectedTag === tag ? "ALL" : tag)}
+                onClick={() =>
+                  setSelectedTag(selectedTag === tag ? "ALL" : tag)
+                }
                 className={`w-full flex items-center gap-2 px-2 py-1 rounded-md text-[11px] transition-colors ${
                   selectedTag === tag
                     ? "bg-[#37373D] text-[#569CD6] font-bold"
@@ -283,8 +283,13 @@ export default function NotesApp() {
             const snippet =
               note.content
                 .split("\n")
-                .find((line) => line.trim().length > 0 && !line.startsWith("Hi!") && !line.startsWith("GET IN") && !line.startsWith("TECHNICAL")) ||
-              note.content.substring(0, 30);
+                .find(
+                  (line) =>
+                    line.trim().length > 0 &&
+                    !line.startsWith("Hi!") &&
+                    !line.startsWith("GET IN") &&
+                    !line.startsWith("TECHNICAL"),
+                ) || note.content.substring(0, 30);
 
             return (
               <div
@@ -334,16 +339,28 @@ export default function NotesApp() {
             >
               <SquarePen className="w-4 h-4" />
             </button>
-            <button className="p-1 hover:text-white transition-colors cursor-pointer" title="Format Text">
+            <button
+              className="p-1 hover:text-white transition-colors cursor-pointer"
+              title="Format Text"
+            >
               <Type className="w-4 h-4" />
             </button>
-            <button className="p-1 hover:text-white transition-colors cursor-pointer" title="Add Table">
+            <button
+              className="p-1 hover:text-white transition-colors cursor-pointer"
+              title="Add Table"
+            >
               <Table className="w-4 h-4" />
             </button>
-            <button className="p-1 hover:text-white transition-colors cursor-pointer" title="Add Checklist">
+            <button
+              className="p-1 hover:text-white transition-colors cursor-pointer"
+              title="Add Checklist"
+            >
               <CheckSquare className="w-4 h-4" />
             </button>
-            <button className="p-1 hover:text-white transition-colors cursor-pointer" title="Attachment">
+            <button
+              className="p-1 hover:text-white transition-colors cursor-pointer"
+              title="Attachment"
+            >
               <Paperclip className="w-4 h-4" />
             </button>
           </div>
@@ -354,10 +371,16 @@ export default function NotesApp() {
                 <Check className="w-3 h-3" /> Saved
               </span>
             )}
-            <button className="p-1 hover:text-white transition-colors cursor-pointer" title="Tag Note">
+            <button
+              className="p-1 hover:text-white transition-colors cursor-pointer"
+              title="Tag Note"
+            >
               <Tag className="w-4 h-4" />
             </button>
-            <button className="p-1 hover:text-white transition-colors cursor-pointer" title="Share Note">
+            <button
+              className="p-1 hover:text-white transition-colors cursor-pointer"
+              title="Share Note"
+            >
               <Share2 className="w-4 h-4" />
             </button>
             <button
@@ -395,4 +418,3 @@ export default function NotesApp() {
     </div>
   );
 }
-
