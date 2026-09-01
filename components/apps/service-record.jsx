@@ -20,73 +20,27 @@ import { motion, AnimatePresence } from "motion/react";
 
 const RANKS_DATA = [
   {
-    id: "rank-04",
-    step: "STEP 04",
-    recordId: "SR-004",
-    rankTitle: "TECHNICAL OFFICER",
-    rankCode: "RANK 04",
+    id: "rank-02",
+    step: "STEP 02",
+    recordId: "SR-002",
+    rankTitle: "FIELD OPERATIVE",
+    rankCode: "RANK 02",
     symbol: "★",
     category: "CURRENT ASSIGNMENT",
     status: "ACTIVE",
-    posting: "KAVACH LABS / INDEPENDENT SOFTWARE ENGINEERING",
+    posting: "KAVACH WORKSTATION & INDEPENDENT ENGINEERING",
     role: "Full-Stack Web Developer & Systems Engineer",
     period: "2025 — PRESENT",
-    previousRank: "FIELD OPERATIVE",
+    previousRank: "CADET",
     objective:
-      "Engineers high-reliability web applications, custom workstation environments, and microservice APIs with modern MERN and Next.js architectures.",
+      "Engineers high-reliability web applications, custom workstation environments, microservices, and optimized algorithmic data engines.",
     duties: [
-      "Architected Next.js workstation portfolio shell featuring window drag/resize management and FaceTime webcam telemetry",
-      "Developed high-throughput Node.js microservices with Redis rate-limiting and JWT security middlewares",
+      "Architected Next.js workstation portfolio shell featuring window drag/resize physics management and webcam telemetry",
+      "Developed high-throughput Node.js microservices with Redis rate-limiting algorithms and JWT security pipelines",
       "Created modular component systems with Framer Motion animations and custom dark-theme design tokens",
       "Managed version control, CI/CD workflows, and production deployments on Vercel and Docker",
     ],
     skillsDeployed: ["Next.js 15", "React 19", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Framer Motion", "Git"],
-  },
-  {
-    id: "rank-03",
-    step: "STEP 03",
-    recordId: "SR-003",
-    rankTitle: "FIELD OPERATIVE",
-    rankCode: "RANK 03",
-    symbol: "◆",
-    category: "DEVELOPMENT ASSIGNMENT",
-    status: "COMPLETED",
-    posting: "WEB SOLUTIONS & FREELANCE PROJECTS",
-    role: "Full-Stack Web Developer Intern",
-    period: "2024 — 2025",
-    previousRank: "JUNIOR OPERATIVE",
-    objective:
-      "Engineered web applications and user portal systems, focusing on client-side state management, API integration, and database queries.",
-    duties: [
-      "Built Student Resource Portal web app for academic resource distribution and indexed document searches",
-      "Integrated MongoDB database schemas with Mongoose ORM for efficient document retrieval",
-      "Created RESTful endpoints for authentication, file uploads, and user clearance management",
-      "Optimized page load speed and asset bundling for seamless mobile and desktop cross-device performance",
-    ],
-    skillsDeployed: ["React", "JavaScript (ES6+)", "Node.js", "Express", "MongoDB", "CSS3 / Tailwind"],
-  },
-  {
-    id: "rank-02",
-    step: "STEP 02",
-    recordId: "SR-002",
-    rankTitle: "JUNIOR OPERATIVE",
-    rankCode: "RANK 02",
-    symbol: "◆",
-    category: "FIRST PROFESSIONAL ASSIGNMENT",
-    status: "COMPLETED",
-    posting: "FRONTEND DEVELOPMENT INTERNSHIP",
-    role: "Junior Web Developer Intern",
-    period: "2023 — 2024",
-    previousRank: "CADET",
-    objective:
-      "First professional development posting focused on frontend interface design, responsive layouts, and modern web application building.",
-    duties: [
-      "Implemented responsive web UI components using HTML5, CSS3, JavaScript, and Tailwind CSS",
-      "Collaborated with senior engineers on debugging DOM interactions and cross-browser visual fixes",
-      "Integrated third-party REST APIs and client-side form validation mechanisms",
-      "Participated in Git code reviews and daily agile sprint syncs",
-    ],
-    skillsDeployed: ["HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Git / GitHub", "REST APIs"],
   },
   {
     id: "rank-01",
@@ -95,28 +49,50 @@ const RANKS_DATA = [
     rankTitle: "CADET",
     rankCode: "RANK 01",
     symbol: "◆",
-    category: "TRAINING & LEARNING PHASE",
+    category: "INTERNSHIP ASSIGNMENT",
     status: "COMPLETED",
-    posting: "COMPUTER SCIENCE ACADEMY & SELF-DIRECTED TRAINING",
-    role: "Software Engineering Cadet / Student",
-    period: "2022 — 2023",
+    posting: "WEB ENGINEERING INTERNSHIP",
+    role: "Full-Stack Web Developer Intern",
+    period: "2024 — 2025",
     previousRank: "N/A",
     objective:
-      "Foundational technical training phase establishing core competencies in Data Structures, Algorithms, C++, and Web Engineering.",
+      "First professional web engineering internship focused on full-stack web application development, academic resource portals, and REST API integration.",
     duties: [
-      "Mastered Data Structures & Algorithms in C++ (arrays, linked lists, trees, dynamic programming)",
-      "Built basic web pages and interactive UI utilities using JavaScript and CSS",
-      "Studied core OS concepts, memory allocation pointers, and relational database basics",
-      "Solved 200+ algorithmic problem-solving benchmarks",
+      "Built Student Resource Portal web app for academic resource distribution and indexed document search pipelines",
+      "Developed responsive frontend interfaces using React, JavaScript (ES6+), and Tailwind CSS",
+      "Integrated MongoDB schemas with Mongoose ORM and Express REST API authorization endpoints",
+      "Collaborated on version control using Git, code reviews, and cross-browser responsiveness testing",
     ],
-    skillsDeployed: ["C++", "Data Structures", "Algorithms", "HTML/CSS", "JavaScript Fundamentals"],
+    skillsDeployed: ["React", "JavaScript (ES6+)", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Git"],
   },
   {
-    id: "rank-05",
-    step: "STEP 05",
-    recordId: "SR-005",
+    id: "rank-03",
+    step: "STEP 03",
+    recordId: "SR-003",
+    rankTitle: "TECHNICAL OFFICER",
+    rankCode: "RANK 03",
+    symbol: "○",
+    category: "NEXT LEVEL DIRECTIVE",
+    status: "LOCKED",
+    posting: "FULL-STACK SOFTWARE ENGINEER",
+    role: "Software Engineer / Full-Stack Engineer",
+    period: "FUTURE DIRECTIVE",
+    previousRank: "FIELD OPERATIVE",
+    objective:
+      "Target professional milestone advancing towards full-time Software Engineer positions, microservice architecture design, and enterprise-grade systems.",
+    duties: [
+      "Design scalable enterprise microservices and event-driven architecture pipelines",
+      "Lead feature delivery and full-stack web engineering across production codebases",
+      "Optimize system performance, security middlewares, and automated testing suites",
+    ],
+    skillsDeployed: ["Software Engineering", "Microservices", "System Architecture", "Production Deployment"],
+  },
+  {
+    id: "rank-04",
+    step: "STEP 04",
+    recordId: "SR-004",
     rankTitle: "COMMAND LEVEL",
-    rankCode: "RANK 05",
+    rankCode: "RANK 04",
     symbol: "○",
     category: "FUTURE CAREER OBJECTIVE",
     status: "LOCKED",
@@ -125,18 +101,18 @@ const RANKS_DATA = [
     period: "FUTURE DIRECTIVE",
     previousRank: "TECHNICAL OFFICER",
     objective:
-      "Target career progression level focusing on cloud architecture, distributed microservice scaling, lead technical management, and high-impact software systems.",
+      "Long-term career objective focusing on distributed cloud architecture, lead engineering management, and high-impact software systems.",
     duties: [
-      "Architect enterprise-scale distributed systems and real-time data pipelines",
-      "Lead cross-functional engineering teams in delivering zero-downtime cloud infrastructure",
-      "Drive system security protocols, automated CI/CD pipelines, and performance benchmarks",
+      "Architect enterprise-scale distributed cloud systems and real-time data pipelines",
+      "Lead cross-functional engineering teams in delivering zero-downtime infrastructure",
+      "Drive system security protocols, CI/CD pipelines, and performance benchmarks",
     ],
     skillsDeployed: ["System Architecture", "Distributed Systems", "Cloud Infrastructure", "Engineering Leadership"],
   },
 ];
 
 export default function ServiceRecordApp() {
-  const [selectedRankId, setSelectedRankId] = useState("rank-04");
+  const [selectedRankId, setSelectedRankId] = useState("rank-02");
   const [isAccessingRecord, setIsAccessingRecord] = useState(false);
   const accessTimerRef = useRef(null);
 
@@ -256,7 +232,7 @@ export default function ServiceRecordApp() {
                 <span className="truncate">FILES</span>
               </span>
               <span className="text-[10px] font-mono text-[#7A8274] font-semibold shrink-0">
-                5
+                4
               </span>
             </button>
           </div>
@@ -331,18 +307,16 @@ export default function ServiceRecordApp() {
           <div className="p-3 border-b border-[#2A2E29] bg-[#181B18] space-y-2 shrink-0">
             <div className="text-[10px] font-mono font-bold text-[#C2B280] tracking-wider uppercase flex items-center justify-between">
               <span>CAREER PROGRESSION</span>
-              <span className="text-[9px] text-[#708764]">RANK 04 / 05</span>
+              <span className="text-[9px] text-[#708764]">RANK 02 / 04</span>
             </div>
 
             {/* Horizontal Compact Progression Indicator Bar */}
             <div className="text-[8.5px] font-mono text-[#7A8274] pt-1 flex items-center justify-between overflow-x-auto whitespace-nowrap scrollbar-none pb-0.5">
               <span className="text-[#8E9B72] font-bold">CADET</span>
               <span className="text-[#5C6F52]">──●──</span>
-              <span className="text-[#8E9B72] font-bold">JR OPS</span>
-              <span className="text-[#5C6F52]">──●──</span>
-              <span className="text-[#8E9B72] font-bold">FLD OPS</span>
-              <span className="text-[#5C6F52]">──●──</span>
-              <span className="text-[#C2B280] font-bold">TECH OFF</span>
+              <span className="text-[#C2B280] font-bold">FLD OPS</span>
+              <span className="text-[#5E6255]">──○──</span>
+              <span className="text-[#5E6255]">TECH OFF</span>
               <span className="text-[#5E6255]">──○──</span>
               <span className="text-[#5E6255]">CMD</span>
             </div>
