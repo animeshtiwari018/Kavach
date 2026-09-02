@@ -409,9 +409,9 @@ export default function Homepage({ onLogout }) {
       }`}
       style={{
         backgroundImage: isDarkMode
-          ? `linear-gradient(to bottom, rgba(6, 8, 6, 0.4), rgba(6, 8, 6, 0.65)), url("/images/Be Disciplind.png")`
+          ? `url("/images/Be Disciplind.png")`
           : undefined,
-        backgroundSize: "cover",
+        backgroundSize: "45% auto",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
