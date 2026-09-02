@@ -109,10 +109,8 @@ body {
 
 /* Background Wallpaper Gradient - dark mood */
 .mac-wallpaper {
-  background: 
-    linear-gradient(to bottom, rgba(10, 15, 25, 0.8), rgba(5, 5, 10, 1)),
-    url('/images/Be Disciplind.png');
-  background-size: contain;
+  background-image: url('/images/Be Disciplind.png');
+  background-size: 45% auto;
   background-position: center;
   background-repeat: no-repeat;
 }
