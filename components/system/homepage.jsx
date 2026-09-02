@@ -19,6 +19,7 @@ import SkillsApp from "../apps/skills";
 import ServiceRecordApp from "../apps/service-record";
 import SystemAnalysisApp from "../apps/system-analysis";
 import ContactApp from "../apps/contact";
+import DesktopWidgets from "../widgets";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -146,13 +147,19 @@ export default function Homepage({ onLogout }) {
     if (typeof window !== "undefined") {
       const w = window.innerWidth;
       const h = window.innerHeight - 110; // available desktop height
-      
+
       setApps((prev) =>
         prev.map((app, index) => {
           const offset = index * 25;
-          const centeredX = Math.max(20, Math.floor((w - app.defaultWidth) / 2) + offset);
-          const centeredY = Math.max(20, Math.floor((h - app.defaultHeight) / 2) + offset);
-          
+          const centeredX = Math.max(
+            20,
+            Math.floor((w - app.defaultWidth) / 2) + offset,
+          );
+          const centeredY = Math.max(
+            20,
+            Math.floor((h - app.defaultHeight) / 2) + offset,
+          );
+
           return {
             ...app,
             defaultX: centeredX,
@@ -256,14 +263,22 @@ export default function Homepage({ onLogout }) {
       const newZ = topZIndex + 1;
       setTopZIndex(newZ);
       setApps((prev) => {
-        const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
-        const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+        const screenW =
+          typeof window !== "undefined" ? window.innerWidth : 1000;
+        const screenH =
+          typeof window !== "undefined" ? window.innerHeight - 110 : 600;
         const appWidth = appWindow.size.width;
         const appHeight = appWindow.size.height;
         const openCount = prev.filter((a) => a.isOpen).length;
         const offset = openCount * 25;
-        const centeredX = Math.max(20, Math.floor((screenW - appWidth) / 2) + (offset % 100));
-        const centeredY = Math.max(20, Math.floor((screenH - appHeight) / 2) + (offset % 60));
+        const centeredX = Math.max(
+          20,
+          Math.floor((screenW - appWidth) / 2) + (offset % 100),
+        );
+        const centeredY = Math.max(
+          20,
+          Math.floor((screenH - appHeight) / 2) + (offset % 60),
+        );
 
         return [
           ...prev,
@@ -386,9 +401,12 @@ export default function Homepage({ onLogout }) {
       default:
         return (
           <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-[#070906] text-[#D4D5C8] font-mono text-center">
-            <h3 className="text-sm font-bold text-[#8E9B72] mb-2">{(app.title || "").toUpperCase()}</h3>
+            <h3 className="text-sm font-bold text-[#8E9B72] mb-2">
+              {(app.title || "").toUpperCase()}
+            </h3>
             <p className="text-xs text-[#73786B] max-w-xs leading-relaxed">
-              This application is sandboxed. Connect module keys or input operational clearance to unlock full workstation integration.
+              This application is sandboxed. Connect module keys or input
+              operational clearance to unlock full workstation integration.
             </p>
           </div>
         );
@@ -588,6 +606,9 @@ export default function Homepage({ onLogout }) {
           className="absolute inset-x-2 top-[44px] bottom-[80px] pointer-events-none"
         />
 
+        {/* Desktop Right-Side Widgets (Calendar & Weather) with Army Touch */}
+        <DesktopWidgets />
+
         {/* Desktop Left-Side App Shortcut Icons */}
         <div className="absolute top-[60px] left-6 z-20 flex flex-col items-center gap-6 select-none">
           <motion.div
@@ -628,8 +649,18 @@ export default function Homepage({ onLogout }) {
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-blue-500/40 group-hover:border-blue-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-              <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 1-6.23.693L4.2 15.3m15.6 0a3 3 0 0 1-2.07 3.51l-1.635.545a9.06 9.06 0 0 1-8.19 0l-1.635-.545A3 3 0 0 1 4.2 15.3" />
+              <svg
+                className="w-8 h-8 text-blue-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 1-6.23.693L4.2 15.3m15.6 0a3 3 0 0 1-2.07 3.51l-1.635.545a9.06 9.06 0 0 1-8.19 0l-1.635-.545A3 3 0 0 1 4.2 15.3"
+                />
               </svg>
             </div>
             <span className="text-[10px] font-mono font-bold text-white group-hover:text-blue-400 bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
@@ -651,8 +682,18 @@ export default function Homepage({ onLogout }) {
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#8E9B72]/40 group-hover:border-[#8E9B72] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(142,155,114,0.3)]">
-              <svg className="w-8 h-8 text-[#8E9B72]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91A2.25 2.25 0 0 1 2.25 6.993V6.75" />
+              <svg
+                className="w-8 h-8 text-[#8E9B72]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91A2.25 2.25 0 0 1 2.25 6.993V6.75"
+                />
               </svg>
             </div>
             <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#8E9B72] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
@@ -674,8 +715,18 @@ export default function Homepage({ onLogout }) {
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-green-500/40 group-hover:border-green-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(74,222,128,0.3)]">
-              <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-5.25 6.557c0 1.63 2.35 2.952 5.25 2.952s5.25-1.322 5.25-2.952m-10.5 0h10.5" />
+              <svg
+                className="w-8 h-8 text-green-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-5.25 6.557c0 1.63 2.35 2.952 5.25 2.952s5.25-1.322 5.25-2.952m-10.5 0h10.5"
+                />
               </svg>
             </div>
             <span className="text-[10px] font-mono font-bold text-white group-hover:text-green-400 bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
@@ -722,8 +773,18 @@ export default function Homepage({ onLogout }) {
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#C2B280]/40 group-hover:border-[#C2B280] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(194,178,128,0.3)]">
-              <svg className="w-8 h-8 text-[#C2B280]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125v3.375m9 0h-9m9-15a3 3 0 0 0-3-3h-3a3 3 0 0 0-3 3v.75M9 3.75V6m0 0h6m-6 0h6M9 6v.75" />
+              <svg
+                className="w-8 h-8 text-[#C2B280]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125v3.375m9 0h-9m9-15a3 3 0 0 0-3-3h-3a3 3 0 0 0-3 3v.75M9 3.75V6m0 0h6m-6 0h6M9 6v.75"
+                />
               </svg>
             </div>
             <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#C2B280] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
@@ -769,7 +830,9 @@ export default function Homepage({ onLogout }) {
                   defaultY={app.defaultY}
                   desktopRef={desktopRef}
                   constraintsRef={constraintsRef}
-                  onPositionChange={(x, y) => handlePositionChange(app.id, x, y)}
+                  onPositionChange={(x, y) =>
+                    handlePositionChange(app.id, x, y)
+                  }
                   onSizeChange={(w, h) => handleSizeChange(app.id, w, h)}
                 >
                   {renderAppComponent(app)}
