@@ -404,9 +404,17 @@ export default function Homepage({ onLogout }) {
     <div
       className={`min-h-screen w-full relative overflow-hidden flex flex-col select-none transition-colors duration-300 ${
         isDarkMode
-          ? "bg-black text-[#D4D5C8]"
+          ? "bg-[#070906] text-[#D4D5C8]"
           : "bg-neutral-100 text-neutral-800"
       }`}
+      style={{
+        backgroundImage: isDarkMode
+          ? `linear-gradient(to bottom, rgba(6, 8, 6, 0.4), rgba(6, 8, 6, 0.65)), url("/images/Be Disciplind.png")`
+          : undefined,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
       onClick={handleDesktopClick}
     >
       {/* Top macOS Menubar */}
