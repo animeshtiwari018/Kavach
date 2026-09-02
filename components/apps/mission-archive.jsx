@@ -16,6 +16,7 @@ import {
   Globe,
   Terminal,
   Layers3,
+  Mail,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -345,7 +346,7 @@ export default function MissionArchiveApp() {
               {/* Contact Item */}
               <button className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11px] font-mono text-[#A8ACA2] hover:bg-[#222622] transition-colors">
                 <span className="flex items-center gap-2 truncate">
-                  <span className="text-[#5C6F52] text-[10px]">◈</span>
+                  <Mail className="w-3.5 h-3.5 text-[#8E9B72] shrink-0" />
                   <span className="truncate">Contact</span>
                 </span>
                 <span className="text-[9px] text-[#7A8274]">COMM</span>
