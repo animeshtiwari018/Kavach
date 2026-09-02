@@ -13,7 +13,7 @@ const dockApps = [
   { id: "facetime", title: "FaceTime", icon: "/facetime.png", component: "FaceTime" },
   { id: "terminal", title: "Terminal", icon: "/images/Terminal.png", component: "Terminal" },
   { id: "github", title: "GitHub", icon: "/images/github.png", component: "GitHub" },
-  { id: "youtube", title: "YouTube", icon: "/images/youtube.png", component: "YouTube" },
+  { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
   { id: "spotify", title: "Spotify", icon: "/images/spotify.png", component: "Spotify" },
 ];
 
