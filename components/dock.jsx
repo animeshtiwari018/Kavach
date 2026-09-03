@@ -3,9 +3,12 @@
 import { useState, useRef, useEffect } from "react";
 import { MoreHorizontal } from "lucide-react";
 
+import { VaniOrb } from "./system/vani";
+
 // App list config
 const dockApps = [
   { id: "launchpad", title: "Launchpad", icon: "/images/kavach.svg", component: "Launchpad", isSystem: true },
+  { id: "vani", title: "VANI AI", icon: "vani", component: "Vani" },
   { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
   { id: "settings", title: "Settings", icon: "/images/kavach.svg", component: "Settings" },
   { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
@@ -19,6 +22,7 @@ const dockApps = [
 
 const emojiFallback = {
   launchpad: "🚀",
+  vani: "🎙️",
   safari: "🌐",
   settings: "⚙️",
   mail: "✉️",
@@ -31,7 +35,7 @@ const emojiFallback = {
   spotify: "🎵",
 };
 
-export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], isDarkMode }) {
+export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, activeAppIds = [], isDarkMode }) {
   const [mouseX, setMouseX] = useState(null);
   const dockRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -68,6 +72,11 @@ export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], 
   const handleAppClick = (app) => {
     if (app.id === "launchpad") {
       onLaunchpadClick();
+      return;
+    }
+
+    if (app.id === "vani") {
+      onVaniClick?.();
       return;
     }
 
@@ -189,7 +198,9 @@ export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], 
                   transition: mouseX === null ? "transform 0.2s ease-out" : "none",
                 }}
               >
-                {hasError ? (
+                {app.id === "vani" ? (
+                  <VaniOrb size="dock" />
+                ) : hasError ? (
                   <div className={`flex items-center justify-center select-none font-sans ${isMobile ? "w-14 h-14 text-3.5xl" : "w-12 h-12 text-3xl"}`}>
                     {emojiFallback[app.id] || "📦"}
                   </div>
