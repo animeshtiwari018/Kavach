@@ -32,9 +32,17 @@ export default function Window({
   const dragControls = useDragControls();
   const windowRef = useRef(null);
 
+  const [position, setPosition] = useState({ x: defaultX, y: defaultY });
   const [width, setWidth] = useState(defaultWidth);
   const [height, setHeight] = useState(defaultHeight);
   const [isResizing, setIsResizing] = useState(false);
+
+  // Sync with defaultX/defaultY on initial load or resize, ONLY if we haven't dragged (or just keep it simple and update when props change)
+  useEffect(() => {
+    if (!isMaximized) {
+      setPosition({ x: defaultX, y: defaultY });
+    }
+  }, [defaultX, defaultY]);
 
   // Clamp initial default size to desktop boundaries
   useEffect(() => {
@@ -69,9 +77,10 @@ export default function Window({
     if (isMaximized) {
       setWidth(preMaximizeState.width);
       setHeight(preMaximizeState.height);
+      setPosition({ x: preMaximizeState.x, y: preMaximizeState.y });
       setIsMaximized(false);
     } else {
-      setPreMaximizeState({ width, height, x: defaultX, y: defaultY });
+      setPreMaximizeState({ width, height, x: position.x, y: position.y });
       setIsMaximized(true);
     }
   };
@@ -145,12 +154,12 @@ export default function Window({
       dragMomentum={false}
       dragConstraints={constraintsRef || desktopRef}
       dragElastic={0.05}
-      initial={{ opacity: 0, scale: 0.92, x: defaultX, y: defaultY }}
+      initial={{ opacity: 0, scale: 0.92, x: position.x, y: position.y }}
       animate={{
         opacity: 1,
         scale: 1,
-        x: isMaximized ? 0 : defaultX,
-        y: isMaximized ? 0 : defaultY,
+        x: isMaximized ? 0 : position.x,
+        y: isMaximized ? 0 : position.y,
         width: isMaximized ? "100%" : width,
         height: isMaximized ? "100%" : height,
       }}
@@ -168,6 +177,7 @@ export default function Window({
           const rect = windowRef.current.getBoundingClientRect();
           const relativeX = rect.left - desktopRect.left;
           const relativeY = rect.top - desktopRect.top;
+          setPosition({ x: relativeX, y: relativeY });
           if (onPositionChange) {
             onPositionChange(relativeX, relativeY);
           }

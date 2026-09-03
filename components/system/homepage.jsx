@@ -229,32 +229,63 @@ export default function Homepage({ onLogout }) {
 
     if (!app) {
       const appMeta = {
-        "mission-archive": { title: "Projects (Mission Archive)", size: { width: 780, height: 520 } },
-        "system-analysis": { title: "Intelligence // System Analysis", size: { width: 800, height: 540 } },
-        "contact": { title: "Communications // Contact", size: { width: 780, height: 520 } },
-        "skills": { title: "Skill Intelligence Report", size: { width: 680, height: 540 } },
-        "service-record": { title: "Kavach Service Record (Experience)", size: { width: 780, height: 520 } },
-        "facetime": { title: "FaceTime", size: { width: 780, height: 520 } },
-        "vscode": { title: "VS Code", size: { width: 780, height: 520 } },
-        "github": { title: "GitHub", size: { width: 780, height: 520 } },
-        "spotify": { title: "Spotify", size: { width: 780, height: 520 } },
+        "mission-archive": {
+          title: "Projects (Mission Archive)",
+          size: { width: 780, height: 520 },
+        },
+        "system-analysis": {
+          title: "Intelligence // System Analysis",
+          size: { width: 800, height: 540 },
+        },
+        contact: {
+          title: "Communications // Contact",
+          size: { width: 780, height: 520 },
+        },
+        skills: {
+          title: "Skill Intelligence Report",
+          size: { width: 680, height: 540 },
+        },
+        "service-record": {
+          title: "Kavach Service Record (Experience)",
+          size: { width: 780, height: 520 },
+        },
+        facetime: { title: "FaceTime", size: { width: 780, height: 520 } },
+        vscode: { title: "VS Code", size: { width: 780, height: 520 } },
+        github: { title: "GitHub", size: { width: 780, height: 520 } },
+        spotify: { title: "Spotify", size: { width: 780, height: 520 } },
       };
 
-      const meta = appMeta[id] || { title: id.toUpperCase(), size: { width: 780, height: 520 } };
+      const meta = appMeta[id] || {
+        title: id.toUpperCase(),
+        size: { width: 780, height: 520 },
+      };
       handleDockAppClick({ id, title: meta.title, size: meta.size });
       return;
     }
 
     if (!app.isOpen) {
       const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
-      const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
-      const centeredX = Math.max(10, Math.floor((screenW - app.defaultWidth) / 2));
-      const centeredY = Math.max(10, Math.floor((screenH - app.defaultHeight) / 2));
+      const screenH =
+        typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+      const centeredX = Math.max(
+        10,
+        Math.floor((screenW - app.defaultWidth) / 2),
+      );
+      const centeredY = Math.max(
+        10,
+        Math.floor((screenH - app.defaultHeight) / 2),
+      );
 
       setApps((prev) =>
         prev.map((a) =>
           a.id === id
-            ? { ...a, isOpen: true, isMinimized: false, defaultX: centeredX, defaultY: centeredY }
+            ? {
+                ...a,
+                isOpen: true,
+                isMinimized: false,
+                defaultX: centeredX,
+                defaultY: centeredY,
+              }
             : a,
         ),
       );
@@ -276,7 +307,8 @@ export default function Homepage({ onLogout }) {
     const exists = apps.some((a) => a.id === appMapId);
 
     const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
-    const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+    const screenH =
+      typeof window !== "undefined" ? window.innerHeight - 110 : 600;
     const appWidth = appWindow.size.width;
     const appHeight = appWindow.size.height;
     const centeredX = Math.max(10, Math.floor((screenW - appWidth) / 2));
@@ -288,7 +320,13 @@ export default function Homepage({ onLogout }) {
         setApps((prev) =>
           prev.map((a) =>
             a.id === appMapId
-              ? { ...a, isOpen: true, isMinimized: false, defaultX: centeredX, defaultY: centeredY }
+              ? {
+                  ...a,
+                  isOpen: true,
+                  isMinimized: false,
+                  defaultX: centeredX,
+                  defaultY: centeredY,
+                }
               : a,
           ),
         );
@@ -632,7 +670,7 @@ export default function Homepage({ onLogout }) {
       {/* Main Desktop Canvas Workspace Area */}
       <main
         ref={desktopRef}
-        className="flex-1 w-full relative pt-[42px] flex items-center justify-center bg-transparent cursor-default"
+        className="flex-1 w-full relative pt-[42px] bg-transparent cursor-default"
         style={{ height: "calc(100vh - 36px - 70px)" }}
       >
         {/* Safe Drag Boundary Container */}
