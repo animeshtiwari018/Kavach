@@ -53,6 +53,7 @@ export default function Homepage({ onLogout }) {
         <img
           src="/images/Para_Skull.svg"
           alt="About Me"
+          loading="lazy"
           className="w-14 h-14 object-contain select-none pointer-events-none"
           draggable="false"
           onContextMenu={(e) => e.preventDefault()}
@@ -74,6 +75,7 @@ export default function Homepage({ onLogout }) {
         <img
           src="/images/Terminal.svg"
           alt="Terminal"
+          loading="lazy"
           className="w-14 h-14 object-contain select-none pointer-events-none"
           draggable="false"
           onContextMenu={(e) => e.preventDefault()}
@@ -95,6 +97,7 @@ export default function Homepage({ onLogout }) {
         <img
           src="/images/browser.svg"
           alt="Browser"
+          loading="lazy"
           className="w-14 h-14 object-contain select-none pointer-events-none"
           draggable="false"
           onContextMenu={(e) => e.preventDefault()}
@@ -627,6 +630,7 @@ export default function Homepage({ onLogout }) {
               <img
                 src="/images/kavach.svg"
                 alt="Projects"
+                loading="lazy"
                 className="w-10 h-10 object-contain pointer-events-none select-none"
               />
             </div>
@@ -751,6 +755,7 @@ export default function Homepage({ onLogout }) {
               <img
                 src="/images/Para_Skull.svg"
                 alt="About Me"
+                loading="lazy"
                 className="w-10 h-10 object-contain pointer-events-none select-none"
               />
             </div>
