@@ -4,18 +4,73 @@ import { useState, useEffect } from "react";
 
 // App list config (Launchpad displays all installed applications, excluding itself)
 const launchpadApps = [
-  { id: "mission-archive", title: "Mission Archive", icon: "/images/kavach.svg", component: "MissionArchive" },
-  { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
+  {
+    id: "mission-archive",
+    title: "Mission Archive",
+    icon: "/images/kavach.svg",
+    component: "MissionArchive",
+  },
+  {
+    id: "safari",
+    title: "Safari",
+    icon: "/images/browser.svg",
+    component: "Safari",
+  },
   { id: "mail", title: "Mail", icon: "/images/kavach.svg", component: "Mail" },
-  { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
-  { id: "notes", title: "Notes", icon: "/images/Para_Skull.svg", component: "Notes" },
-  { id: "facetime", title: "FaceTime", icon: "/images/kavach.svg", component: "FaceTime" },
-  { id: "terminal", title: "Terminal", icon: "/images/Terminal.svg", component: "Terminal" },
-  { id: "github", title: "GitHub", icon: "/images/github.svg", component: "GitHub" },
-  { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
-  { id: "spotify", title: "Spotify", icon: "/images/spotify.svg", component: "Spotify" },
-  { id: "snake", title: "Snake", icon: "/images/kavach.svg", component: "Snake" },
-  { id: "weather", title: "Weather", icon: "/images/kavach.svg", component: "Weather" },
+  {
+    id: "vscode",
+    title: "VS Code",
+    icon: "/images/vscode.svg",
+    component: "VSCode",
+  },
+  {
+    id: "notes",
+    title: "Notes",
+    icon: "/images/Para_Skull.svg",
+    component: "Notes",
+  },
+  {
+    id: "facetime",
+    title: "FaceTime",
+    icon: "/images/kavach.svg",
+    component: "FaceTime",
+  },
+  {
+    id: "terminal",
+    title: "Terminal",
+    icon: "/images/Terminal.svg",
+    component: "Terminal",
+  },
+  {
+    id: "github",
+    title: "GitHub",
+    icon: "/images/github.svg",
+    component: "GitHub",
+  },
+  {
+    id: "youtube",
+    title: "YouTube",
+    icon: "/images/youtube.svg",
+    component: "YouTube",
+  },
+  {
+    id: "spotify",
+    title: "Spotify",
+    icon: "/images/spotify.svg",
+    component: "Spotify",
+  },
+  {
+    id: "snake",
+    title: "Snake",
+    icon: "/images/kavach.svg",
+    component: "Snake",
+  },
+  {
+    id: "weather",
+    title: "Weather",
+    icon: "/images/kavach.svg",
+    component: "Weather",
+  },
 ];
 
 const emojiFallback = {
@@ -46,7 +101,11 @@ export default function Launchpad({ onAppClick, onClose }) {
   useEffect(() => {
     // Filter apps based on search input
     if (searchTerm) {
-      setFilteredApps(launchpadApps.filter((app) => app.title.toLowerCase().includes(searchTerm.toLowerCase())));
+      setFilteredApps(
+        launchpadApps.filter((app) =>
+          app.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      );
     } else {
       setFilteredApps(launchpadApps);
     }
@@ -79,7 +138,6 @@ export default function Launchpad({ onAppClick, onClose }) {
           ${isVisible ? "translate-y-0" : "translate-y-10"}`}
         onClick={(e) => e.stopPropagation()} // Prevents closing Launchpad when clicking inside the content grid
       >
-        
         {/* Search Bar section */}
         <div className="relative w-64 mx-auto mb-12">
           <input
@@ -122,18 +180,22 @@ export default function Launchpad({ onAppClick, onClose }) {
                       {emojiFallback[app.id] || "📦"}
                     </div>
                   ) : (
-                    <img 
-                      src={app.icon || "/placeholder.svg"} 
-                      alt={app.title} 
+                    <img
+                      src={app.icon || "/placeholder.svg"}
+                      alt={app.title}
                       loading="eager"
                       fetchPriority="high"
-                      className="w-12 h-12 object-contain" 
+                      className="w-12 h-12 object-contain"
                       draggable="false"
-                      onError={() => setImgError(prev => ({ ...prev, [app.id]: true }))}
+                      onError={() =>
+                        setImgError((prev) => ({ ...prev, [app.id]: true }))
+                      }
                     />
                   )}
                 </div>
-                <span className="text-white text-sm text-center font-medium drop-shadow font-sans">{app.title}</span>
+                <span className="text-white text-sm text-center font-medium drop-shadow font-sans">
+                  {app.title}
+                </span>
               </div>
             );
           })}
