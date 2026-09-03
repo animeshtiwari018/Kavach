@@ -152,17 +152,28 @@ export default function Window({
       dragControls={dragControls}
       dragListener={false}
       dragMomentum={false}
-      dragConstraints={constraintsRef || desktopRef}
+      dragConstraints={!isMaximized ? (constraintsRef || desktopRef) : false}
       dragElastic={0.05}
       initial={{ opacity: 0, scale: 0.92, x: position.x, y: position.y }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        x: isMaximized ? 0 : position.x,
-        y: isMaximized ? 0 : position.y,
-        width: isMaximized ? "100%" : width,
-        height: isMaximized ? "100%" : height,
-      }}
+      animate={
+        isMaximized
+          ? { 
+              opacity: 1, 
+              scale: 1, 
+              x: 0, 
+              y: 0, 
+              width: "100vw", 
+              height: "calc(100vh - 112px)" 
+            }
+          : { 
+              opacity: 1, 
+              scale: 1, 
+              x: position.x, 
+              y: position.y, 
+              width: width, 
+              height: height 
+            }
+      }
       exit={{ opacity: 0, scale: 0.90 }}
       transition={
         isResizing
@@ -183,15 +194,15 @@ export default function Window({
           }
         }
       }}
-      className={`absolute flex flex-col rounded-xl border text-[#D4D5C8] font-mono shadow-2xl overflow-hidden select-none z-30 transition-shadow ${
+      className={`flex flex-col rounded-xl border text-[#D4D5C8] font-mono shadow-2xl overflow-hidden select-none z-30 transition-shadow ${
         isActive
           ? "border-[#8E9B72] bg-[#0A0C09]/98 shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
           : "border-[#3A4034] bg-[#0A0C09]/95 shadow-[0_10px_25px_rgba(0,0,0,0.4)]"
       }`}
       style={{
         zIndex: isActive ? 40 : 30,
-        position: "absolute",
-        top: "0px",
+        position: isMaximized ? "fixed" : "absolute",
+        top: isMaximized ? "42px" : "0px",
         left: "0px",
       }}
     >
