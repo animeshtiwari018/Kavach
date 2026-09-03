@@ -306,7 +306,7 @@ export default function ControlCenter({
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-900 to-indigo-950 flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/10 shadow">
             <img
-              src="/images/kavach.png"
+              src="/images/kavach.svg"
               alt="Album Art"
               className="w-full h-full object-cover"
               onError={(e) => {
