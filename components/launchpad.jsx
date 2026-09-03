@@ -125,6 +125,7 @@ export default function Launchpad({ onAppClick, onClose }) {
                     <img 
                       src={app.icon || "/placeholder.svg"} 
                       alt={app.title} 
+                      loading="lazy"
                       className="w-12 h-12 object-contain" 
                       draggable="false"
                       onError={() => setImgError(prev => ({ ...prev, [app.id]: true }))}
