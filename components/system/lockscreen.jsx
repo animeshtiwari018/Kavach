@@ -91,7 +91,7 @@ export default function LockScreen({ onUnlock }) {
               rgba(6, 8, 6, 0.78),
               rgba(6, 8, 6, 0.90)
             ),
-            url("/images/bg2.png");
+            url("/images/bg2.svg");
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
