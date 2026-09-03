@@ -20,6 +20,7 @@ import ServiceRecordApp from "../apps/service-record";
 import SystemAnalysisApp from "../apps/system-analysis";
 import ContactApp from "../apps/contact";
 import DesktopWidgets from "../widgets";
+import VaniAssistant from "./vani";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -35,6 +36,7 @@ export default function Homepage({ onLogout }) {
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
   const [spotlightQuery, setSpotlightQuery] = useState("");
   const [isLaunchpadOpen, setIsLaunchpadOpen] = useState(false);
+  const [isVaniOpen, setIsVaniOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
 
   // Window list state
@@ -330,19 +332,28 @@ export default function Homepage({ onLogout }) {
     setIsControlCenterOpen(false);
   };
 
-  // Keyboard shortcut for Spotlight (Cmd/Ctrl + Space)
+  // Keyboard shortcut for Spotlight (Cmd/Ctrl + Space) & Vani AI (Alt/Opt + Space)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.code === "Space") {
         e.preventDefault();
         setIsSpotlightOpen((prev) => !prev);
+      } else if (e.altKey && e.code === "Space") {
+        e.preventDefault();
+        setIsVaniOpen((prev) => !prev);
       } else if (e.key === "Escape") {
         setIsSpotlightOpen(false);
+        setIsVaniOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  const handleVaniExecuteAction = (appId) => {
+    const appMapId = appId === "safari" ? "browser" : appId;
+    toggleDockApp(appMapId);
+  };
 
   const handleSpotlightSearch = (e) => {
     e.preventDefault();
@@ -455,6 +466,10 @@ export default function Homepage({ onLogout }) {
         onControlCenterClick={(e) => {
           e.stopPropagation();
           setIsControlCenterOpen(!isControlCenterOpen);
+        }}
+        onVaniClick={(e) => {
+          e.stopPropagation();
+          setIsVaniOpen(!isVaniOpen);
         }}
         isDarkMode={isDarkMode}
         activeWindow={activeWindow}
@@ -856,9 +871,21 @@ export default function Homepage({ onLogout }) {
       <Dock
         onAppClick={handleDockAppClick}
         onLaunchpadClick={handleLaunchpadClick}
-        activeAppIds={apps
-          .filter((a) => a.isOpen && !a.isMinimized)
-          .map((a) => (a.id === "browser" ? "safari" : a.id))}
+        onVaniClick={() => setIsVaniOpen((prev) => !prev)}
+        activeAppIds={[
+          ...apps
+            .filter((a) => a.isOpen && !a.isMinimized)
+            .map((a) => (a.id === "browser" ? "safari" : a.id)),
+          ...(isVaniOpen ? ["vani"] : []),
+        ]}
+        isDarkMode={isDarkMode}
+      />
+
+      {/* VANI AI Assistant Glassmorphism Voice Panel */}
+      <VaniAssistant
+        isOpen={isVaniOpen}
+        onClose={() => setIsVaniOpen(false)}
+        onExecuteAction={handleVaniExecuteAction}
         isDarkMode={isDarkMode}
       />
 
