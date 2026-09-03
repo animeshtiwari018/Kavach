@@ -51,7 +51,7 @@ export default function Homepage({ onLogout }) {
       defaultHeight: 520,
       icon: (
         <img
-          src="/notes.png"
+          src="/notes.svg"
           alt="About Me"
           className="w-14 h-14 object-contain select-none pointer-events-none"
           draggable="false"
@@ -72,7 +72,7 @@ export default function Homepage({ onLogout }) {
       defaultHeight: 350,
       icon: (
         <img
-          src="/images/Terminal.png"
+          src="/images/Terminal.svg"
           alt="Terminal"
           className="w-14 h-14 object-contain select-none pointer-events-none"
           draggable="false"
@@ -93,7 +93,7 @@ export default function Homepage({ onLogout }) {
       defaultHeight: 480,
       icon: (
         <img
-          src="/images/browser.png"
+          src="/images/browser.svg"
           alt="Browser"
           className="w-14 h-14 object-contain select-none pointer-events-none"
           draggable="false"
@@ -427,7 +427,7 @@ export default function Homepage({ onLogout }) {
       }`}
       style={{
         backgroundImage: isDarkMode
-          ? `url("/images/Be Disciplind.png")`
+          ? `url("/images/Be Disciplind.svg")`
           : undefined,
         backgroundSize: "45% auto",
         backgroundPosition: "center",
@@ -625,7 +625,7 @@ export default function Homepage({ onLogout }) {
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#8E9B72]/40 group-hover:border-[#8E9B72] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(142,155,114,0.3)]">
               <img
-                src="/images/kavach.png"
+                src="/images/kavach.svg"
                 alt="Projects"
                 className="w-10 h-10 object-contain pointer-events-none select-none"
               />
@@ -749,7 +749,7 @@ export default function Homepage({ onLogout }) {
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-amber-500/40 group-hover:border-amber-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]">
               <img
-                src="/notes.png"
+                src="/notes.svg"
                 alt="About Me"
                 className="w-10 h-10 object-contain pointer-events-none select-none"
               />
