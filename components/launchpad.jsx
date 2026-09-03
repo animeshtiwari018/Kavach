@@ -6,16 +6,16 @@ import { useState, useEffect } from "react";
 const launchpadApps = [
   { id: "mission-archive", title: "Mission Archive", icon: "/images/kavach.svg", component: "MissionArchive" },
   { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
-  { id: "mail", title: "Mail", icon: "/mail.png", component: "Mail" },
+  { id: "mail", title: "Mail", icon: "/mail.svg", component: "Mail" },
   { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
-  { id: "notes", title: "Notes", icon: "/notes.png", component: "Notes" },
-  { id: "facetime", title: "FaceTime", icon: "/facetime.png", component: "FaceTime" },
+  { id: "notes", title: "Notes", icon: "/notes.svg", component: "Notes" },
+  { id: "facetime", title: "FaceTime", icon: "/facetime.svg", component: "FaceTime" },
   { id: "terminal", title: "Terminal", icon: "/images/Terminal.svg", component: "Terminal" },
   { id: "github", title: "GitHub", icon: "/images/github.svg", component: "GitHub" },
   { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
   { id: "spotify", title: "Spotify", icon: "/images/spotify.svg", component: "Spotify" },
-  { id: "snake", title: "Snake", icon: "/snake.png", component: "Snake" },
-  { id: "weather", title: "Weather", icon: "/weather.png", component: "Weather" },
+  { id: "snake", title: "Snake", icon: "/snake.svg", component: "Snake" },
+  { id: "weather", title: "Weather", icon: "/weather.svg", component: "Weather" },
 ];
 
 const emojiFallback = {
