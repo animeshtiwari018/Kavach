@@ -149,8 +149,8 @@ export default function Window({
       animate={{
         opacity: 1,
         scale: 1,
-        x: isMaximized ? 0 : undefined,
-        y: isMaximized ? 0 : undefined,
+        x: isMaximized ? 0 : defaultX,
+        y: isMaximized ? 0 : defaultY,
         width: isMaximized ? "100%" : width,
         height: isMaximized ? "calc(100vh - 40px - 70px)" : height,
       }}

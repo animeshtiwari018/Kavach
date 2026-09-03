@@ -157,15 +157,14 @@ export default function Homepage({ onLogout }) {
       const h = window.innerHeight - 110; // available desktop height
 
       setApps((prev) =>
-        prev.map((app, index) => {
-          const offset = index * 25;
+        prev.map((app) => {
           const centeredX = Math.max(
             20,
-            Math.floor((w - app.defaultWidth) / 2) + offset,
+            Math.floor((w - app.defaultWidth) / 2),
           );
           const centeredY = Math.max(
-            20,
-            Math.floor((h - app.defaultHeight) / 2) + offset,
+            40,
+            Math.floor((h - app.defaultHeight) / 2) + 20,
           );
 
           return {
@@ -247,9 +246,16 @@ export default function Homepage({ onLogout }) {
     }
 
     if (!app.isOpen) {
+      const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
+      const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+      const centeredX = Math.max(20, Math.floor((screenW - app.defaultWidth) / 2));
+      const centeredY = Math.max(40, Math.floor((screenH - app.defaultHeight) / 2) + 20);
+
       setApps((prev) =>
         prev.map((a) =>
-          a.id === id ? { ...a, isOpen: true, isMinimized: false } : a,
+          a.id === id
+            ? { ...a, isOpen: true, isMinimized: false, defaultX: centeredX, defaultY: centeredY }
+            : a,
         ),
       );
       focusApp(id);
@@ -269,12 +275,21 @@ export default function Homepage({ onLogout }) {
     const appMapId = appWindow.id === "safari" ? "browser" : appWindow.id;
     const exists = apps.some((a) => a.id === appMapId);
 
+    const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
+    const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+    const appWidth = appWindow.size.width;
+    const appHeight = appWindow.size.height;
+    const centeredX = Math.max(20, Math.floor((screenW - appWidth) / 2));
+    const centeredY = Math.max(40, Math.floor((screenH - appHeight) / 2) + 20);
+
     if (exists) {
       const app = apps.find((a) => a.id === appMapId);
       if (!app.isOpen) {
         setApps((prev) =>
           prev.map((a) =>
-            a.id === appMapId ? { ...a, isOpen: true, isMinimized: false } : a,
+            a.id === appMapId
+              ? { ...a, isOpen: true, isMinimized: false, defaultX: centeredX, defaultY: centeredY }
+              : a,
           ),
         );
       } else if (app.isMinimized) {
@@ -288,39 +303,20 @@ export default function Homepage({ onLogout }) {
     } else {
       const newZ = topZIndex + 1;
       setTopZIndex(newZ);
-      setApps((prev) => {
-        const screenW =
-          typeof window !== "undefined" ? window.innerWidth : 1000;
-        const screenH =
-          typeof window !== "undefined" ? window.innerHeight - 110 : 600;
-        const appWidth = appWindow.size.width;
-        const appHeight = appWindow.size.height;
-        const openCount = prev.filter((a) => a.isOpen).length;
-        const offset = openCount * 25;
-        const centeredX = Math.max(
-          20,
-          Math.floor((screenW - appWidth) / 2) + (offset % 100),
-        );
-        const centeredY = Math.max(
-          20,
-          Math.floor((screenH - appHeight) / 2) + (offset % 60),
-        );
-
-        return [
-          ...prev,
-          {
-            id: appMapId,
-            title: appWindow.title,
-            isOpen: true,
-            isMinimized: false,
-            zIndex: newZ,
-            defaultX: centeredX,
-            defaultY: centeredY,
-            defaultWidth: appWidth,
-            defaultHeight: appHeight,
-          },
-        ];
-      });
+      setApps((prev) => [
+        ...prev,
+        {
+          id: appMapId,
+          title: appWindow.title,
+          isOpen: true,
+          isMinimized: false,
+          zIndex: newZ,
+          defaultX: centeredX,
+          defaultY: centeredY,
+          defaultWidth: appWidth,
+          defaultHeight: appHeight,
+        },
+      ]);
       setActiveAppId(appMapId);
     }
   };
