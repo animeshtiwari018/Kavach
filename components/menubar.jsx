@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Search } from "lucide-react";
 import { AppleIcon } from "@/components/icons";
 
+import { VaniOrb } from "./system/vani";
+
 export default function Menubar({
   time,
   onLogout,
@@ -12,6 +14,7 @@ export default function Menubar({
   onRestart,
   onSpotlightClick,
   onControlCenterClick,
+  onVaniClick,
   isDarkMode,
   activeWindow,
 }) {
@@ -260,6 +263,15 @@ export default function Menubar({
             </div>
           )}
         </div>
+
+        {/* Vani AI Voice Trigger */}
+        <button
+          onClick={onVaniClick}
+          className="cursor-pointer flex items-center p-0.5 hover:scale-110 transition-transform"
+          title="Activate VANI AI Assistant"
+        >
+          <VaniOrb size="sm" />
+        </button>
 
         {/* Spotlight Icon */}
         <button
