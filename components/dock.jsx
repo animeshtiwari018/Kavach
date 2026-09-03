@@ -7,10 +7,10 @@ import { MoreHorizontal } from "lucide-react";
 const dockApps = [
   { id: "launchpad", title: "Launchpad", icon: "/images/kavach.svg", component: "Launchpad", isSystem: true },
   { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
-  { id: "settings", title: "Settings", icon: "/settings.png", component: "Settings" },
+  { id: "settings", title: "Settings", icon: "/settings.svg", component: "Settings" },
   { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
-  { id: "notes", title: "Notes", icon: "/notes.png", component: "Notes" },
-  { id: "facetime", title: "FaceTime", icon: "/facetime.png", component: "FaceTime" },
+  { id: "notes", title: "Notes", icon: "/notes.svg", component: "Notes" },
+  { id: "facetime", title: "FaceTime", icon: "/facetime.svg", component: "FaceTime" },
   { id: "terminal", title: "Terminal", icon: "/images/Terminal.svg", component: "Terminal" },
   { id: "github", title: "GitHub", icon: "/images/github.svg", component: "GitHub" },
   { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
