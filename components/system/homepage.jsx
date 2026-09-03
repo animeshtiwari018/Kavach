@@ -159,12 +159,12 @@ export default function Homepage({ onLogout }) {
       setApps((prev) =>
         prev.map((app) => {
           const centeredX = Math.max(
-            20,
+            10,
             Math.floor((w - app.defaultWidth) / 2),
           );
           const centeredY = Math.max(
-            40,
-            Math.floor((h - app.defaultHeight) / 2) + 20,
+            10,
+            Math.floor((h - app.defaultHeight) / 2),
           );
 
           return {
@@ -248,8 +248,8 @@ export default function Homepage({ onLogout }) {
     if (!app.isOpen) {
       const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
       const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
-      const centeredX = Math.max(20, Math.floor((screenW - app.defaultWidth) / 2));
-      const centeredY = Math.max(40, Math.floor((screenH - app.defaultHeight) / 2) + 20);
+      const centeredX = Math.max(10, Math.floor((screenW - app.defaultWidth) / 2));
+      const centeredY = Math.max(10, Math.floor((screenH - app.defaultHeight) / 2));
 
       setApps((prev) =>
         prev.map((a) =>
@@ -279,8 +279,8 @@ export default function Homepage({ onLogout }) {
     const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
     const appWidth = appWindow.size.width;
     const appHeight = appWindow.size.height;
-    const centeredX = Math.max(20, Math.floor((screenW - appWidth) / 2));
-    const centeredY = Math.max(40, Math.floor((screenH - appHeight) / 2) + 20);
+    const centeredX = Math.max(10, Math.floor((screenW - appWidth) / 2));
+    const centeredY = Math.max(10, Math.floor((screenH - appHeight) / 2));
 
     if (exists) {
       const app = apps.find((a) => a.id === appMapId);
