@@ -7,17 +7,68 @@ import { VaniOrb } from "./system/vani";
 
 // App list config
 const dockApps = [
-  { id: "launchpad", title: "Launchpad", icon: "/images/kavach.svg", component: "Launchpad", isSystem: true },
+  {
+    id: "launchpad",
+    title: "Launchpad",
+    icon: "/images/kavach.svg",
+    component: "Launchpad",
+    isSystem: true,
+  },
   { id: "vani", title: "VANI AI", icon: "vani", component: "Vani" },
-  { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
-  { id: "settings", title: "Settings", icon: "/images/kavach.svg", component: "Settings" },
-  { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
-  { id: "notes", title: "Notes", icon: "/images/Para_Skull.svg", component: "Notes" },
-  { id: "facetime", title: "FaceTime", icon: "/images/kavach.svg", component: "FaceTime" },
-  { id: "terminal", title: "Terminal", icon: "/images/Terminal.svg", component: "Terminal" },
-  { id: "github", title: "GitHub", icon: "/images/github.svg", component: "GitHub" },
-  { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
-  { id: "spotify", title: "Spotify", icon: "/images/spotify.svg", component: "Spotify" },
+  {
+    id: "safari",
+    title: "Safari",
+    icon: "/images/browser.svg",
+    component: "Safari",
+  },
+  {
+    id: "settings",
+    title: "Settings",
+    icon: "/images/kavach.svg",
+    component: "Settings",
+  },
+  {
+    id: "vscode",
+    title: "VS Code",
+    icon: "/images/vscode.svg",
+    component: "VSCode",
+  },
+  {
+    id: "notes",
+    title: "Notes",
+    icon: "/images/Para_Skull.svg",
+    component: "Notes",
+  },
+  {
+    id: "facetime",
+    title: "FaceTime",
+    icon: "/images/kavach.svg",
+    component: "FaceTime",
+  },
+  {
+    id: "terminal",
+    title: "Terminal",
+    icon: "/images/Terminal.svg",
+    component: "Terminal",
+  },
+  {
+    id: "github",
+    title: "GitHub",
+    icon: "/images/github.svg",
+    component: "GitHub",
+  },
+  {
+    id: "youtube",
+    title: "YouTube",
+    icon: "/images/youtube.svg",
+    component: "YouTube",
+  },
+  {
+    id: "spotify",
+    title: "Spotify",
+    icon: "/images/spotify.svg",
+    component: "Spotify",
+  },
 ];
 
 const emojiFallback = {
@@ -35,7 +86,13 @@ const emojiFallback = {
   spotify: "🎵",
 };
 
-export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, activeAppIds = [], isDarkMode }) {
+export default function Dock({
+  onAppClick,
+  onLaunchpadClick,
+  onVaniClick,
+  activeAppIds = [],
+  isDarkMode,
+}) {
   const [mouseX, setMouseX] = useState(null);
   const dockRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -128,7 +185,10 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
   const hiddenApps = isMobile ? dockApps.slice(4) : [];
 
   return (
-    <div ref={dockRef} className="fixed bottom-2 left-1/2 transform -translate-x-1/2 z-50">
+    <div
+      ref={dockRef}
+      className="fixed bottom-2 left-1/2 transform -translate-x-1/2 z-50"
+    >
       {/* Mobile expanded overflow menu */}
       {isMobile && showMobileMenu && (
         <div
@@ -155,12 +215,20 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
                       fetchPriority="high"
                       className="w-12 h-12 object-contain"
                       draggable="false"
-                      onError={() => setImgError(prev => ({ ...prev, [app.id]: true }))}
+                      onError={() =>
+                        setImgError((prev) => ({ ...prev, [app.id]: true }))
+                      }
                     />
                   )}
                 </div>
-                <span className={`text-xs mt-1 ${isDarkMode ? "text-white" : "text-gray-800"}`}>{app.title}</span>
-                {activeAppIds.includes(app.id) && <div className="w-1.5 h-1.5 bg-[#8E9B72] rounded-full mt-1"></div>}
+                <span
+                  className={`text-xs mt-1 ${isDarkMode ? "text-white" : "text-gray-800"}`}
+                >
+                  {app.title}
+                </span>
+                {activeAppIds.includes(app.id) && (
+                  <div className="w-1.5 h-1.5 bg-[#8E9B72] rounded-full mt-1"></div>
+                )}
               </div>
             ))}
           </div>
@@ -184,9 +252,12 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
               key={app.id}
               className={`flex flex-col items-center justify-end h-full ${isMobile ? "px-3" : "px-2"}`}
               style={{
-                transform: isMobile ? "none" : `translateY(${(scale - 1) * -8}px)`,
+                transform: isMobile
+                  ? "none"
+                  : `translateY(${(scale - 1) * -8}px)`,
                 zIndex: scale > 1 ? 10 : 1,
-                transition: mouseX === null ? "transform 0.2s ease-out" : "none",
+                transition:
+                  mouseX === null ? "transform 0.2s ease-out" : "none",
               }}
               onClick={() => handleAppClick(app)}
             >
@@ -195,13 +266,16 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
                 style={{
                   transform: isMobile ? "none" : `scale(${scale})`,
                   transformOrigin: "bottom center",
-                  transition: mouseX === null ? "transform 0.2s ease-out" : "none",
+                  transition:
+                    mouseX === null ? "transform 0.2s ease-out" : "none",
                 }}
               >
                 {app.id === "vani" ? (
                   <VaniOrb size="dock" />
                 ) : hasError ? (
-                  <div className={`flex items-center justify-center select-none font-sans ${isMobile ? "w-14 h-14 text-3.5xl" : "w-12 h-12 text-3xl"}`}>
+                  <div
+                    className={`flex items-center justify-center select-none font-sans ${isMobile ? "w-14 h-14 text-3.5xl" : "w-12 h-12 text-3xl"}`}
+                  >
                     {emojiFallback[app.id] || "📦"}
                   </div>
                 ) : (
@@ -212,7 +286,9 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
                     fetchPriority="high"
                     className={`object-contain ${isMobile ? "w-14 h-14" : "w-12 h-12"}`}
                     draggable="false"
-                    onError={() => setImgError(prev => ({ ...prev, [app.id]: true }))}
+                    onError={() =>
+                      setImgError((prev) => ({ ...prev, [app.id]: true }))
+                    }
                   />
                 )}
 
@@ -244,7 +320,9 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
                 ${isDarkMode ? "bg-gray-700" : "bg-gray-200"} 
                 ${showMobileMenu ? (isDarkMode ? "bg-blue-700" : "bg-blue-200") : ""}`}
               >
-                <MoreHorizontal className={`w-8 h-8 ${isDarkMode ? "text-white" : "text-gray-800"}`} />
+                <MoreHorizontal
+                  className={`w-8 h-8 ${isDarkMode ? "text-white" : "text-gray-800"}`}
+                />
               </div>
             </div>
           </div>
