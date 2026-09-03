@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 
 // App list config (Launchpad displays all installed applications, excluding itself)
 const launchpadApps = [
-  { id: "mission-archive", title: "Mission Archive", icon: "/images/kavach.png", component: "MissionArchive" },
-  { id: "safari", title: "Safari", icon: "/images/browser.png", component: "Safari" },
+  { id: "mission-archive", title: "Mission Archive", icon: "/images/kavach.svg", component: "MissionArchive" },
+  { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
   { id: "mail", title: "Mail", icon: "/mail.png", component: "Mail" },
-  { id: "vscode", title: "VS Code", icon: "/images/vscode.png", component: "VSCode" },
+  { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
   { id: "notes", title: "Notes", icon: "/notes.png", component: "Notes" },
   { id: "facetime", title: "FaceTime", icon: "/facetime.png", component: "FaceTime" },
-  { id: "terminal", title: "Terminal", icon: "/images/Terminal.png", component: "Terminal" },
-  { id: "github", title: "GitHub", icon: "/images/github.png", component: "GitHub" },
+  { id: "terminal", title: "Terminal", icon: "/images/Terminal.svg", component: "Terminal" },
+  { id: "github", title: "GitHub", icon: "/images/github.svg", component: "GitHub" },
   { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
-  { id: "spotify", title: "Spotify", icon: "/images/spotify.png", component: "Spotify" },
+  { id: "spotify", title: "Spotify", icon: "/images/spotify.svg", component: "Spotify" },
   { id: "snake", title: "Snake", icon: "/snake.png", component: "Snake" },
   { id: "weather", title: "Weather", icon: "/weather.png", component: "Weather" },
 ];
