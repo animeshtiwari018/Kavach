@@ -142,6 +142,7 @@ export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], 
                     <img
                       src={app.icon || "/placeholder.svg"}
                       alt={app.title}
+                      loading="lazy"
                       className="w-12 h-12 object-contain"
                       draggable="false"
                       onError={() => setImgError(prev => ({ ...prev, [app.id]: true }))}
@@ -195,6 +196,7 @@ export default function Dock({ onAppClick, onLaunchpadClick, activeAppIds = [], 
                   <img
                     src={app.icon || "/placeholder.svg"}
                     alt={app.title}
+                    loading="lazy"
                     className={`object-contain ${isMobile ? "w-14 h-14" : "w-12 h-12"}`}
                     draggable="false"
                     onError={() => setImgError(prev => ({ ...prev, [app.id]: true }))}
