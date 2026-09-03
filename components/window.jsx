@@ -149,10 +149,10 @@ export default function Window({
       animate={{
         opacity: 1,
         scale: 1,
-        x: isMaximized ? 16 : defaultX,
-        y: isMaximized ? 44 : defaultY,
-        width: isMaximized ? "calc(100vw - 32px)" : width,
-        height: isMaximized ? "calc(100vh - 44px - 76px)" : height,
+        x: isMaximized ? 0 : defaultX,
+        y: isMaximized ? 0 : defaultY,
+        width: isMaximized ? "100%" : width,
+        height: isMaximized ? "100%" : height,
       }}
       exit={{ opacity: 0, scale: 0.90 }}
       transition={
@@ -180,7 +180,7 @@ export default function Window({
       }`}
       style={{
         zIndex: isActive ? 40 : 30,
-        position: isMaximized ? "fixed" : "absolute",
+        position: "absolute",
         top: "0px",
         left: "0px",
       }}
