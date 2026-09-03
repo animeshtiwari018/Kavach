@@ -228,6 +228,24 @@ export default function Homepage({ onLogout }) {
   const toggleDockApp = (id) => {
     const app = apps.find((a) => a.id === id);
 
+    if (!app) {
+      const appMeta = {
+        "mission-archive": { title: "Projects (Mission Archive)", size: { width: 780, height: 520 } },
+        "system-analysis": { title: "Intelligence // System Analysis", size: { width: 800, height: 540 } },
+        "contact": { title: "Communications // Contact", size: { width: 780, height: 520 } },
+        "skills": { title: "Skill Intelligence Report", size: { width: 680, height: 540 } },
+        "service-record": { title: "Kavach Service Record (Experience)", size: { width: 780, height: 520 } },
+        "facetime": { title: "FaceTime", size: { width: 780, height: 520 } },
+        "vscode": { title: "VS Code", size: { width: 780, height: 520 } },
+        "github": { title: "GitHub", size: { width: 780, height: 520 } },
+        "spotify": { title: "Spotify", size: { width: 780, height: 520 } },
+      };
+
+      const meta = appMeta[id] || { title: id.toUpperCase(), size: { width: 780, height: 520 } };
+      handleDockAppClick({ id, title: meta.title, size: meta.size });
+      return;
+    }
+
     if (!app.isOpen) {
       setApps((prev) =>
         prev.map((a) =>
