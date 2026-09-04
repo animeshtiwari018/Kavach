@@ -22,11 +22,13 @@ import ContactApp from "../apps/contact";
 import DesktopWidgets from "../widgets";
 import VaniAssistant from "./vani";
 import NotificationCenter from "./notification-center";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
   const constraintsRef = useRef(null);
   const [time, setTime] = useState(new Date());
+  const { isMobile } = useWindowSize();
 
   // System states
   const [isControlCenterOpen, setIsControlCenterOpen] = useState(false);
@@ -569,7 +571,7 @@ export default function Homepage({ onLogout }) {
               exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.15 }}
               onClick={(e) => e.stopPropagation()}
-              className={`w-[450px] shadow-2xl rounded-lg p-3 border flex items-center gap-3 backdrop-blur-xl ${
+              className={`${isMobile ? "w-[calc(100%-2rem)]" : "w-[450px]"} shadow-2xl rounded-lg p-3 border flex items-center gap-3 backdrop-blur-xl ${
                 isDarkMode
                   ? "bg-gray-900/90 border-gray-800/60 text-white"
                   : "bg-white/95 border-gray-200 text-gray-800"
@@ -697,7 +699,7 @@ export default function Homepage({ onLogout }) {
         />
 
         {/* Desktop Right-Side Widgets (Calendar & Weather) with Army Touch */}
-        <DesktopWidgets />
+        {!isMobile && <DesktopWidgets />}
 
         {/* Desktop Left-Side App Shortcut Icons */}
         <div className="absolute top-[60px] left-6 z-20 flex flex-col items-center gap-6 select-none">
