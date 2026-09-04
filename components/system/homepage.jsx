@@ -35,7 +35,8 @@ export default function Homepage({ onLogout }) {
   const [isSleeping, setIsSleeping] = useState(false);
   const [isShutdown, setIsShutdown] = useState(false);
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
-  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] =
+    useState(false);
   const [spotlightQuery, setSpotlightQuery] = useState("");
   const [isLaunchpadOpen, setIsLaunchpadOpen] = useState(false);
   const [isVaniOpen, setIsVaniOpen] = useState(false);
@@ -499,7 +500,7 @@ export default function Homepage({ onLogout }) {
       }`}
       style={{
         backgroundImage: isDarkMode
-          ? `url("/images/Be Disciplind.svg")`
+          ? `url("/images/Be-Disciplind.svg")`
           : undefined,
         backgroundSize: "45% auto",
         backgroundPosition: "center",
