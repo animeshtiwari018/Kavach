@@ -3,6 +3,7 @@
 import { motion, useDragControls } from "motion/react";
 import { useState, useRef, useEffect } from "react";
 import { X, Minus, Maximize2, Minimize2 } from "lucide-react";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 export default function Window({
   title,
@@ -31,6 +32,7 @@ export default function Window({
 
   const dragControls = useDragControls();
   const windowRef = useRef(null);
+  const { isMobile } = useWindowSize();
 
   const [position, setPosition] = useState({ x: defaultX, y: defaultY });
   const [width, setWidth] = useState(defaultWidth);
@@ -148,22 +150,22 @@ export default function Window({
   return (
     <motion.div
       ref={windowRef}
-      drag={!isMaximized}
+      drag={!(isMaximized || isMobile)}
       dragControls={dragControls}
       dragListener={false}
       dragMomentum={false}
-      dragConstraints={!isMaximized ? (constraintsRef || desktopRef) : false}
+      dragConstraints={!(isMaximized || isMobile) ? (constraintsRef || desktopRef) : false}
       dragElastic={0.05}
       initial={{ opacity: 0, scale: 0.92, x: position.x, y: position.y }}
       animate={
-        isMaximized
+        isMaximized || isMobile
           ? { 
               opacity: 1, 
               scale: 1, 
               x: 0, 
               y: 0, 
               width: "100vw", 
-              height: "calc(100vh - 112px)" 
+              height: isMobile ? "calc(100vh - 100px)" : "calc(100vh - 112px)" 
             }
           : { 
               opacity: 1, 
@@ -201,8 +203,8 @@ export default function Window({
       }`}
       style={{
         zIndex: isActive ? 40 : 30,
-        position: isMaximized ? "fixed" : "absolute",
-        top: isMaximized ? "42px" : "0px",
+        position: (isMaximized || isMobile) ? "fixed" : "absolute",
+        top: (isMaximized || isMobile) ? "42px" : "0px",
         left: "0px",
       }}
     >
@@ -216,7 +218,7 @@ export default function Window({
       <div
         onPointerDown={(e) => {
           onFocus();
-          if (!isMaximized) dragControls.start(e);
+          if (!(isMaximized || isMobile)) dragControls.start(e);
         }}
         onDoubleClick={handleTitleBarDoubleClick}
         className={`h-9 flex items-center justify-between px-3 border-b text-[11px] tracking-wider select-none cursor-move ${
@@ -248,20 +250,22 @@ export default function Window({
           >
             <Minus className="w-2 h-2 text-[#5C4000] opacity-0 group-hover/controls:opacity-100 transition-opacity pointer-events-none" />
           </button>
-          <button
-            className="w-3 h-3 rounded-full bg-[#27C93F] hover:bg-[#1AAB29] active:bg-[#128C1E] flex items-center justify-center transition-colors relative cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleMaximize();
-            }}
-            title={isMaximized ? "Restore" : "Maximize"}
-          >
-            {isMaximized ? (
-              <Minimize2 className="w-2 h-2 text-[#0B4D10] opacity-0 group-hover/controls:opacity-100 transition-opacity pointer-events-none" />
-            ) : (
-              <Maximize2 className="w-2 h-2 text-[#0B4D10] opacity-0 group-hover/controls:opacity-100 transition-opacity pointer-events-none" />
-            )}
-          </button>
+          {!isMobile && (
+            <button
+              className="w-3 h-3 rounded-full bg-[#27C93F] hover:bg-[#1AAB29] active:bg-[#128C1E] flex items-center justify-center transition-colors relative cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMaximize();
+              }}
+              title={isMaximized ? "Restore" : "Maximize"}
+            >
+              {isMaximized ? (
+                <Minimize2 className="w-2 h-2 text-[#0B4D10] opacity-0 group-hover/controls:opacity-100 transition-opacity pointer-events-none" />
+              ) : (
+                <Maximize2 className="w-2 h-2 text-[#0B4D10] opacity-0 group-hover/controls:opacity-100 transition-opacity pointer-events-none" />
+              )}
+            </button>
+          )}
         </div>
 
         {/* Title */}
@@ -281,7 +285,7 @@ export default function Window({
       </div>
 
       {/* 8-Directional Resize Handles */}
-      {!isMaximized && (
+      {!(isMaximized || isMobile) && (
         <>
           {/* Corners */}
           <div className="absolute top-0 left-0 w-3 h-3 cursor-nw-resize z-50" onPointerDown={(e) => handleResizeStart(e, "nw")} />
