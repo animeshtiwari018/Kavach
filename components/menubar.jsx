@@ -110,10 +110,10 @@ export default function Menubar({
     ? "bg-[#7a7a96]/40 backdrop-blur-xl border border-[#7a7a96]/35 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]"
     : "bg-[#7a7a96]/30 backdrop-blur-xl border border-[#7a7a96]/25 shadow-[0_8px_32px_0_rgba(122,122,150,0.1)]";
   const dropdownBgClass = isDarkMode
-    ? "bg-white/[0.08] border border-white/[0.15] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-    : "bg-white/80 border border-[#7a7a96]/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(122,122,150,0.15)]";
+    ? "bg-[#1c2431]/95 border border-[#2e3b4e]/60 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.7)]"
+    : "bg-white/95 border border-[#7a7a96]/20 backdrop-blur-3xl shadow-[0_8px_32px_rgba(122,122,150,0.15)]";
   const textClass = isDarkMode ? "text-[#f3f4f6]" : "text-gray-800";
-  const hoverClass = isDarkMode ? "hover:bg-white/[0.12] hover:text-white" : "hover:bg-[#7a7a96]/15 hover:text-black";
+  const hoverClass = isDarkMode ? "hover:bg-[#0058d0] hover:text-white rounded-md" : "hover:bg-[#7a7a96]/15 hover:text-black rounded-md";
 
   return (
     <div
