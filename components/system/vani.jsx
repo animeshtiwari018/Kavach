@@ -3,105 +3,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Mic, MicOff, Send, Sparkles, Terminal, Shield, Folder, User, Cpu, Volume2 } from "lucide-react";
+import KavachAssistant from "./kavach-assistant";
 
-export function VaniOrb({ isListening, isThinking, size = "md", onClick }) {
-  const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-16 h-16",
-    lg: "w-24 h-24",
-    dock: "w-12 h-12",
-  };
-
+export function VaniOrb({ isListening, isThinking, isSpeaking, state: stateProp, audioLevel = 0, size = "md", onClick, logoSrc }) {
+  const currentState = stateProp || (isListening ? "listening" : isThinking ? "thinking" : isSpeaking ? "speaking" : "idle");
   return (
-    <div
+    <KavachAssistant
+      state={currentState}
+      audioLevel={audioLevel}
+      size={size}
       onClick={onClick}
-      className={`relative flex items-center justify-center cursor-pointer select-none group ${sizeClasses[size] || sizeClasses.md}`}
-    >
-      {/* Outer Glowing Energy Rings */}
-      {(isListening || isThinking) && (
-        <>
-          <motion.div
-            animate={{
-              scale: [1, 1.4, 1],
-              opacity: [0.3, 0.7, 0.3],
-              rotate: [0, 180, 360],
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 blur-md opacity-60"
-          />
-          <motion.div
-            animate={{
-              scale: [1.2, 1.6, 1.2],
-              opacity: [0.2, 0.5, 0.2],
-              rotate: [360, 180, 0],
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-indigo-500 blur-lg opacity-40"
-          />
-        </>
-      )}
-
-      {/* Main Siri Liquid Glass Sphere */}
-      <motion.div
-        animate={
-          isListening
-            ? {
-                scale: [1, 1.1, 0.95, 1.05, 1],
-                borderRadius: ["50%", "45% 55% 50% 50%", "52% 48% 45% 55%", "50%"],
-              }
-            : isThinking
-            ? {
-                rotate: 360,
-                scale: [1, 1.08, 1],
-              }
-            : {
-                scale: [1, 1.04, 1],
-              }
-        }
-        transition={
-          isThinking
-            ? { rotate: { duration: 2, repeat: Infinity, ease: "linear" }, scale: { duration: 1.5, repeat: Infinity } }
-            : { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
-        }
-        className="w-full h-full rounded-full relative overflow-hidden shadow-[0_0_25px_rgba(168,85,247,0.5)] group-hover:shadow-[0_0_35px_rgba(56,189,248,0.8)] transition-shadow duration-300"
-        style={{
-          background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9) 0%, rgba(168,85,247,0.8) 25%, rgba(56,189,248,0.8) 55%, rgba(236,72,153,0.9) 80%, rgba(15,23,42,0.95) 100%)",
-        }}
-      >
-        {/* Liquid Plasma Mesh Shader Overlay */}
-        <motion.div
-          animate={{
-            x: ["-20%", "20%", "-20%"],
-            y: ["-20%", "20%", "-20%"],
-            rotate: [0, 180, 360],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-[-50%] opacity-80 mix-blend-screen pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, rgba(142,155,114,0.8) 0%, rgba(59,130,246,0.7) 35%, rgba(236,72,153,0.7) 70%, transparent 100%)",
-          }}
-        />
-
-        {/* Gloss Specular Highlight */}
-        <div className="absolute top-1 left-2 w-1/3 h-1/3 rounded-full bg-white/40 blur-[1px] pointer-events-none" />
-      </motion.div>
-
-      {/* Dynamic Soundwave Ripples for Speech/Listening */}
-      {isListening && (
-        <div className="absolute -bottom-2 flex items-end gap-0.5 h-3 pointer-events-none">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <motion.span
-              key={i}
-              animate={{ height: ["4px", "14px", "6px", "16px", "4px"] }}
-              transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.1, ease: "easeInOut" }}
-              className="w-0.5 bg-cyan-300 rounded-full shadow-[0_0_8px_#38bdf8]"
-            />
-          ))}
-        </div>
-      )}
-    </div>
+      logoSrc={logoSrc || "/images/kavach1.png"}
+    />
   );
 }
+
 
 export default function VaniAssistant({ isOpen, onClose, onExecuteAction, isDarkMode }) {
   const [messages, setMessages] = useState([
