@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useAnimationFrame } from "motion/react";
 import { MoreHorizontal } from "lucide-react";
 import { VaniOrb } from "./system/vani";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 // App list config
 const dockApps = [
@@ -188,19 +189,9 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
   const dockMag = 2; // Magnification factor
 
   const dockRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const { isMobile } = useWindowSize();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [bouncingApp, setBouncingApp] = useState(null);
-
-  // Check if we're on a mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   // Close mobile menu when clicking outside
   useEffect(() => {
