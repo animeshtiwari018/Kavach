@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Bell } from "lucide-react";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 const INITIAL_NOTIFICATIONS = [
   {
@@ -33,6 +34,7 @@ const INITIAL_NOTIFICATIONS = [
 
 export default function NotificationCenter({ show, onClose, isDarkMode }) {
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
+  const { isMobile } = useWindowSize();
 
   const clearAll = () => {
     setNotifications([]);
@@ -40,7 +42,15 @@ export default function NotificationCenter({ show, onClose, isDarkMode }) {
   };
   const dismiss = (id) => setNotifications(prev => prev.filter(n => n.id !== id));
 
-  const containerVariants = {
+  const containerVariants = isMobile ? {
+    hidden: { y: "-100%", opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 350, damping: 30, staggerChildren: 0.05 }
+    },
+    exit: { y: "-100%", opacity: 0, transition: { duration: 0.2 } }
+  } : {
     hidden: { x: 340, opacity: 0 },
     visible: {
       x: 0,
@@ -74,7 +84,7 @@ export default function NotificationCenter({ show, onClose, isDarkMode }) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed top-[42px] right-4 w-[320px] z-50 flex flex-col gap-3 font-sans select-none origin-right"
+            className={`fixed top-[42px] right-4 ${isMobile ? "w-[calc(100%-32px)]" : "w-[320px]"} z-50 flex flex-col gap-3 font-sans select-none origin-right`}
           >
             {/* Header */}
             <motion.div 
