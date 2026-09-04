@@ -14,6 +14,7 @@ export default function Menubar({
   onRestart,
   onSpotlightClick,
   onControlCenterClick,
+  onNotificationCenterClick,
   onVaniClick,
   isDarkMode,
   activeWindow,
@@ -286,13 +287,18 @@ export default function Menubar({
           onClick={onControlCenterClick}
           className="flex items-center justify-center cursor-pointer"
         >
-          <span className="text-[10px] border px-1 rounded-sm opacity-80 border-current font-bold">
+          <span className="text-[10px] border px-1 rounded-sm opacity-80 border-current font-bold hover:opacity-100 transition-opacity">
             CC
           </span>
         </button>
 
-        {/* Clock */}
-        <span className="font-semibold">{formattedTime}</span>
+        {/* Clock & Notification Center Trigger */}
+        <button 
+          onClick={onNotificationCenterClick}
+          className="font-semibold cursor-pointer px-2 py-0.5 rounded hover:bg-white/10 transition-colors"
+        >
+          {formattedTime}
+        </button>
       </div>
     </div>
   );
