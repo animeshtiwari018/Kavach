@@ -528,15 +528,17 @@ export default function Homepage({ onLogout }) {
       />
 
       {/* Control Center Panel */}
-      {isControlCenterOpen && (
-        <ControlCenter
-          onClose={() => setIsControlCenterOpen(false)}
-          isDarkMode={isDarkMode}
-          onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-          brightness={brightness}
-          onBrightnessChange={(val) => setBrightness(val)}
-        />
-      )}
+      <AnimatePresence>
+        {isControlCenterOpen && (
+          <ControlCenter
+            onClose={() => setIsControlCenterOpen(false)}
+            isDarkMode={isDarkMode}
+            onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+            brightness={brightness}
+            onBrightnessChange={(val) => setBrightness(val)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Spotlight Search Overlay Dialog */}
       <AnimatePresence>
