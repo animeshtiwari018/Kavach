@@ -18,6 +18,7 @@ import {
   Tv,
   SlidersHorizontal,
 } from "lucide-react";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 export default function ControlCenter({
   onClose,
@@ -36,6 +37,7 @@ export default function ControlCenter({
   const [volume, setVolume] = useState(75);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const { isMobile } = useWindowSize();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -74,7 +76,22 @@ export default function ControlCenter({
     }
   };
 
-  const containerVariants = {
+  const containerVariants = isMobile ? {
+    hidden: { opacity: 0, y: "-100%" },
+    show: {
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring", stiffness: 350, damping: 30,
+        staggerChildren: 0.03
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: "-100%", 
+      transition: { duration: 0.2 } 
+    }
+  } : {
     hidden: { opacity: 0, scale: 0.95, y: -10 },
     show: {
       opacity: 1, 
@@ -109,7 +126,7 @@ export default function ControlCenter({
       initial="hidden"
       animate="show"
       exit="exit"
-      className="fixed top-[42px] right-4 w-[330px] rounded-3xl border border-white/10 p-3.5 backdrop-blur-2xl bg-[#1a212a]/90 text-white shadow-[0_20px_50px_rgba(0,0,0,0.6)] z-50 flex flex-col gap-3 font-sans select-none origin-top-right"
+      className={`fixed top-[42px] right-4 ${isMobile ? "w-[calc(100%-32px)]" : "w-[330px]"} rounded-3xl border border-white/10 p-3.5 backdrop-blur-2xl bg-[#1a212a]/90 text-white shadow-[0_20px_50px_rgba(0,0,0,0.6)] z-50 flex flex-col gap-3 font-sans select-none origin-top-right`}
       onClick={(e) => e.stopPropagation()}
     >
       {/* Top 2-Column Section */}
