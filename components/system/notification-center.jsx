@@ -34,7 +34,10 @@ const INITIAL_NOTIFICATIONS = [
 export default function NotificationCenter({ show, onClose, isDarkMode }) {
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
 
-  const clearAll = () => setNotifications([]);
+  const clearAll = () => {
+    setNotifications([]);
+    setTimeout(() => onClose(), 400);
+  };
   const dismiss = (id) => setNotifications(prev => prev.filter(n => n.id !== id));
 
   const containerVariants = {
