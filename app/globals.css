@@ -99,9 +99,18 @@ body {
 
 /* Subtle Pulse for Admin Unlock */
 @keyframes subtlePulse {
-  0% { transform: scale(0.95); opacity: 0; }
-  50% { transform: scale(1.02); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 .animate-subtle-pulse {
   animation: subtlePulse 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -109,7 +118,7 @@ body {
 
 /* Background Wallpaper Gradient - dark mood */
 .mac-wallpaper {
-  background-image: url('/images/Be Disciplind.svg');
+  background-image: url("/images/Be Disciplind.svg");
   background-size: 45% auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -143,5 +152,5 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   background: white;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
