@@ -21,6 +21,7 @@ import SystemAnalysisApp from "../apps/system-analysis";
 import ContactApp from "../apps/contact";
 import DesktopWidgets from "../widgets";
 import VaniAssistant from "./vani";
+import NotificationCenter from "./notification-center";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -34,6 +35,7 @@ export default function Homepage({ onLogout }) {
   const [isSleeping, setIsSleeping] = useState(false);
   const [isShutdown, setIsShutdown] = useState(false);
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
   const [spotlightQuery, setSpotlightQuery] = useState("");
   const [isLaunchpadOpen, setIsLaunchpadOpen] = useState(false);
   const [isVaniOpen, setIsVaniOpen] = useState(false);
@@ -396,6 +398,7 @@ export default function Homepage({ onLogout }) {
       } else if (e.key === "Escape") {
         setIsSpotlightOpen(false);
         setIsVaniOpen(false);
+        setIsNotificationCenterOpen(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -523,6 +526,10 @@ export default function Homepage({ onLogout }) {
           e.stopPropagation();
           setIsVaniOpen(!isVaniOpen);
         }}
+        onNotificationCenterClick={(e) => {
+          e.stopPropagation();
+          setIsNotificationCenterOpen(!isNotificationCenterOpen);
+        }}
         isDarkMode={isDarkMode}
         activeWindow={activeWindow}
       />
@@ -539,6 +546,13 @@ export default function Homepage({ onLogout }) {
           />
         )}
       </AnimatePresence>
+
+      {/* Notification Center Panel */}
+      <NotificationCenter
+        show={isNotificationCenterOpen}
+        onClose={() => setIsNotificationCenterOpen(false)}
+        isDarkMode={isDarkMode}
+      />
 
       {/* Spotlight Search Overlay Dialog */}
       <AnimatePresence>
