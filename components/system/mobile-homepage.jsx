@@ -72,7 +72,7 @@ export default function MobileHomepage({ onLogout }) {
 
   return (
     <div 
-      className="w-full h-screen overflow-hidden relative bg-cover bg-center text-white"
+      className="w-full h-[100dvh] overflow-hidden relative bg-cover bg-center text-white"
       style={{ backgroundImage: `url('/images/wallpaper-dark.jpg')` }}
     >
       {/* iOS Status Bar */}
