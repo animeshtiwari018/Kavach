@@ -35,3 +35,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## 🌐 Deployment
 
 This project is optimized for deployment on the [Vercel Platform](https://vercel.com/new). Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📬 Contact & Links
+
+- **GitHub:** [github.com/animeshtiwari018](https://github.com/animeshtiwari018)
+- **Live Demo:** [kavach.security](https://kavach.security)
+- **Developer:** Animesh Tiwari
