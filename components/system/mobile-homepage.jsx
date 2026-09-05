@@ -2,7 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Wifi, BatteryMedium, Signal } from "lucide-react";
+import { Wifi, Signal } from "lucide-react";
+
+const IOSBatteryIcon = ({ level = 80 }) => (
+  <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-90 mt-0.5">
+    <rect x="0.5" y="0.5" width="22" height="11" rx="3.5" stroke="currentColor" strokeWidth="1"/>
+    <path d="M24 4V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <rect x="2" y="2" width={19 * (level / 100)} height="8" rx="2" fill="currentColor" />
+  </svg>
+);
 
 import TerminalApp from "../apps/terminal";
 import BrowserApp from "../apps/browser";
@@ -87,15 +95,15 @@ export default function MobileHomepage({ onLogout }) {
           <span className="text-sm font-semibold tracking-wide">{formattedTime}</span>
         </div>
         <div 
-          className="flex items-center gap-2 h-full cursor-pointer pr-2 -mr-2"
+          className="flex items-center gap-1.5 h-full cursor-pointer pr-2 -mr-2"
           onClick={() => {
             setIsControlCenterOpen(!isControlCenterOpen);
             setIsNotificationCenterOpen(false);
           }}
         >
-          <Signal className="w-4 h-4" />
-          <Wifi className="w-4 h-4" />
-          <BatteryMedium className="w-5 h-5" />
+          <Signal className="w-[15px] h-[15px]" />
+          <Wifi className="w-[15px] h-[15px]" />
+          <IOSBatteryIcon level={80} />
         </div>
       </div>
 
