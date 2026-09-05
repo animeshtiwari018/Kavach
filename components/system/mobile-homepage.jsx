@@ -16,6 +16,8 @@ import SkillsApp from "../apps/skills";
 import ServiceRecordApp from "../apps/service-record";
 import SystemAnalysisApp from "../apps/system-analysis";
 import ContactApp from "../apps/contact";
+import ControlCenter from "../control-center";
+import NotificationCenter from "./notification-center";
 
 const MOBILE_APPS = [
   { id: "facetime", title: "FaceTime", icon: "/images/kavach.svg", component: FaceTimeApp },
@@ -38,6 +40,9 @@ const DOCK_APPS = [
 export default function MobileHomepage({ onLogout }) {
   const [activeApp, setActiveApp] = useState(null);
   const [time, setTime] = useState(new Date());
+  const [isControlCenterOpen, setIsControlCenterOpen] = useState(false);
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
+  const [brightness, setBrightness] = useState(100);
   
   // For simplicity we will assume dark mode for now, or you can pass it in
   const isDarkMode = true;
@@ -71,14 +76,55 @@ export default function MobileHomepage({ onLogout }) {
       style={{ backgroundImage: `url('/images/wallpaper-dark.jpg')` }}
     >
       {/* iOS Status Bar */}
-      <div className="absolute top-0 left-0 right-0 h-12 z-50 flex items-center justify-between px-6 select-none pointer-events-none drop-shadow-md">
-        <span className="text-sm font-semibold tracking-wide">{formattedTime}</span>
-        <div className="flex items-center gap-2">
+      <div className="absolute top-0 left-0 right-0 h-12 z-50 flex items-center justify-between px-6 select-none drop-shadow-md">
+        <div 
+          className="flex items-center h-full cursor-pointer pl-2 -ml-2" 
+          onClick={() => {
+            setIsNotificationCenterOpen(!isNotificationCenterOpen);
+            setIsControlCenterOpen(false);
+          }}
+        >
+          <span className="text-sm font-semibold tracking-wide">{formattedTime}</span>
+        </div>
+        <div 
+          className="flex items-center gap-2 h-full cursor-pointer pr-2 -mr-2"
+          onClick={() => {
+            setIsControlCenterOpen(!isControlCenterOpen);
+            setIsNotificationCenterOpen(false);
+          }}
+        >
           <Signal className="w-4 h-4" />
           <Wifi className="w-4 h-4" />
           <BatteryMedium className="w-5 h-5" />
         </div>
       </div>
+
+      <NotificationCenter 
+        show={isNotificationCenterOpen} 
+        onClose={() => setIsNotificationCenterOpen(false)} 
+        isDarkMode={isDarkMode} 
+      />
+
+      <AnimatePresence>
+        {isControlCenterOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-transparent"
+              onClick={() => setIsControlCenterOpen(false)}
+            />
+            <ControlCenter
+              onClose={() => setIsControlCenterOpen(false)}
+              isDarkMode={isDarkMode}
+              onToggleDarkMode={() => {}}
+              brightness={brightness}
+              onBrightnessChange={setBrightness}
+            />
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Home Screen */}
       <AnimatePresence>
