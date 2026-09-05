@@ -47,9 +47,9 @@ export default function NotificationCenter({ show, onClose, isDarkMode }) {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 350, damping: 30, staggerChildren: 0.05 }
+      transition: { type: "spring", stiffness: 300, damping: 25 }
     },
-    exit: { y: "-100%", opacity: 0, transition: { duration: 0.2 } }
+    exit: { y: "-100%", opacity: 0, transition: { duration: 0.15 } }
   } : {
     hidden: { x: 340, opacity: 0 },
     visible: {
@@ -61,9 +61,9 @@ export default function NotificationCenter({ show, onClose, isDarkMode }) {
   };
 
   const itemVariants = {
-    hidden: { x: 40, opacity: 0, scale: 0.95 },
-    visible: { x: 0, opacity: 1, scale: 1, transition: { type: "spring", stiffness: 400, damping: 25 } },
-    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.15 } }
+    hidden: { y: 10, opacity: 0, scale: 0.98 },
+    visible: { y: 0, opacity: 1, scale: 1, transition: { type: "spring", stiffness: 400, damping: 25 } },
+    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.1 } }
   };
 
   return (
@@ -89,8 +89,8 @@ export default function NotificationCenter({ show, onClose, isDarkMode }) {
             {/* Header */}
             <motion.div 
               variants={itemVariants}
-              className={`rounded-2xl p-4 backdrop-blur-2xl border shadow-xl flex items-center justify-between ${
-                isDarkMode ? "bg-[#1a212a]/90 border-white/10 text-white" : "bg-white/80 border-gray-200/50 text-gray-800"
+              className={`rounded-2xl p-4 backdrop-blur-xl border shadow-xl flex items-center justify-between ${
+                isDarkMode ? "bg-[#1a212a]/95 border-white/10 text-white" : "bg-white/90 border-gray-200/50 text-gray-800"
               }`}
             >
               <span className="font-bold text-sm tracking-wide flex items-center gap-2">
@@ -114,8 +114,8 @@ export default function NotificationCenter({ show, onClose, isDarkMode }) {
             {/* Notifications List */}
             <motion.div 
               variants={itemVariants}
-              className={`rounded-2xl backdrop-blur-2xl border shadow-xl overflow-hidden flex flex-col ${
-                isDarkMode ? "bg-[#1a212a]/90 border-white/10" : "bg-white/80 border-gray-200/50"
+              className={`rounded-2xl backdrop-blur-xl border shadow-xl overflow-hidden flex flex-col ${
+                isDarkMode ? "bg-[#1a212a]/95 border-white/10" : "bg-white/90 border-gray-200/50"
               }`}
             >
               {notifications.length === 0 ? (
