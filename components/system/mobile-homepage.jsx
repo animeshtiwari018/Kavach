@@ -224,12 +224,12 @@ export default function MobileHomepage({ onLogout }) {
               <div className="flex-1 overflow-y-auto no-scrollbar relative text-white">
                 <ActiveComponent isDarkMode={isDarkMode} onClose={closeApp} />
               </div>
-              {/* iOS Home Indicator */}
+              {/* iOS Home Indicator (Tap to close) */}
               <div 
-                className="absolute bottom-1 left-0 right-0 h-6 flex items-end justify-center pb-2 cursor-pointer z-50 bg-gradient-to-t from-black/80 to-transparent"
+                className="absolute bottom-0 left-0 right-0 h-10 flex items-end justify-center pb-3 cursor-pointer z-50 bg-gradient-to-t from-black/60 to-transparent"
                 onClick={closeApp}
               >
-                <div className="w-1/3 h-1.5 bg-white rounded-full opacity-80 hover:opacity-100 transition-opacity" />
+                <div className="w-1/2 max-w-[130px] h-1.5 bg-white rounded-full opacity-90 shadow-md hover:opacity-100 transition-opacity" />
               </div>
             </div>
           </motion.div>
