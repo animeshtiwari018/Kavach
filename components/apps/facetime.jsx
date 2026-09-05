@@ -124,9 +124,9 @@ export default function FaceTimeApp() {
   );
 
   return (
-    <div className="w-full h-full flex bg-[#070906] text-[#D4D5C8] font-mono text-[11px] overflow-hidden select-none">
+    <div className="w-full h-full flex flex-col sm:flex-row bg-[#070906] text-[#D4D5C8] font-mono text-[11px] overflow-hidden select-none">
       {/* FaceTime Sidebar */}
-      <div className="w-48 border-r border-[#24291F] flex flex-col bg-[#0A0C09] h-full">
+      <div className={`${activeCall ? "hidden sm:flex" : "flex"} w-full sm:w-56 h-[50%] sm:h-full border-b sm:border-b-0 sm:border-r border-[#24291F] flex-col bg-[#0A0C09]`}>
         {/* Search Input */}
         <div className="p-2 border-b border-[#24291F] flex items-center gap-1.5 bg-[#121610]">
           <Search className="w-3.5 h-3.5 text-[#5E6255]" />
@@ -188,7 +188,7 @@ export default function FaceTimeApp() {
       </div>
 
       {/* FaceTime Video Stream Canvas */}
-      <div className="flex-1 relative flex flex-col items-center justify-center bg-black/90 p-4">
+      <div className="flex-1 relative flex flex-col items-center justify-center bg-black/90 p-2 sm:p-4 min-h-0">
         {permissionStatus === "requesting" && (
           <div className="text-center space-y-2">
             <div className="animate-spin w-6 h-6 border-2 border-[#8E9B72] border-t-transparent rounded-full mx-auto" />
@@ -257,7 +257,7 @@ export default function FaceTimeApp() {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="absolute top-4 left-4 z-10 p-3 bg-[#0A0C09]/80 border border-[#8E9B72]/30 backdrop-blur-md rounded font-mono text-[9px] text-[#73786B] w-48 shadow-lg select-none pointer-events-none"
+              className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 p-2 sm:p-3 bg-[#0A0C09]/80 border border-[#8E9B72]/30 backdrop-blur-md rounded font-mono text-[8px] sm:text-[9px] text-[#73786B] w-40 sm:w-48 shadow-lg select-none pointer-events-none"
             >
               {/* Corner accent lines */}
               <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#8E9B72]/60" />
@@ -311,7 +311,7 @@ export default function FaceTimeApp() {
                 <span className="text-[9px] text-[#73786B] uppercase mb-6">SECURE CHANNEL INITIATED...</span>
 
                 {/* Local PiP Video box in corner of call */}
-                <div className="absolute bottom-20 right-4 w-28 h-20 rounded border border-[#24291F] overflow-hidden bg-black shadow-lg">
+                <div className="absolute bottom-20 right-2 sm:right-4 w-20 h-28 sm:w-28 sm:h-20 rounded border border-[#24291F] overflow-hidden bg-black shadow-lg">
                   <video
                     src=""
                     ref={(el) => {
@@ -327,7 +327,7 @@ export default function FaceTimeApp() {
             )}
 
             {/* Overlay Glassmorphic FaceTime Controls HUD */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-[#121610]/80 border border-[#24291F] backdrop-blur px-4 py-2 rounded-full shadow-2xl z-20">
+            <div className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3 bg-[#121610]/80 border border-[#24291F] backdrop-blur px-4 py-2 rounded-full shadow-2xl z-20">
               <button
                 onClick={() => setVideoEnabled(!videoEnabled)}
                 className={`w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-colors border ${
