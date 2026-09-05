@@ -175,6 +175,14 @@ export default function MissionArchiveApp() {
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [isOpeningFile, setIsOpeningFile] = useState(false);
   const openTimerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Dynamic Sidebar & List Column Widths with Resizing Capabilities
   const [sidebarWidth, setSidebarWidth] = useState(195);
@@ -291,11 +299,11 @@ export default function MissionArchiveApp() {
       </div>
 
       {/* Main 3-Column Workstation Layout Container */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {/* Column 1: Left Navigation Sidebar */}
         <div
-          style={{ width: `${sidebarWidth}px` }}
-          className="bg-[#181B18] flex flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]"
+          style={{ width: isMobile ? "100%" : `${sidebarWidth}px` }}
+          className={`${isMobile ? 'hidden' : 'flex'} bg-[#181B18] flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]`}
         >
           {/* Kavach Network Group */}
           <div className="mb-4">
@@ -365,7 +373,7 @@ export default function MissionArchiveApp() {
         <div
           onMouseDown={startResizingSidebar}
           onDoubleClick={() => setSidebarWidth(195)}
-          className={`w-1 h-full cursor-col-resize hover:bg-[#5C6F52] transition-colors shrink-0 z-30 ${
+          className={`hidden md:block w-1 h-full cursor-col-resize hover:bg-[#5C6F52] transition-colors shrink-0 z-30 ${
             isResizingSidebar ? "bg-[#5C6F52]" : "bg-[#2A2E29]"
           }`}
           title="Drag to resize sidebar (Double click to reset)"
@@ -373,8 +381,8 @@ export default function MissionArchiveApp() {
 
         {/* Column 2: Middle Mission Log Pane */}
         <div
-          style={{ width: `${listWidth}px` }}
-          className="bg-[#1C1F1C] flex flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29]"
+          style={{ width: isMobile ? "100%" : `${listWidth}px` }}
+          className={`bg-[#1C1F1C] flex flex-col ${isMobile ? 'h-[40%] border-b' : 'h-full border-r'} shrink-0 overflow-hidden border-[#2A2E29]`}
         >
           {/* Search Bar */}
           <div className="p-2 border-b border-[#2A2E29] flex items-center gap-1.5 shrink-0">
@@ -478,7 +486,7 @@ export default function MissionArchiveApp() {
         <div
           onMouseDown={startResizingList}
           onDoubleClick={() => setListWidth(250)}
-          className={`w-1 h-full cursor-col-resize hover:bg-[#5C6F52] transition-colors shrink-0 z-30 ${
+          className={`hidden md:block w-1 h-full cursor-col-resize hover:bg-[#5C6F52] transition-colors shrink-0 z-30 ${
             isResizingList ? "bg-[#5C6F52]" : "bg-[#2A2E29]"
           }`}
           title="Drag to resize mission list (Double click to reset)"
