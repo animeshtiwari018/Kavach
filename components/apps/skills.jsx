@@ -19,6 +19,7 @@ import {
   X,
   ChevronRight,
   SlidersHorizontal,
+  Menu,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -251,6 +252,7 @@ export default function SkillsApp() {
 
   const [mobileView, setMobileView] = useState("categories");
   const [isMobile, setIsMobile] = useState(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -270,11 +272,17 @@ export default function SkillsApp() {
 
   const handleSelectSkill = (skillId) => {
     if (skillId === activeSkillId && !isScanning) {
-      if (isMobile) setMobileView("detail");
+      if (isMobile) {
+        setMobileView("detail");
+        setShowMobileDrawer(false);
+      }
       return;
     }
     setActiveSkillId(skillId);
-    if (isMobile) setMobileView("detail");
+    if (isMobile) {
+      setMobileView("detail");
+      setShowMobileDrawer(false);
+    }
     setIsScanning(true);
     if (scanTimerRef.current) clearTimeout(scanTimerRef.current);
     scanTimerRef.current = setTimeout(() => {
@@ -358,7 +366,15 @@ export default function SkillsApp() {
       </div>
 
       {/* Main 3-Column macOS Window Body */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Mobile Drawer Overlay */}
+        {isMobile && mobileView === 'detail' && showMobileDrawer && (
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+            onClick={() => setShowMobileDrawer(false)}
+          />
+        )}
+
         {/* Column 1: Network Navigation Sidebar */}
         <div
           style={isMobile ? { width: "100%" } : { width: `${sidebarWidth}px` }}
@@ -443,8 +459,15 @@ export default function SkillsApp() {
 
         {/* Column 2: Arsenal Skill Items List */}
         <div
-          style={isMobile ? { width: "100%" } : { width: `${listWidth}px` }}
-          className={`${mobileView === 'list' ? 'flex' : 'hidden'} md:flex bg-[#1C1F1C] flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29]`}
+          style={
+            isMobile && mobileView === 'list' ? { width: "100%" } 
+            : isMobile && mobileView === 'detail' && showMobileDrawer ? { width: "65%" } 
+            : { width: `${listWidth}px` }
+          }
+          className={`${
+            mobileView === 'list' ? 'flex' 
+            : (mobileView === 'detail' && showMobileDrawer ? 'flex absolute left-0 top-0 bottom-0 z-50 shadow-2xl' : 'hidden')
+          } md:flex md:relative bg-[#1C1F1C] flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29] transition-transform duration-300`}
         >
           {isMobile && mobileView === 'list' && (
             <div className="shrink-0 p-3 pb-0 border-b border-[#2A2E29] bg-[#181B18] md:hidden">
@@ -523,13 +546,17 @@ export default function SkillsApp() {
         {/* Column 3: Selected Skill Technical Dossier Panel */}
         <div className={`${mobileView === 'detail' ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-[#141614] h-full overflow-y-auto relative`}>
           {isMobile && mobileView === 'detail' && (
-            <div className="shrink-0 p-3 pb-0 border-b border-[#2A2E29] bg-[#181B18] md:hidden">
+            <div className="shrink-0 p-3 border-b border-[#2A2E29] bg-[#181B18] md:hidden flex items-center gap-3">
               <button
-                onClick={() => setMobileView("list")}
-                className="px-3 py-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] text-[10px] uppercase font-bold font-mono rounded flex items-center gap-2 hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors mb-3"
+                onClick={() => setShowMobileDrawer(true)}
+                className="p-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] rounded hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors"
+                title="View Skills"
               >
-                <span>← BACK TO ASSETS</span>
+                <Menu className="w-4 h-4" />
               </button>
+              <span className="text-[10px] font-bold tracking-widest text-[#C2B280] uppercase">
+                {activeSkill.name}
+              </span>
             </div>
           )}
           <AnimatePresence mode="wait">
