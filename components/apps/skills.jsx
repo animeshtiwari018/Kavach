@@ -548,9 +548,12 @@ export default function SkillsApp() {
           {isMobile && mobileView === 'detail' && (
             <div className="shrink-0 p-3 border-b border-[#2A2E29] bg-[#181B18] md:hidden flex items-center gap-3">
               <button
-                onClick={() => setShowMobileDrawer(true)}
+                onClick={() => {
+                  setSelectedCategory("ALL");
+                  setShowMobileDrawer(true);
+                }}
                 className="p-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] rounded hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors"
-                title="View Skills"
+                title="View All Assets"
               >
                 <Menu className="w-4 h-4" />
               </button>
