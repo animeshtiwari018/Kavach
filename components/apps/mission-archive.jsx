@@ -176,6 +176,7 @@ export default function MissionArchiveApp() {
   const [isOpeningFile, setIsOpeningFile] = useState(false);
   const openTimerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [showMobileList, setShowMobileList] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -193,8 +194,12 @@ export default function MissionArchiveApp() {
   const currentMission = MISSIONS.find((m) => m.id === selectedId) || MISSIONS[0];
 
   const handleSelectMission = (missionId) => {
-    if (missionId === selectedId && !isOpeningFile) return;
+    if (missionId === selectedId && !isOpeningFile) {
+      if (isMobile) setShowMobileList(false);
+      return;
+    }
     setSelectedId(missionId);
+    if (isMobile) setShowMobileList(false);
     setIsOpeningFile(true);
     if (openTimerRef.current) clearTimeout(openTimerRef.current);
     openTimerRef.current = setTimeout(() => {
@@ -382,7 +387,7 @@ export default function MissionArchiveApp() {
         {/* Column 2: Middle Mission Log Pane */}
         <div
           style={isMobile ? { width: "100%" } : { width: `${listWidth}px` }}
-          className={`bg-[#1C1F1C] flex flex-col h-[40%] md:h-full border-b md:border-b-0 md:border-r shrink-0 overflow-hidden border-[#2A2E29]`}
+          className={`${showMobileList ? 'flex' : 'hidden'} md:flex bg-[#1C1F1C] flex-col h-full border-b md:border-b-0 md:border-r shrink-0 overflow-hidden border-[#2A2E29]`}
         >
           {/* Search Bar */}
           <div className="p-2 border-b border-[#2A2E29] flex items-center gap-1.5 shrink-0">
@@ -493,7 +498,17 @@ export default function MissionArchiveApp() {
         />
 
         {/* Column 3: Main Project Dossier Panel */}
-        <div className="flex-1 flex flex-col bg-[#141614] h-full overflow-y-auto relative">
+        <div className={`${!showMobileList ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-[#141614] h-full overflow-y-auto relative`}>
+          {isMobile && !showMobileList && (
+            <div className="shrink-0 p-3 pb-0 border-b border-[#2A2E29] bg-[#181B18] md:hidden">
+              <button
+                onClick={() => setShowMobileList(true)}
+                className="px-3 py-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] text-[10px] uppercase font-bold font-mono rounded flex items-center gap-2 hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors mb-3"
+              >
+                <span>← BACK TO MISSIONS</span>
+              </button>
+            </div>
+          )}
           <AnimatePresence mode="wait">
             {isOpeningFile ? (
               /* SUBTLE TACTICAL FILE LOADING TRANSITION SCREEN */
