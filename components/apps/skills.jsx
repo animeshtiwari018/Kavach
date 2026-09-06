@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Search,
   Folder,
@@ -249,6 +249,16 @@ export default function SkillsApp() {
   const [isScanning, setIsScanning] = useState(false);
   const scanTimerRef = useRef(null);
 
+  const [mobileView, setMobileView] = useState("categories");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Dynamic Sidebar & List Widths
   const [sidebarWidth, setSidebarWidth] = useState(195);
   const [listWidth, setListWidth] = useState(250);
@@ -259,8 +269,12 @@ export default function SkillsApp() {
     SKILLS_DATA.find((s) => s.id === activeSkillId) || SKILLS_DATA[0];
 
   const handleSelectSkill = (skillId) => {
-    if (skillId === activeSkillId && !isScanning) return;
+    if (skillId === activeSkillId && !isScanning) {
+      if (isMobile) setMobileView("detail");
+      return;
+    }
     setActiveSkillId(skillId);
+    if (isMobile) setMobileView("detail");
     setIsScanning(true);
     if (scanTimerRef.current) clearTimeout(scanTimerRef.current);
     scanTimerRef.current = setTimeout(() => {
@@ -347,8 +361,8 @@ export default function SkillsApp() {
       <div className="flex-1 flex overflow-hidden">
         {/* Column 1: Network Navigation Sidebar */}
         <div
-          style={{ width: `${sidebarWidth}px` }}
-          className="bg-[#181B18] flex flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]"
+          style={isMobile ? { width: "100%" } : { width: `${sidebarWidth}px` }}
+          className={`${mobileView === 'categories' ? 'flex' : 'hidden'} md:flex bg-[#181B18] flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]`}
         >
           {/* Network Section */}
           <div className="mb-4">
@@ -357,7 +371,10 @@ export default function SkillsApp() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#5C6F52] inline-block animate-pulse" />
             </div>
             <button
-              onClick={() => setSelectedCategory("ALL")}
+              onClick={() => {
+                setSelectedCategory("ALL");
+                if (isMobile) setMobileView("list");
+              }}
               className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
                 selectedCategory === "ALL"
                   ? "bg-[#344030] text-[#E2E4DF] border border-[#5C6F52]/60 font-semibold"
@@ -383,11 +400,12 @@ export default function SkillsApp() {
               {CATEGORIES.filter((c) => c.id !== "ALL").map((cat) => (
                 <button
                   key={cat.id}
-                  onClick={() =>
+                  onClick={() => {
                     setSelectedCategory(
                       selectedCategory === cat.id ? "ALL" : cat.id
-                    )
-                  }
+                    );
+                    if (isMobile) setMobileView("list");
+                  }}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11px] font-mono transition-colors ${
                     selectedCategory === cat.id
                       ? "bg-[#2D362A] text-[#C2B280] font-bold border border-[#5C6F52]/40"
@@ -425,9 +443,19 @@ export default function SkillsApp() {
 
         {/* Column 2: Arsenal Skill Items List */}
         <div
-          style={{ width: `${listWidth}px` }}
-          className="bg-[#1C1F1C] flex flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29]"
+          style={isMobile ? { width: "100%" } : { width: `${listWidth}px` }}
+          className={`${mobileView === 'list' ? 'flex' : 'hidden'} md:flex bg-[#1C1F1C] flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29]`}
         >
+          {isMobile && mobileView === 'list' && (
+            <div className="shrink-0 p-3 pb-0 border-b border-[#2A2E29] bg-[#181B18] md:hidden">
+              <button
+                onClick={() => setMobileView("categories")}
+                className="px-3 py-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] text-[10px] uppercase font-bold font-mono rounded flex items-center gap-2 hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors mb-3"
+              >
+                <span>← BACK TO FOLDERS</span>
+              </button>
+            </div>
+          )}
           {/* Search Bar */}
           <div className="p-2 border-b border-[#2A2E29] flex items-center gap-1.5 shrink-0">
             <div className="flex-1 flex items-center gap-1.5 px-2.5 py-1 bg-[#141614] border border-[#2D322B] rounded-md focus-within:border-[#5C6F52] transition-colors overflow-hidden">
@@ -493,7 +521,17 @@ export default function SkillsApp() {
         />
 
         {/* Column 3: Selected Skill Technical Dossier Panel */}
-        <div className="flex-1 flex flex-col bg-[#141614] h-full overflow-y-auto relative">
+        <div className={`${mobileView === 'detail' ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-[#141614] h-full overflow-y-auto relative`}>
+          {isMobile && mobileView === 'detail' && (
+            <div className="shrink-0 p-3 pb-0 border-b border-[#2A2E29] bg-[#181B18] md:hidden">
+              <button
+                onClick={() => setMobileView("list")}
+                className="px-3 py-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] text-[10px] uppercase font-bold font-mono rounded flex items-center gap-2 hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors mb-3"
+              >
+                <span>← BACK TO ASSETS</span>
+              </button>
+            </div>
+          )}
           <AnimatePresence mode="wait">
             {isScanning ? (
               /* SYSTEM SCAN TRANSITION SCREEN */
