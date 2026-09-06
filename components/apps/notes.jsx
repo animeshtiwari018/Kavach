@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Search,
   Plus,
@@ -20,6 +20,7 @@ import {
   X,
   Radio,
   Shield,
+  Menu,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -185,6 +186,17 @@ export default function NotesApp() {
   const [warning, setWarning] = useState(null);
   const warningTimerRef = useRef(null);
 
+  const [mobileView, setMobileView] = useState("categories");
+  const [isMobile, setIsMobile] = useState(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Dynamic Sidebar & List Pane Widths
   const [sidebarWidth, setSidebarWidth] = useState(195);
   const [listWidth, setListWidth] = useState(250);
@@ -295,6 +307,10 @@ export default function NotesApp() {
     };
     setNotes([newNote, ...notes]);
     setActiveNoteId(newId);
+    if (isMobile) {
+      setMobileView("detail");
+      setShowMobileDrawer(false);
+    }
   };
 
   const handleDeleteNote = (idToDelete) => {
@@ -318,8 +334,8 @@ export default function NotesApp() {
     <div className="w-full h-full flex bg-[#141614] text-[#E2E4DF] font-sans select-none overflow-hidden text-xs">
       {/* Column 1: Intelligence Network Navigation Sidebar */}
       <div
-        style={{ width: `${sidebarWidth}px` }}
-        className="bg-[#181B18] flex flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]"
+        style={isMobile ? { width: "100%" } : { width: `${sidebarWidth}px` }}
+        className={`${mobileView === 'categories' ? 'flex' : 'hidden'} md:flex bg-[#181B18] flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]`}
       >
         {/* Network Section */}
         <div className="mb-4">
@@ -369,9 +385,10 @@ export default function NotesApp() {
             ].map(({ tag, label }) => (
               <button
                 key={tag}
-                onClick={() =>
-                  setSelectedTag(selectedTag === tag ? "ALL" : tag)
-                }
+                onClick={() => {
+                  setSelectedTag(selectedTag === tag ? "ALL" : tag);
+                  if (isMobile) setMobileView("list");
+                }}
                 className={`w-full flex items-center gap-2 px-2 py-1 rounded-md text-[11px] font-mono transition-colors ${
                   selectedTag === tag
                     ? "bg-[#2D362A] text-[#C2B280] font-bold border border-[#5C6F52]/40"
@@ -402,11 +419,36 @@ export default function NotesApp() {
         title="Drag to resize sidebar (Double click to reset)"
       />
 
+      {/* Mobile Drawer Overlay */}
+      {isMobile && mobileView === 'detail' && showMobileDrawer && (
+        <div 
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setShowMobileDrawer(false)}
+        />
+      )}
+
       {/* Column 2: Classified Files List Pane */}
       <div
-        style={{ width: `${listWidth}px` }}
-        className="bg-[#1C1F1C] flex flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29]"
+        style={
+          isMobile && mobileView === 'list' ? { width: "100%" } 
+          : isMobile && mobileView === 'detail' && showMobileDrawer ? { width: "65%" } 
+          : { width: `${listWidth}px` }
+        }
+        className={`${
+          mobileView === 'list' ? 'flex' 
+          : (mobileView === 'detail' && showMobileDrawer ? 'flex absolute left-0 top-0 bottom-0 z-50 shadow-2xl' : 'hidden')
+        } md:flex md:relative bg-[#1C1F1C] flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29] transition-transform duration-300`}
       >
+        {isMobile && mobileView === 'list' && (
+          <div className="shrink-0 p-3 pb-0 border-b border-[#2A2E29] bg-[#181B18] md:hidden">
+            <button
+              onClick={() => setMobileView("categories")}
+              className="px-3 py-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] text-[10px] uppercase font-bold font-mono rounded flex items-center gap-2 hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors mb-3"
+            >
+              <span>← BACK TO FOLDERS</span>
+            </button>
+          </div>
+        )}
         {/* Search Bar & Add Button */}
         <div className="p-2 border-b border-[#2A2E29] flex items-center gap-1.5">
           <div className="flex-1 flex items-center gap-1.5 px-2 py-1 bg-[#141614] border border-[#2D322B] rounded-md focus-within:border-[#5C6F52] transition-colors overflow-hidden">
@@ -450,7 +492,13 @@ export default function NotesApp() {
             return (
               <div
                 key={note.id}
-                onClick={() => setActiveNoteId(note.id)}
+                onClick={() => {
+                  setActiveNoteId(note.id);
+                  if (isMobile) {
+                    setMobileView("detail");
+                    setShowMobileDrawer(false);
+                  }
+                }}
                 className={`p-2.5 rounded-lg cursor-pointer transition-all relative border ${
                   isActive
                     ? "bg-[#344030]/60 border-[#5C6F52]/80 text-[#E2E4DF] shadow-sm"
@@ -492,7 +540,7 @@ export default function NotesApp() {
       />
 
       {/* Column 3: Main Document / Dossier Workspace */}
-      <div className="flex-1 flex flex-col bg-[#141614] h-full overflow-hidden relative">
+      <div className={`${mobileView === 'detail' ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-[#141614] h-full overflow-hidden relative`}>
         {/* Floating Restrict Warning Toast Notification */}
         <AnimatePresence>
           {warning && (
@@ -527,7 +575,19 @@ export default function NotesApp() {
 
         {/* macOS Style Tactical Toolbar */}
         <div className="h-11 px-4 border-b border-[#2A2E29] bg-[#181B18]/70 flex items-center justify-between select-none font-mono">
-          <div className="flex items-center gap-3 text-[#7A8274]">
+          <div className="flex items-center gap-2 sm:gap-3 text-[#7A8274]">
+            {isMobile && mobileView === 'detail' && (
+              <button
+                onClick={() => {
+                  setSelectedTag("ALL");
+                  setShowMobileDrawer(true);
+                }}
+                className="p-1 hover:text-[#E2E4DF] transition-colors cursor-pointer mr-2 md:hidden"
+                title="View All Notes"
+              >
+                <Menu className="w-4 h-4" />
+              </button>
+            )}
             <button
               onClick={handleCreateNote}
               className="p-1 hover:text-[#C2B280] transition-colors cursor-pointer"
