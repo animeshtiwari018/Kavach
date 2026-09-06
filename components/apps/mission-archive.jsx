@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Search,
   ExternalLink,
@@ -302,8 +302,8 @@ export default function MissionArchiveApp() {
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {/* Column 1: Left Navigation Sidebar */}
         <div
-          style={{ width: isMobile ? "100%" : `${sidebarWidth}px` }}
-          className={`${isMobile ? 'hidden' : 'flex'} bg-[#181B18] flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]`}
+          style={isMobile ? { width: "100%" } : { width: `${sidebarWidth}px` }}
+          className={`hidden md:flex bg-[#181B18] flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]`}
         >
           {/* Kavach Network Group */}
           <div className="mb-4">
@@ -381,8 +381,8 @@ export default function MissionArchiveApp() {
 
         {/* Column 2: Middle Mission Log Pane */}
         <div
-          style={{ width: isMobile ? "100%" : `${listWidth}px` }}
-          className={`bg-[#1C1F1C] flex flex-col ${isMobile ? 'h-[40%] border-b' : 'h-full border-r'} shrink-0 overflow-hidden border-[#2A2E29]`}
+          style={isMobile ? { width: "100%" } : { width: `${listWidth}px` }}
+          className={`bg-[#1C1F1C] flex flex-col h-[40%] md:h-full border-b md:border-b-0 md:border-r shrink-0 overflow-hidden border-[#2A2E29]`}
         >
           {/* Search Bar */}
           <div className="p-2 border-b border-[#2A2E29] flex items-center gap-1.5 shrink-0">
