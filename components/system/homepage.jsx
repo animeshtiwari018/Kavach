@@ -522,14 +522,20 @@ export default function Homepage({ onLogout }) {
         onControlCenterClick={(e) => {
           e.stopPropagation();
           setIsControlCenterOpen(!isControlCenterOpen);
+          setIsNotificationCenterOpen(false);
+          setIsVaniOpen(false);
         }}
         onVaniClick={(e) => {
           e.stopPropagation();
           setIsVaniOpen(!isVaniOpen);
+          setIsControlCenterOpen(false);
+          setIsNotificationCenterOpen(false);
         }}
         onNotificationCenterClick={(e) => {
           e.stopPropagation();
           setIsNotificationCenterOpen(!isNotificationCenterOpen);
+          setIsControlCenterOpen(false);
+          setIsVaniOpen(false);
         }}
         isDarkMode={isDarkMode}
         activeWindow={activeWindow}
