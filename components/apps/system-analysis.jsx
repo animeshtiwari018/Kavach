@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Brain,
   Folder,
@@ -16,6 +16,7 @@ import {
   GitBranch,
   ShieldCheck,
   Zap,
+  Menu,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -134,6 +135,17 @@ export default function SystemAnalysisApp() {
   const [isScanning, setIsScanning] = useState(false);
   const scanTimerRef = useRef(null);
 
+  const [mobileView, setMobileView] = useState("categories");
+  const [isMobile, setIsMobile] = useState(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Dynamic Sidebar & Middle Column Resizing
   const [sidebarWidth, setSidebarWidth] = useState(195);
   const [listWidth, setListWidth] = useState(250);
@@ -144,8 +156,18 @@ export default function SystemAnalysisApp() {
     ANALYSIS_MODULES.find((m) => m.id === selectedModuleId) || ANALYSIS_MODULES[0];
 
   const handleSelectModule = (moduleId) => {
-    if (moduleId === selectedModuleId && !isScanning) return;
+    if (moduleId === selectedModuleId && !isScanning) {
+      if (isMobile) {
+        setMobileView("detail");
+        setShowMobileDrawer(false);
+      }
+      return;
+    }
     setSelectedModuleId(moduleId);
+    if (isMobile) {
+      setMobileView("detail");
+      setShowMobileDrawer(false);
+    }
     setIsScanning(true);
     if (scanTimerRef.current) clearTimeout(scanTimerRef.current);
     scanTimerRef.current = setTimeout(() => {
@@ -219,11 +241,19 @@ export default function SystemAnalysisApp() {
       </div>
 
       {/* Main 3-Column Workstation Layout */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Mobile Drawer Overlay */}
+        {isMobile && mobileView === 'detail' && showMobileDrawer && (
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+            onClick={() => setShowMobileDrawer(false)}
+          />
+        )}
+
         {/* Column 1: Left Navigation Sidebar */}
         <div
-          style={{ width: `${sidebarWidth}px` }}
-          className="bg-[#181B18] flex flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]"
+          style={isMobile ? { width: "100%" } : { width: `${sidebarWidth}px` }}
+          className={`${mobileView === 'categories' ? 'flex' : 'hidden'} md:flex bg-[#181B18] flex-col h-full shrink-0 p-3 select-none overflow-hidden border-r border-[#2A2E29]`}
         >
           {/* Kavach Network Group */}
           <div className="mb-4">
@@ -275,7 +305,12 @@ export default function SystemAnalysisApp() {
               </button>
 
               {/* System Analysis Item (Highlighted with Muted Olive Accent) */}
-              <button className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11px] font-mono bg-[#344030] text-[#E2E4DF] border border-[#5C6F52]/60 font-semibold shadow-sm">
+              <button 
+                onClick={() => {
+                  if (isMobile) setMobileView("list");
+                }}
+                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11px] font-mono bg-[#344030] text-[#E2E4DF] border border-[#5C6F52]/60 font-semibold shadow-sm"
+              >
                 <span className="flex items-center gap-2 truncate">
                   <span className="text-[#C2B280] text-[10px]">◈</span>
                   <span className="truncate">System Analysis</span>
@@ -314,9 +349,26 @@ export default function SystemAnalysisApp() {
 
         {/* Column 2: Middle Navigation Pane */}
         <div
-          style={{ width: `${listWidth}px` }}
-          className="bg-[#1C1F1C] flex flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29]"
+          style={
+            isMobile && mobileView === 'list' ? { width: "100%" } 
+            : isMobile && mobileView === 'detail' && showMobileDrawer ? { width: "65%" } 
+            : { width: `${listWidth}px` }
+          }
+          className={`${
+            mobileView === 'list' ? 'flex' 
+            : (mobileView === 'detail' && showMobileDrawer ? 'flex absolute left-0 top-0 bottom-0 z-50 shadow-2xl' : 'hidden')
+          } md:flex md:relative bg-[#1C1F1C] flex-col h-full shrink-0 overflow-hidden border-r border-[#2A2E29] transition-transform duration-300`}
         >
+          {isMobile && mobileView === 'list' && (
+            <div className="shrink-0 p-3 pb-0 border-b border-[#2A2E29] bg-[#181B18] md:hidden">
+              <button
+                onClick={() => setMobileView("categories")}
+                className="px-3 py-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] text-[10px] uppercase font-bold font-mono rounded flex items-center gap-2 hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors mb-3"
+              >
+                <span>← BACK TO FOLDERS</span>
+              </button>
+            </div>
+          )}
           {/* Header */}
           <div className="p-3 border-b border-[#2A2E29] bg-[#181B18] shrink-0">
             <div className="text-[10px] font-mono font-bold text-[#C2B280] tracking-wider uppercase flex items-center justify-between">
@@ -376,7 +428,21 @@ export default function SystemAnalysisApp() {
         />
 
         {/* Column 3: Main Analytical Workspace Panel */}
-        <div className="flex-1 flex flex-col bg-[#141614] h-full overflow-y-auto relative">
+        <div className={`${mobileView === 'detail' ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-[#141614] h-full overflow-y-auto relative`}>
+          {isMobile && mobileView === 'detail' && (
+            <div className="shrink-0 p-3 border-b border-[#2A2E29] bg-[#181B18] md:hidden flex items-center gap-3">
+              <button
+                onClick={() => setShowMobileDrawer(true)}
+                className="p-1.5 bg-[#1C1F1C] border border-[#2A2E29] text-[#A8ACA2] rounded hover:text-[#E2E4DF] hover:border-[#5C6F52] transition-colors"
+                title="View All Protocols"
+              >
+                <Menu className="w-4 h-4" />
+              </button>
+              <span className="text-[10px] font-bold tracking-widest text-[#C2B280] uppercase">
+                {currentModule.code}
+              </span>
+            </div>
+          )}
           <AnimatePresence mode="wait">
             {isScanning ? (
               /* SUBTLE SCANNING / ACCESSING TRANSITION SCREEN */
