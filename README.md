@@ -2,13 +2,21 @@
 
 Kavach is a defense-inspired, macOS-style web operating system built to showcase personal software development projects, technical skills, and security dossier records in an interactive, modular environment.
 
-## 🚀 Features
+## 🚀 Detailed Features Documentation
 
-- **Custom Window Management:** Drag, drop, and edge-resize physics window management engine.
-- **Zero-Latency State:** Real-time state evaluation loop with dynamic dock magnification.
-- **Spotlight Search:** Quick launcher integrated directly into the workspace.
-- **Mobile Responsive:** Seamlessly transitions into an iOS-like mobile interface with Control Center and Notification Panel.
-- **Built-in Apps:** Includes a Field Journal (Notes), FaceTime UI, Terminal, Browser, and a highly detailed Mission Archive (Projects).
+### 1. Interactive Desktop & Window Management
+Kavach OS provides a fully functional, macOS-inspired desktop environment right in your browser. 
+- **Draggable Windows:** Easily click and drag application windows around the screen.
+- **Window Controls:** Standard macOS-style buttons (Close, Minimize, and Expand) are available on every app.
+- **Dynamic Dock:** A responsive bottom dock with hover magnification to quickly launch or switch between active applications.
+- **Active Focus (Z-index):** Clicking on any window brings it immediately to the front, just like a real operating system.
+
+### 2. Seamless Mobile & Responsive Experience
+Kavach OS is designed to work flawlessly across all devices, adapting intelligently to smaller screens.
+- **iOS-Style Mobile Interface:** On mobile devices, the OS transforms from a windowed desktop into a smooth, app-based mobile interface.
+- **Control Center:** A swipe-down or click-activated control panel to quickly toggle system settings like Dark Mode and Brightness.
+- **Notification Center:** A dedicated panel to view system alerts and security notifications.
+- **Unified Interactions:** Both panels are mutually exclusive, ensuring a clean and overlapping-free user experience on small screens.
 
 ## 🛠️ Tech Stack
 
