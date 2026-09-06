@@ -18,6 +18,12 @@ Kavach OS is designed to work flawlessly across all devices, adapting intelligen
 - **Notification Center:** A dedicated panel to view system alerts and security notifications.
 - **Unified Interactions:** Both panels are mutually exclusive, ensuring a clean and overlapping-free user experience on small screens.
 
+### 3. Spotlight Search & Quick Navigation
+Kavach OS includes a powerful, system-wide search and launcher utility to navigate the interface without touching the mouse.
+- **Keyboard Shortcuts:** Press `Cmd + Space` (or `Ctrl + Space` on Windows/Linux) to instantly open the Spotlight search bar from anywhere.
+- **App Launcher:** Type the name of any application (e.g., "Browser", "Terminal", "Projects") and hit Enter to instantly launch it.
+- **Contextual Awareness:** Spotlight intelligently filters available system apps based on your query, providing a rapid execution flow.
+
 ## 🛠️ Tech Stack
 
 - **Framework:** Next.js 15 (App Router)
