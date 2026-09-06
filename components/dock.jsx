@@ -127,7 +127,6 @@ function DockItem({ app, mouseX, openApp, isOpen, dockSize, dockMag, isBouncing,
         <img
           src={app.icon || "/placeholder.svg"}
           alt={app.title}
-          title={app.title}
           draggable={false}
           onError={() => setImgError(true)}
           style={{
@@ -145,10 +144,17 @@ function DockItem({ app, mouseX, openApp, isOpen, dockSize, dockMag, isBouncing,
     <li
       id={`dock-${app.id}`}
       onClick={() => openApp(app)}
-      className={`relative flex flex-col justify-end mb-1 cursor-pointer mx-1 ${
+      className={`group relative flex flex-col justify-end mb-1 cursor-pointer mx-1 ${
         isBouncing ? "dock-bounce" : ""
       } ${isReceiving ? "dock-receive" : ""}`}
     >
+      {/* Tooltip */}
+      {!isMobile && (
+        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-black/40 backdrop-blur-md border border-white/10 text-white/90 text-[13px] font-medium tracking-wide rounded-[8px] shadow-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50 whitespace-nowrap">
+          {app.title}
+        </div>
+      )}
+
       {content}
 
       {/* Shadow beneath icon */}
