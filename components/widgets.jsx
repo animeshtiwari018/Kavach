@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CloudSun, Droplets, Wind, ShieldCheck } from "lucide-react";
+import { CloudSun, Droplets, Wind, ShieldCheck, FileText, AlertTriangle } from "lucide-react";
 
 export default function DesktopWidgets() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -156,6 +156,58 @@ export default function DesktopWidgets() {
         <span className="absolute top-1 right-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
         <span className="absolute bottom-1 left-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
         <span className="absolute bottom-1 right-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
+      </div>
+
+      {/* Urgent Mission / Resume Widget */}
+      <div 
+        onClick={() => {
+          // In a real app, this might trigger a download or open a resume viewer.
+          // For now, we'll just open a link or show a visual effect.
+          window.open('/resume.pdf', '_blank');
+        }}
+        className="w-[220px] h-[220px] rounded-2xl bg-[#1a0f0f]/90 backdrop-blur-xl border border-[#5c2424] p-4 shadow-[0_12px_35px_rgba(220,38,38,0.25)] flex flex-col justify-between font-mono relative overflow-hidden group hover:border-[#ef4444] hover:bg-[#251010]/95 transition-all cursor-pointer"
+      >
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ef4444] to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+        
+        {/* Header */}
+        <div className="flex justify-between items-start">
+          <div>
+            <h4 className="text-sm font-bold text-white tracking-wide font-sans">
+              URGENT MISSION?
+            </h4>
+            <span className="text-[9px] text-[#ef4444] tracking-wider font-bold block uppercase mt-0.5 animate-pulse">
+              IMMEDIATE DISPATCH
+            </span>
+          </div>
+          <AlertTriangle className="w-8 h-8 text-[#ef4444] flex-shrink-0 animate-pulse" />
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col items-center justify-center flex-1 my-2">
+          <div className="w-16 h-16 rounded-full bg-[#ef4444]/10 border border-[#ef4444]/30 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+            <FileText className="w-8 h-8 text-[#ef4444]" />
+          </div>
+          <div className="text-center">
+            <div className="text-sm font-bold text-white tracking-widest uppercase">
+              SEE MY RESUME
+            </div>
+            <div className="text-[10px] text-[#a3a3a3] font-sans mt-1">
+              Extract Operative Profile
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t border-[#5c2424] pt-2 flex items-center justify-between text-[9px] text-[#ef4444] font-bold">
+          <span className="uppercase tracking-widest">STATUS: READY</span>
+          <span className="bg-[#ef4444]/20 px-2 py-0.5 rounded border border-[#ef4444]/40">INITIATE</span>
+        </div>
+
+        {/* Tactical Corner accents */}
+        <span className="absolute top-1 left-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
+        <span className="absolute top-1 right-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
+        <span className="absolute bottom-1 left-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
+        <span className="absolute bottom-1 right-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
       </div>
     </div>
   );
