@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Search } from "lucide-react";
+import { Search, Lock, Radio, ShieldCheck } from "lucide-react";
 import { AppleIcon } from "@/components/icons";
+import { useSettings } from "../context/SettingsContext";
 
 import { VaniOrb } from "./system/vani";
 
@@ -27,6 +28,8 @@ export default function Menubar({
 
   const menuRef = useRef(null);
   const wifiRef = useRef(null);
+  
+  const { quantumCrypto, stealthMode, satRelay } = useSettings();
 
   // Safeguard: check if time is a Date object, if not fallback to new Date()
   const dateObj = time instanceof Date ? time : new Date();
@@ -191,6 +194,19 @@ export default function Menubar({
 
       {/* Right Side Items */}
       <div className="flex items-center space-x-3">
+        {/* Security / Comms Indicators */}
+        <div className="flex items-center space-x-1.5 mr-2 opacity-80">
+          {quantumCrypto && (
+            <Lock className="w-3.5 h-3.5 text-green-400" title="Quantum Vault Active" />
+          )}
+          {stealthMode && (
+            <ShieldCheck className="w-3.5 h-3.5 text-[#8E9B72]" title="Stealth Protocol Active" />
+          )}
+          {satRelay && (
+            <Radio className="w-3.5 h-3.5 text-blue-400" title="Satellite Relay Online" />
+          )}
+        </div>
+
         <span className="mr-0.5">{batteryLevel}%</span>
         {/* Battery Icon */}
         <div className="relative flex items-center">
