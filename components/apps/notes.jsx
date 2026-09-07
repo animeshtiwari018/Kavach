@@ -169,6 +169,7 @@ Build. Learn. Deploy. Improve. Repeat.
 --------------------------------------------------
 🌐 CONNECTIVITY CHANNELS
 --------------------------------------------------
+▪ Email: animeshtiwari178@gmail.com
 ▪ GitHub: github.com/AnimeshTiwari
 ▪ LinkedIn: linkedin.com/in/animeshtiwari
 ▪ Workstation: Kavach Workstation Web App
