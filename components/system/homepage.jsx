@@ -549,9 +549,9 @@ export default function Homepage({ onLogout }) {
       } ${themeClasses[themeMode] || ""}`}
       style={{
         backgroundImage: isDarkMode
-          ? `url("/images/Be-Disciplind.svg")`
+          ? `url("/images/balidan.svg")`
           : undefined,
-        backgroundSize: "45% auto",
+        backgroundSize: "30% auto",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
