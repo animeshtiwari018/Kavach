@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSettings } from "../../context/SettingsContext";
 import {
   Shield,
   ShieldCheck,
@@ -27,33 +28,21 @@ export default function SettingsApp() {
   const [searchQuery, setSearchQuery] = useState("");
   const [toastMessage, setToastMessage] = useState(null);
 
-  // Settings State
-  const [themeMode, setThemeMode] = useState("dark"); // stealth, olive, dark, crimson
-  const [accentColor, setAccentColor] = useState("green"); // green, blue, amber, red
-  const [iconStyle, setIconStyle] = useState("default"); // default, camo, contrast, hud
-  const [showRadar, setShowRadar] = useState(true);
-  const [showCorners, setShowCorners] = useState(true);
-
-  // Security Toggles
-  const [quantumCrypto, setQuantumCrypto] = useState(true);
-  const [defenseFirewall, setDefenseFirewall] = useState(true);
-  const [stealthMode, setStealthMode] = useState(true);
-  const [threatNeutralize, setThreatNeutralize] = useState(true);
-
-  // Comms Toggles
-  const [satRelay, setSatRelay] = useState(true);
-  const [meshNetwork, setMeshNetwork] = useState(true);
-  const [signalGain, setSignalGain] = useState(85);
-
-  // Privacy & Vault Toggles
-  const [zeroLogs, setZeroLogs] = useState(true);
-  const [biometricAuth, setBiometricAuth] = useState(true);
-  const [autoLock, setAutoLock] = useState(true);
-
-  // Alerts & Diagnostics Toggles
-  const [audioPings, setAudioPings] = useState(true);
-  const [alertSirens, setAlertSirens] = useState(false);
-  const [diagnosticLogs, setDiagnosticLogs] = useState(true);
+  const {
+    themeMode, setThemeMode,
+    accentColor, setAccentColor,
+    iconStyle, setIconStyle,
+    showRadar, setShowRadar,
+    showCorners, setShowCorners,
+    quantumCrypto, setQuantumCrypto,
+    defenseFirewall, setDefenseFirewall,
+    stealthMode, setStealthMode,
+    satRelay, setSatRelay,
+    signalGain, setSignalGain,
+    zeroLogs, setZeroLogs,
+    autoLock, setAutoLock,
+    audioPings, setAudioPings,
+  } = useSettings();
 
   const showToast = (msg) => {
     setToastMessage(msg);
