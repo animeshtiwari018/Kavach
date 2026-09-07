@@ -22,6 +22,7 @@ import ContactApp from "../apps/contact";
 import DesktopWidgets from "../widgets";
 import VaniAssistant from "./vani";
 import NotificationCenter from "./notification-center";
+import { useSettings } from "../../context/SettingsContext";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -41,6 +42,54 @@ export default function Homepage({ onLogout }) {
   const [isLaunchpadOpen, setIsLaunchpadOpen] = useState(false);
   const [isVaniOpen, setIsVaniOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+
+  const { themeMode, showRadar, showCorners, autoLock, audioPings } = useSettings();
+
+  const themeClasses = {
+    dark: "",
+    olive: "sepia-[0.4] hue-rotate-[30deg] saturate-[1.3]",
+    crimson: "sepia-[0.6] hue-rotate-[-30deg] saturate-[1.8] brightness-[0.9]",
+  };
+
+  useEffect(() => {
+    if (!autoLock) return;
+    let idleTimer;
+    const resetTimer = () => {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => setIsSleeping(true), 5 * 60 * 1000);
+    };
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+    resetTimer();
+    return () => {
+      clearTimeout(idleTimer);
+      window.removeEventListener("mousemove", resetTimer);
+      window.removeEventListener("keydown", resetTimer);
+    };
+  }, [autoLock]);
+
+  useEffect(() => {
+    if (!audioPings) return;
+    const playPing = () => {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') return; // Don't block if not interacted
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+        gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1);
+      } catch (e) {}
+    };
+    window.addEventListener("click", playPing);
+    return () => window.removeEventListener("click", playPing);
+  }, [audioPings]);
+
 
   // Window list state
   const [apps, setApps] = useState([
@@ -497,7 +546,7 @@ export default function Homepage({ onLogout }) {
         isDarkMode
           ? "bg-[#070906] text-[#D4D5C8]"
           : "bg-neutral-100 text-neutral-800"
-      }`}
+      } ${themeClasses[themeMode] || ""}`}
       style={{
         backgroundImage: isDarkMode
           ? `url("/images/Be-Disciplind.svg")`
@@ -702,8 +751,17 @@ export default function Homepage({ onLogout }) {
           className="absolute inset-x-2 top-[44px] bottom-[80px] pointer-events-none"
         />
 
+        {showCorners && (
+          <>
+            <span className="absolute top-12 left-3 text-[14px] text-[#3A4034] font-bold z-0 pointer-events-none opacity-50">+</span>
+            <span className="absolute top-12 right-3 text-[14px] text-[#3A4034] font-bold z-0 pointer-events-none opacity-50">+</span>
+            <span className="absolute bottom-2 left-3 text-[14px] text-[#3A4034] font-bold z-0 pointer-events-none opacity-50">+</span>
+            <span className="absolute bottom-2 right-3 text-[14px] text-[#3A4034] font-bold z-0 pointer-events-none opacity-50">+</span>
+          </>
+        )}
+
         {/* Desktop Right-Side Widgets (Calendar & Weather) with Army Touch */}
-        <DesktopWidgets />
+        {showRadar && <DesktopWidgets />}
 
         {/* Desktop Left-Side App Shortcut Icons */}
         <div className="absolute top-[60px] left-6 z-20 flex flex-col items-center gap-6 select-none">
