@@ -28,19 +28,19 @@ const RANKS_DATA = [
     symbol: "★",
     category: "INTERNSHIP ASSIGNMENT",
     status: "ACTIVE",
-    posting: "WEB ENGINEERING INTERNSHIP",
+    posting: "FULL-STACK WEB DEVELOPER INTERNSHIP",
     role: "Full-Stack Web Developer Intern",
-    period: "2024 — PRESENT",
+    period: "AUG 2025 — MAR 2026",
     previousRank: "N/A",
     objective:
-      "Web engineering internship posting focused on full-stack web application development, academic resource portals, and REST API integration.",
+      "Web engineering internship posting focused on full-stack web application development at x developers.",
     duties: [
       "Built Student Resource Portal web app for academic resource distribution and indexed document search pipelines",
       "Developed responsive frontend interfaces using React, JavaScript (ES6+), and Tailwind CSS",
       "Integrated MongoDB schemas with Mongoose ORM and Express REST API authorization endpoints",
       "Collaborated on version control using Git, code reviews, and cross-browser responsiveness testing",
     ],
-    skillsDeployed: ["React", "JavaScript (ES6+)", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Git"],
+    skillsDeployed: ["React", "JavaScript (ES6+)", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Git", "Python Gen AI"],
   },
   {
     id: "rank-02",
