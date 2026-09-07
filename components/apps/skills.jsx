@@ -234,6 +234,26 @@ const SKILLS_DATA = [
     ],
     deployedIn: "REST Microservice Gateway",
   },
+  {
+    id: "python-gen-ai",
+    name: "PYTHON GEN AI",
+    category: "INTELLIGENCE",
+    categoryLabel: "INTELLIGENCE",
+    type: "AI & Machine Learning",
+    role: "Generative Models",
+    status: "OPERATIONAL",
+    level: 80,
+    deployment: "LLMs • AI Agents",
+    experience: "AI Integration",
+    capabilities: [
+      "Python Scripting & Automation",
+      "Large Language Models (LLMs) Integration",
+      "Generative AI Architectures",
+      "Prompt Engineering",
+      "LangChain & AI Agents",
+    ],
+    deployedIn: "AI Driven Pipelines & Assistants",
+  },
 ];
 
 const renderProficiencyBar = (level) => {
