@@ -105,58 +105,6 @@ export default function DesktopWidgets() {
         <span className="absolute bottom-1 right-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
       </div>
 
-      {/* Weather / Tactical Atmospherics Widget */}
-      <div className="w-[220px] h-[220px] rounded-2xl bg-[#0b0e0a]/90 backdrop-blur-xl border border-[#3A4034] p-3.5 shadow-[0_12px_35px_rgba(0,0,0,0.85)] flex flex-col justify-between font-mono relative overflow-hidden group hover:border-[#8E9B72] transition-colors">
-        {/* Top Location & Icon Header */}
-        <div className="flex justify-between items-start">
-          <div>
-            <h4 className="text-sm font-bold text-white tracking-wide font-sans">
-              Memphis
-            </h4>
-            <span className="text-[9px] text-[#73786B] tracking-wider font-bold block uppercase mt-0.5">
-              SECTOR 01 // CLEAR
-            </span>
-          </div>
-          <CloudSun className="w-8 h-8 text-amber-400 flex-shrink-0" />
-        </div>
-
-        {/* Main Temperature Display */}
-        <div className="my-0.5">
-          <div className="text-4xl font-extrabold text-white tracking-tight flex items-start font-sans leading-none">
-            79<span className="text-xl font-normal text-[#8E9B72] ml-0.5">°</span>
-          </div>
-          <div className="text-[10.5px] text-[#8E9B72] font-semibold tracking-wider uppercase mt-1">
-            Mostly Clear
-          </div>
-        </div>
-
-        {/* High/Low & Humidity/Wind Row */}
-        <div className="border-t border-[#24291F] pt-2 grid grid-cols-3 gap-1 text-[10px] text-[#D4D5C8] font-semibold">
-          <div>
-            <span className="text-[8px] text-[#73786B] block">H:84° L:62°</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Droplets className="w-3 h-3 text-blue-400 flex-shrink-0" />
-            <span>52%</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Wind className="w-3 h-3 text-emerald-400 flex-shrink-0" />
-            <span>8km/h</span>
-          </div>
-        </div>
-
-        {/* Footer Alert Status Bar */}
-        <div className="border-t border-[#24291F] pt-1.5 flex items-center gap-1.5 text-[9.5px] text-[#8E9B72] font-bold">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#22C55E]" />
-          <span className="uppercase tracking-wider">Air quality alert</span>
-        </div>
-
-        {/* Tactical Corner accents */}
-        <span className="absolute top-1 left-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
-        <span className="absolute top-1 right-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
-        <span className="absolute bottom-1 left-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
-        <span className="absolute bottom-1 right-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
-      </div>
 
       {/* Urgent Mission / Resume Widget */}
       <div 
