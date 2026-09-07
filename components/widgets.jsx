@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { CloudSun, Droplets, Wind, ShieldCheck, FileText, AlertTriangle } from "lucide-react";
+import { motion } from "motion/react";
 
 export default function DesktopWidgets() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -107,7 +108,9 @@ export default function DesktopWidgets() {
 
 
       {/* Urgent Mission / Resume Widget */}
-      <div 
+      <motion.div 
+        animate={{ opacity: [0.85, 1, 0.85] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         onClick={() => {
           // In a real app, this might trigger a download or open a resume viewer.
           // For now, we'll just open a link or show a visual effect.
@@ -156,7 +159,7 @@ export default function DesktopWidgets() {
         <span className="absolute top-1 right-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
         <span className="absolute bottom-1 left-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
         <span className="absolute bottom-1 right-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
-      </div>
+      </motion.div>
     </div>
   );
 }
