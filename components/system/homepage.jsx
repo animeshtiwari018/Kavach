@@ -551,7 +551,7 @@ export default function Homepage({ onLogout }) {
         backgroundImage: isDarkMode
           ? `url("/images/balidan.svg")`
           : undefined,
-        backgroundSize: "30% auto",
+        backgroundSize: "15% auto",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
