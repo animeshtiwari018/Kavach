@@ -48,7 +48,7 @@ const SkillsIcon = (
 const ServiceIcon = <Briefcase className="w-10 h-10 text-amber-500" strokeWidth="1.5" />;
 
 const MOBILE_APPS = [
-  { id: "facetime", title: "FaceTime", icon: "/images/kavach.svg", component: FaceTimeApp },
+  { id: "facetime", title: "FaceTime", icon: "/images/facetime.svg", component: FaceTimeApp },
   { id: "github", title: "GitHub", icon: "/images/github.svg", component: GitHubApp },
   { id: "spotify", title: "Spotify", icon: "/images/spotify.svg", component: SpotifyApp },
   { id: "mission-archive", title: "Archive", icon: "/images/kavach.svg", component: MissionArchiveApp },
