@@ -172,7 +172,17 @@ export default function Homepage({ onLogout }) {
       defaultY: 140,
       defaultWidth: 780,
       defaultHeight: 520,
-      icon: "⚙️",
+      icon: (
+        <img
+          src="/images/settings1.svg"
+          alt="Settings"
+          loading="eager"
+          fetchPriority="high"
+          className="w-14 h-14 object-contain select-none pointer-events-none"
+          draggable="false"
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      ),
       iconName: "Settings",
     },
   ]);
