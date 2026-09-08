@@ -62,7 +62,7 @@ const DOCK_APPS = [
   { id: "safari", title: "Safari", icon: "/images/browser.svg", component: BrowserApp },
   { id: "notes", title: "Notes", icon: "/images/Para_Skull.svg", component: NotesApp },
   { id: "terminal", title: "Terminal", icon: "/images/Terminal.svg", component: TerminalApp },
-  { id: "settings", title: "Settings", icon: "/images/kavach.svg", component: SettingsApp },
+  { id: "settings", title: "Settings", icon: "/images/settings1.svg", component: SettingsApp },
 ];
 
 export default function MobileHomepage({ onLogout }) {
