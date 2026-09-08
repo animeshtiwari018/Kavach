@@ -14,7 +14,7 @@ const dockApps = [
   { id: "settings", title: "Settings", icon: "/images/settings1.svg", component: "Settings" },
   { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
   { id: "notes", title: "Notes", icon: "/images/Para_Skull.svg", component: "Notes" },
-  { id: "facetime", title: "FaceTime", icon: "/images/kavach.svg", component: "FaceTime" },
+  { id: "facetime", title: "FaceTime", icon: "/images/facetime.svg", component: "FaceTime" },
   { id: "terminal", title: "Terminal", icon: "/images/Terminal.svg", component: "Terminal" },
   { id: "github", title: "GitHub", icon: "/images/github.svg", component: "GitHub" },
   { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
