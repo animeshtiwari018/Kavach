@@ -13,7 +13,7 @@ export function VaniOrb({ isListening, isThinking, isSpeaking, state: stateProp,
       audioLevel={audioLevel}
       size={size}
       onClick={onClick}
-      logoSrc={logoSrc || "/images/kavach1.png"}
+      logoSrc={logoSrc || "/images/AI.svg"}
     />
   );
 }
