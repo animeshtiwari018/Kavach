@@ -32,7 +32,7 @@ const launchpadApps = [
   {
     id: "facetime",
     title: "FaceTime",
-    icon: "/images/kavach.svg",
+    icon: "/images/facetime.svg",
     component: "FaceTime",
   },
   {
