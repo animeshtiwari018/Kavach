@@ -11,7 +11,7 @@ const dockApps = [
   { id: "launchpad", title: "Launchpad", icon: "/images/kavach.svg", component: "Launchpad", isSystem: true },
   { id: "vani", title: "VANI AI", icon: "vani", component: "Vani" },
   { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
-  { id: "settings", title: "Settings", icon: "/images/kavach.svg", component: "Settings" },
+  { id: "settings", title: "Settings", icon: "/images/settings1.svg", component: "Settings" },
   { id: "vscode", title: "VS Code", icon: "/images/vscode.svg", component: "VSCode" },
   { id: "notes", title: "Notes", icon: "/images/Para_Skull.svg", component: "Notes" },
   { id: "facetime", title: "FaceTime", icon: "/images/kavach.svg", component: "FaceTime" },
