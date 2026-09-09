@@ -181,7 +181,7 @@ export default function LockScreen({ onUnlock }) {
               <img
                 src="/images/Para_Skull.svg"
                 alt="Avatar"
-                className="w-12 h-12 opacity-80 transition-opacity duration-500"
+                className="w-15 h-15 opacity-80 transition-opacity duration-500"
               />
             </div>
           </div>
@@ -217,27 +217,25 @@ export default function LockScreen({ onUnlock }) {
               />
 
               {/* Tactical Inner Dotted Border Frame */}
-              <div 
-                className="absolute top-[3px] bottom-[3px] left-[3px] right-[3px] border border-dotted border-[#24291F] group-focus-within:border-[#3A4034]/70 transition-colors duration-300 pointer-events-none z-10" 
-              />
+              <div className="absolute top-[3px] bottom-[3px] left-[3px] right-[3px] border border-dotted border-[#24291F] group-focus-within:border-[#3A4034]/70 transition-colors duration-300 pointer-events-none z-10" />
 
               {/* Corner welded rivets */}
-              <motion.span 
+              <motion.span
                 className="absolute top-[6px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
                 animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
                 transition={{ duration: 0.3 }}
               />
-              <motion.span 
+              <motion.span
                 className="absolute top-[6px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
                 animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
                 transition={{ duration: 0.3 }}
               />
-              <motion.span 
+              <motion.span
                 className="absolute bottom-[6.5px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
                 animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
                 transition={{ duration: 0.3 }}
               />
-              <motion.span 
+              <motion.span
                 className="absolute bottom-[6.5px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
                 animate={{ backgroundColor: isFocused ? "#8E9B72" : "#24291F" }}
                 transition={{ duration: 0.3 }}
@@ -483,59 +481,100 @@ export default function LockScreen({ onUnlock }) {
               <motion.div
                 className="absolute inset-0 pointer-events-none"
                 animate={{
-                  backgroundColor: authStatus !== "idle"
-                    ? "#1A1E16"
-                    : isBtnPressed 
-                    ? "#8E9B72" 
-                    : isBtnHovered 
-                    ? "#252B20" 
-                    : "#1A1E16"
+                  backgroundColor:
+                    authStatus !== "idle"
+                      ? "#1A1E16"
+                      : isBtnPressed
+                        ? "#8E9B72"
+                        : isBtnHovered
+                          ? "#252B20"
+                          : "#1A1E16",
                 }}
                 transition={{ duration: 0.2 }}
               />
 
               {/* Tactical Inner Dotted Border Frame */}
-              <motion.div 
+              <motion.div
                 className="absolute top-[3px] bottom-[3px] left-[3px] right-[3px] border border-dotted pointer-events-none z-10"
                 animate={{
-                  borderColor: isBtnPressed ? "rgba(10, 12, 9, 0.4)" : isBtnHovered ? "#737B65" : "#4A5042"
+                  borderColor: isBtnPressed
+                    ? "rgba(10, 12, 9, 0.4)"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                 }}
                 transition={{ duration: 0.2 }}
               />
 
               {/* Welded Corner Rivets */}
-              <motion.span 
+              <motion.span
                 className="absolute top-[6px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
-                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                animate={{
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
+                }}
                 transition={{ duration: 0.2 }}
               />
-              <motion.span 
+              <motion.span
                 className="absolute top-[6px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
-                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                animate={{
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
+                }}
                 transition={{ duration: 0.2 }}
               />
-              <motion.span 
+              <motion.span
                 className="absolute bottom-[6.5px] left-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
-                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                animate={{
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
+                }}
                 transition={{ duration: 0.2 }}
               />
-              <motion.span 
+              <motion.span
                 className="absolute bottom-[6.5px] right-[6px] w-[2.5px] h-[2.5px] rounded-full z-20 pointer-events-none"
-                animate={{ backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                animate={{
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
+                }}
                 transition={{ duration: 0.2 }}
               />
 
               {/* HUD Targeting notch crosshairs on side borders */}
               <motion.span
                 className="absolute left-[-2px] top-1/2 -translate-y-1/2 text-[8px] font-bold select-none pointer-events-none z-20"
-                animate={{ color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                animate={{
+                  color: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
+                }}
                 transition={{ duration: 0.2 }}
               >
                 +
               </motion.span>
               <motion.span
                 className="absolute right-[-2.5px] top-1/2 -translate-y-1/2 text-[8px] font-bold select-none pointer-events-none z-20"
-                animate={{ color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042" }}
+                animate={{
+                  color: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
+                }}
                 transition={{ duration: 0.2 }}
               >
                 +
@@ -545,50 +584,78 @@ export default function LockScreen({ onUnlock }) {
               <motion.span
                 className="absolute -top-[5.5px] -left-[1px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
-                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  color: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                   scale: isBtnHovered ? 1.05 : 1,
                   x: isBtnHovered ? 0.5 : 0,
-                  y: isBtnHovered ? 0.5 : 0
+                  y: isBtnHovered ? 0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >┌</motion.span>
+              >
+                ┌
+              </motion.span>
               <motion.span
                 className="absolute -top-[5.5px] -right-[1.5px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
-                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  color: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                   scale: isBtnHovered ? 1.05 : 1,
                   x: isBtnHovered ? -0.5 : 0,
-                  y: isBtnHovered ? 0.5 : 0
+                  y: isBtnHovered ? 0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >┐</motion.span>
+              >
+                ┐
+              </motion.span>
               <motion.span
                 className="absolute -bottom-[7.5px] -left-[1px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
-                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  color: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                   scale: isBtnHovered ? 1.05 : 1,
                   x: isBtnHovered ? 0.5 : 0,
-                  y: isBtnHovered ? -0.5 : 0
+                  y: isBtnHovered ? -0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >└</motion.span>
+              >
+                └
+              </motion.span>
               <motion.span
                 className="absolute -bottom-[7.5px] -right-[1.5px] text-[10px] font-mono font-bold leading-none select-none pointer-events-none z-20"
                 animate={{
-                  color: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042",
+                  color: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                   scale: isBtnHovered ? 1.05 : 1,
                   x: isBtnHovered ? -0.5 : 0,
-                  y: isBtnHovered ? -0.5 : 0
+                  y: isBtnHovered ? -0.5 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 350, damping: 22 }}
-              >┘</motion.span>
+              >
+                ┘
+              </motion.span>
 
               {/* Animated Mechanical Border Lines */}
               <motion.div
                 className="absolute top-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
                 animate={{
                   scaleX: isBtnHovered ? 1 : 0.95,
-                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
@@ -596,23 +663,35 @@ export default function LockScreen({ onUnlock }) {
                 className="absolute bottom-0 left-[6px] right-[6px] h-[1px] z-10 origin-center"
                 animate={{
                   scaleX: isBtnHovered ? 1 : 0.95,
-                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
               <motion.div
                 className="absolute left-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
                 animate={{
-                  scaleY: isBtnHovered ? 1 : 0.90,
-                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                  scaleY: isBtnHovered ? 1 : 0.9,
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
               <motion.div
                 className="absolute right-0 top-[6px] bottom-[6px] w-[1px] z-10 origin-center"
                 animate={{
-                  scaleY: isBtnHovered ? 1 : 0.90,
-                  backgroundColor: isBtnPressed ? "#0A0C09" : isBtnHovered ? "#737B65" : "#4A5042"
+                  scaleY: isBtnHovered ? 1 : 0.9,
+                  backgroundColor: isBtnPressed
+                    ? "#0A0C09"
+                    : isBtnHovered
+                      ? "#737B65"
+                      : "#4A5042",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
               />
@@ -631,13 +710,14 @@ export default function LockScreen({ onUnlock }) {
               >
                 <motion.span
                   animate={{
-                    color: authStatus !== "idle"
-                      ? "#C9CBC0"
-                      : isBtnPressed
-                      ? "#0A0C09"
-                      : isBtnHovered
-                      ? "#E8EDF7"
-                      : "#C9CBC0"
+                    color:
+                      authStatus !== "idle"
+                        ? "#C9CBC0"
+                        : isBtnPressed
+                          ? "#0A0C09"
+                          : isBtnHovered
+                            ? "#E8EDF7"
+                            : "#C9CBC0",
                   }}
                   transition={{ duration: 0.15 }}
                   className="flex items-center justify-center gap-2"
