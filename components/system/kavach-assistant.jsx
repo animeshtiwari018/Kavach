@@ -21,7 +21,7 @@ export function KavachAssistant({
   audioLevel = 0,
   isActive = true,
   size = "md",
-  logoSrc = "/images/kavach1.png",
+  logoSrc = "/images/vani.svg",
   onClick,
   className = "",
 }) {
