@@ -617,7 +617,7 @@ export default function MissionArchiveApp() {
                     <Target className="w-3.5 h-3.5 text-[#C2B280]" />
                     <span>OBJECTIVE</span>
                   </div>
-                  <p className="text-xs text-[#D0D3CB] leading-relaxed pt-0.5">
+                  <p className="text-sm text-[#D0D3CB] leading-relaxed pt-0.5">
                     {currentMission.objective}
                   </p>
                 </div>
@@ -630,7 +630,7 @@ export default function MissionArchiveApp() {
                   </div>
                   <ul className="space-y-1.5 text-[#D0D3CB]">
                     {currentMission.capabilities.map((cap, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-xs">
+                      <li key={idx} className="flex items-start gap-2 text-sm">
                         <span className="text-[#5C6F52] shrink-0 font-bold">•</span>
                         <span>{cap}</span>
                       </li>
