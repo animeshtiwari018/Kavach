@@ -277,7 +277,7 @@ export function KavachAssistant({
         // Calculate state-based scale and floating y-offset
         let logoScale = 1;
         let floatY = 0;
-        let alpha = 1;
+        let alpha = 0.5;
 
         if (state === "idle") {
           logoScale = 1 + Math.sin(elapsed * 1.2) * 0.025; // 1 -> 1.025 -> 1
@@ -291,7 +291,7 @@ export function KavachAssistant({
           floatY = Math.sin(elapsed * 8) * 1.5;
         } else if (state === "activating") {
           logoScale = 0.5 + activationProgress * 0.5;
-          alpha = activationProgress;
+          alpha = activationProgress * 0.5;
         }
 
         const logoDrawSize = sizePx * 0.58 * logoScale;
