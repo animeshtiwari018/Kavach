@@ -196,7 +196,7 @@ export function KavachAssistant({
           alpha = activationProgress * 0.5;
         }
 
-        const logoDrawSize = sizePx * 0.58 * logoScale;
+        const logoDrawSize = sizePx * 0.85 * logoScale;
         const logoX = cx - logoDrawSize / 2;
         const logoY = cy - logoDrawSize / 2 + floatY;
 
