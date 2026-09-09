@@ -195,8 +195,8 @@ export default function LockScreen({ onUnlock }) {
           <h2 className="text-lg font-bold tracking-[0.2em] text-[#D4D5C8] text-center font-sans">
             ANIMESH TIWARI
           </h2>
-          <div className="mt-1.5 text-[9px] tracking-[0.2em] text-[#73786B] font-semibold">
-            PRIMARY OPERATOR
+          <div className="mt-1.5 text-[9px] tracking-[0.2em] text-[#8E9B72] font-semibold">
+            FULL-STACK DEVELOPER
           </div>
         </div>
 
