@@ -107,58 +107,56 @@ export default function DesktopWidgets() {
       </div>
 
 
-      {/* Urgent Mission / Resume Widget */}
+      {/* Operative Dossier / Resume Widget */}
       <motion.div 
-        animate={{ opacity: [0.85, 1, 0.85] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ opacity: [0.9, 1, 0.9] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         onClick={() => {
-          // In a real app, this might trigger a download or open a resume viewer.
-          // For now, we'll just open a link or show a visual effect.
           window.open('/resume.pdf', '_blank');
         }}
-        className="w-[220px] h-[220px] rounded-2xl bg-[#1a0f0f]/90 backdrop-blur-xl border border-[#5c2424] p-4 shadow-[0_12px_35px_rgba(220,38,38,0.25)] flex flex-col justify-between font-mono relative overflow-hidden group hover:border-[#ef4444] hover:bg-[#251010]/95 transition-all cursor-pointer"
+        className="w-[220px] h-[220px] rounded-2xl bg-[#0b0e0a]/90 backdrop-blur-xl border border-[#3A4034] p-4 shadow-[0_12px_35px_rgba(0,0,0,0.5)] flex flex-col justify-between font-mono relative overflow-hidden group hover:border-[#C2B280] hover:bg-[#121610]/95 transition-all cursor-pointer"
       >
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ef4444] to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#C2B280] to-transparent opacity-20 group-hover:opacity-50 transition-opacity"></div>
         
         {/* Header */}
         <div className="flex justify-between items-start">
           <div>
-            <h4 className="text-sm font-bold text-white tracking-wide font-sans">
-              URGENT MISSION?
+            <h4 className="text-xs font-bold text-[#D4D5C8] tracking-widest font-sans uppercase">
+              OPERATIONAL DATA
             </h4>
-            <span className="text-[9px] text-[#ef4444] tracking-wider font-bold block uppercase mt-0.5 animate-pulse">
-              IMMEDIATE DISPATCH
+            <span className="text-[9px] text-[#8E9B72] tracking-wider font-bold block uppercase mt-0.5">
+              PERSONNEL RECORD
             </span>
           </div>
-          <AlertTriangle className="w-8 h-8 text-[#ef4444] flex-shrink-0 animate-pulse" />
+          <FileText className="w-6 h-6 text-[#C2B280] flex-shrink-0 opacity-80" />
         </div>
 
         {/* Content */}
         <div className="flex flex-col items-center justify-center flex-1 my-2">
-          <div className="w-16 h-16 rounded-full bg-[#ef4444]/10 border border-[#ef4444]/30 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-            <FileText className="w-8 h-8 text-[#ef4444]" />
+          <div className="w-14 h-14 rounded-full bg-[#C2B280]/10 border border-[#C2B280]/30 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <ShieldCheck className="w-6 h-6 text-[#C2B280]" />
           </div>
           <div className="text-center">
-            <div className="text-sm font-bold text-white tracking-widest uppercase">
-              SEE MY RESUME
+            <div className="text-xs font-bold text-[#D4D5C8] tracking-widest uppercase">
+              ACCESS DOSSIER
             </div>
-            <div className="text-[10px] text-[#a3a3a3] font-sans mt-1">
+            <div className="text-[9px] text-[#7A8274] font-sans mt-1">
               Extract Operative Profile
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="border-t border-[#5c2424] pt-2 flex items-center justify-between text-[9px] text-[#ef4444] font-bold">
-          <span className="uppercase tracking-widest">STATUS: READY</span>
-          <span className="bg-[#ef4444]/20 px-2 py-0.5 rounded border border-[#ef4444]/40">INITIATE</span>
+        <div className="border-t border-[#3A4034] pt-2 flex items-center justify-between text-[9px] text-[#8E9B72] font-bold">
+          <span className="uppercase tracking-widest">STATUS: SECURED</span>
+          <span className="bg-[#8E9B72]/20 px-2 py-0.5 rounded border border-[#8E9B72]/40 text-[#C2B280]">ACCESS</span>
         </div>
 
         {/* Tactical Corner accents */}
-        <span className="absolute top-1 left-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
-        <span className="absolute top-1 right-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
-        <span className="absolute bottom-1 left-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
-        <span className="absolute bottom-1 right-1.5 text-[7px] text-[#5c2424] font-bold">+</span>
+        <span className="absolute top-1 left-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
+        <span className="absolute top-1 right-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
+        <span className="absolute bottom-1 left-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
+        <span className="absolute bottom-1 right-1.5 text-[7px] text-[#3A4034] font-bold">+</span>
       </motion.div>
     </div>
   );
