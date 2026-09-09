@@ -20,6 +20,7 @@ import ServiceRecordApp from "../apps/service-record";
 import SystemAnalysisApp from "../apps/system-analysis";
 import ContactApp from "../apps/contact";
 import DesktopWidgets from "../widgets";
+import YouTubeApp from "../apps/youtube";
 import VaniAssistant from "./vani";
 import NotificationCenter from "./notification-center";
 import { useSettings } from "../../context/SettingsContext";
@@ -315,6 +316,7 @@ export default function Homepage({ onLogout }) {
         vscode: { title: "VS Code", size: { width: 780, height: 520 } },
         github: { title: "GitHub", size: { width: 780, height: 520 } },
         spotify: { title: "Spotify", size: { width: 780, height: 520 } },
+        youtube: { title: "YouTube", size: { width: 900, height: 600 } },
       };
 
       const meta = appMeta[id] || {
@@ -511,6 +513,8 @@ export default function Homepage({ onLogout }) {
         return <GitHubApp />;
       case "spotify":
         return <SpotifyApp />;
+      case "youtube":
+        return <YouTubeApp />;
       case "mission-archive":
       case "projects":
       case "archive":
