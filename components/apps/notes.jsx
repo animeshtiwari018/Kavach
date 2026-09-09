@@ -34,9 +34,9 @@ const INITIAL_NOTES = [
     created: "2026-09-01",
     isPinned: true,
     isReadOnly: true,
-    content: `==================================================
+    content: `==============================
    SERVICE RECORD
-==================================================
+==============================
 
 ▪ OPERATIVE:      Animesh Tiwari
 ▪ CODENAME:       ANIMESH
@@ -46,16 +46,16 @@ const INITIAL_NOTES = [
 ▪ OPERATING BASE: Rajasthan, India
 ▪ STATUS:         ACTIVE
 
---------------------------------------------------
+------------------------------
 ▣ MISSION OVERVIEW
---------------------------------------------------
+------------------------------
 Focused on engineering resilient, practical, and highly reliable digital systems. Primary duties revolve around architecting end-to-end web software—from responsive frontend user interfaces to high-throughput backend APIs, microservices, and database pipelines.
 
 Approach development systematically: analyze objective, assess technical landscape, formulate execution strategy, deploy with precision, and iterate post-operation.
 
---------------------------------------------------
+------------------------------
 △ CURRENT OPERATIONS
---------------------------------------------------
+------------------------------
 ◇ KAVACH WORKSTATION
   macOS-inspired web environment implementing modular sandboxes and workstation interfaces.
 
@@ -65,14 +65,14 @@ Approach development systematically: analyze objective, assess technical landsca
 ◇ DSA & ALGORITHMIC SOLVING
   Repository of optimized data structures and graph algorithms implemented in C++.
 
---------------------------------------------------
+------------------------------
 ✦ OPERATIONAL DIRECTIVE
---------------------------------------------------
+------------------------------
 Build. Learn. Deploy. Improve. Repeat.
 
---------------------------------------------------
+------------------------------
 ◈ OPERATIONAL PHILOSOPHY
---------------------------------------------------
+------------------------------
 "Stay curious. Think systematically. Build with purpose."`,
   },
   {
@@ -84,34 +84,34 @@ Build. Learn. Deploy. Improve. Repeat.
     created: "2026-09-01",
     isPinned: true,
     isReadOnly: true,
-    content: `==================================================
+    content: `==============================
    SYSTEM COMPETENCIES & STACK
-==================================================
+==============================
 
---------------------------------------------------
+------------------------------
 ▣ FRONTEND ARCHITECTURE
---------------------------------------------------
+------------------------------
 ▪ Frameworks: React 19, Next.js 15, HTML5, CSS3
 ▪ Styling: Tailwind CSS, Framer Motion, Design Tokens
 ▪ Core: JavaScript (ES6+), TypeScript, Client State
 
---------------------------------------------------
+------------------------------
 ⚙️ BACKEND & DISTRIBUTED SYSTEMS
---------------------------------------------------
+------------------------------
 ▪ Runtime: Node.js, Express.js
 ▪ Architecture: RESTful APIs, JWT Auth, System Design
 ▪ Languages: JavaScript, C++, SQL
 
---------------------------------------------------
+------------------------------
 🗄️ STORAGE & DATA PIPELINES
---------------------------------------------------
+------------------------------
 ▪ NoSQL: MongoDB, Mongoose ORM
 ▪ Caching: Redis Key-Value Store
 ▪ Relational: PostgreSQL
 
---------------------------------------------------
+------------------------------
 🛠️ TOOLING & ENVIRONMENT
---------------------------------------------------
+------------------------------
 ▪ Version Control: Git, GitHub
 ▪ Infrastructure: Docker
 ▪ Shell / OS: Linux, Bash, Windows PowerShell`,
@@ -125,25 +125,25 @@ Build. Learn. Deploy. Improve. Repeat.
     created: "2026-08-31",
     isPinned: false,
     isReadOnly: true,
-    content: `==================================================
+    content: `==============================
    ACTIVE PROJECTS & DIRECTIVES
-==================================================
+==============================
 
---------------------------------------------------
+------------------------------
 1. KAVACH WORKSTATION
---------------------------------------------------
+------------------------------
 ▪ Overview: Interactive workstation environment built with Next.js, React, and Tailwind CSS.
 ▪ Capabilities: Window manager, dynamic dock magnification, application sandboxes.
 
---------------------------------------------------
+------------------------------
 2. SECURE REST MICROSERVICES
---------------------------------------------------
+------------------------------
 ▪ Overview: High-throughput API gateway and routing microservice.
 ▪ Stack: Node.js, Express, Redis, MongoDB, JWT.
 
---------------------------------------------------
+------------------------------
 3. DSA & PROBLEM SOLVING ENGINE
---------------------------------------------------
+------------------------------
 ▪ Overview: Algorithmic toolkit and data structures library in C++.`,
   },
   {
@@ -155,20 +155,20 @@ Build. Learn. Deploy. Improve. Repeat.
     created: "2026-08-30",
     isPinned: false,
     isReadOnly: true,
-    content: `==================================================
+    content: `==============================
    OPERATIVE CONTACT METADATA
-==================================================
+==============================
 
---------------------------------------------------
+------------------------------
 📫 CONTACT MATRIX
---------------------------------------------------
+------------------------------
 ▪ Identity: Animesh Tiwari
 ▪ Primary Role: Full-Stack Developer
 ▪ Operating Base: Rajasthan, India
 
---------------------------------------------------
+------------------------------
 🌐 CONNECTIVITY CHANNELS
---------------------------------------------------
+------------------------------
 ▪ Email: animeshtiwari178@gmail.com
 ▪ GitHub: github.com/AnimeshTiwari
 ▪ LinkedIn: linkedin.com/in/animeshtiwari
@@ -685,7 +685,7 @@ export default function NotesApp() {
             onClick={handleAttemptEdit}
             onKeyDown={handleAttemptEdit}
             onChange={(e) => handleUpdateNote("content", e.target.value)}
-            className="w-full flex-1 bg-transparent border-none outline-none text-[#D0D3CB] font-mono text-xs leading-relaxed resize-none caret-[#C2B280] selection:bg-[#344030]"
+            className="w-full flex-1 bg-transparent border-none outline-none text-[#D0D3CB] font-mono text-sm leading-relaxed resize-none caret-[#C2B280] selection:bg-[#344030]"
             placeholder="Document content..."
           />
         </div>
