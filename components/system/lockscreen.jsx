@@ -208,8 +208,11 @@ export default function LockScreen({ onUnlock }) {
 
         {/* Console Box Authentication Form */}
         <div className="w-full max-w-xs flex flex-col items-center">
-          <div className="text-[10px] tracking-[0.25em] text-[#73786B] font-semibold mb-2 self-start pl-1">
+          <div className="text-[10px] tracking-[0.25em] text-[#73786B] font-semibold mb-1 self-start pl-1">
             ACCESS KEY
+          </div>
+          <div className="text-[9px] tracking-wider text-[#8E9B72] mb-3 self-start pl-1">
+            (Enter any random password)
           </div>
 
           <form onSubmit={handleUnlock} className="w-full flex flex-col gap-3">
