@@ -181,7 +181,9 @@ export default function LockScreen({ onUnlock }) {
               <img
                 src="/images/Para_Skull.svg"
                 alt="Avatar"
-                className="w-15 h-15 opacity-80 transition-opacity duration-500"
+                className="w-18 h-18 opacity-80 transition-opacity duration-500"
+                draggable={false}
+                onDragStart={(e) => e.preventDefault()}
               />
             </div>
           </div>
