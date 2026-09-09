@@ -4,10 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 
 /**
  * KavachAssistant Component
- * 
+ *
  * Uses Canvas 2D Engine to draw and animate the Kavach PNG logo (/images/kavach1.png)
  * alongside volumetric glowing aura fields, organic energy ribbons, and particles.
- * 
+ *
  * States:
  *  - "idle"       : breathing scale, gentle floating, soft glow oscillation
  *  - "listening"  : audio-reactive scale and outward particle emission via Web Audio API
@@ -57,7 +57,11 @@ export function KavachAssistant({
 
   // Web Audio API microphone setup for listening state
   useEffect(() => {
-    if (state === "listening" && typeof window !== "undefined" && navigator.mediaDevices) {
+    if (
+      state === "listening" &&
+      typeof window !== "undefined" &&
+      navigator.mediaDevices
+    ) {
       let isMounted = true;
       let animId;
 
@@ -109,7 +113,10 @@ export function KavachAssistant({
         if (mediaStreamRef.current) {
           mediaStreamRef.current.getTracks().forEach((track) => track.stop());
         }
-        if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+        if (
+          audioContextRef.current &&
+          audioContextRef.current.state !== "closed"
+        ) {
           audioContextRef.current.close();
         }
       };
@@ -132,7 +139,8 @@ export function KavachAssistant({
     let activationProgress = 0;
 
     // Canvas particle system
-    const particleCount = state === "listening" ? 36 : state === "thinking" ? 44 : 20;
+    const particleCount =
+      state === "listening" ? 36 : state === "thinking" ? 44 : 20;
     const particles = Array.from({ length: particleCount }, () => ({
       x: (Math.random() - 0.5) * sizePx * 0.8,
       y: (Math.random() - 0.5) * sizePx * 0.8,
@@ -142,7 +150,8 @@ export function KavachAssistant({
       alpha: Math.random() * 0.6 + 0.2,
       orbitAngle: Math.random() * Math.PI * 2,
       orbitRadius: Math.random() * (sizePx * 0.32) + sizePx * 0.12,
-      orbitSpeed: (Math.random() * 0.015 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
+      orbitSpeed:
+        (Math.random() * 0.015 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
       color: Math.random() > 0.4 ? "emerald" : "gold",
     }));
 
@@ -161,8 +170,17 @@ export function KavachAssistant({
       const cy = sizePx / 2;
 
       // 1. Draw Volumetric Gradient Aura Background
-      const auraRadius = sizePx * 0.45 + (state === "listening" ? effectiveAudioLevel * sizePx * 0.15 : 0);
-      const auraGradient = ctx.createRadialGradient(cx, cy, sizePx * 0.05, cx, cy, Math.max(1, auraRadius));
+      const auraRadius =
+        sizePx * 0.45 +
+        (state === "listening" ? effectiveAudioLevel * sizePx * 0.15 : 0);
+      const auraGradient = ctx.createRadialGradient(
+        cx,
+        cy,
+        sizePx * 0.05,
+        cx,
+        cy,
+        Math.max(1, auraRadius),
+      );
 
       if (state === "thinking") {
         auraGradient.addColorStop(0, "rgba(255, 255, 255, 0.4)");
@@ -172,8 +190,14 @@ export function KavachAssistant({
       } else if (state === "listening" || state === "speaking") {
         const pulseAlpha = 0.3 + effectiveAudioLevel * 0.45;
         auraGradient.addColorStop(0, `rgba(255, 255, 255, ${pulseAlpha})`);
-        auraGradient.addColorStop(0.4, `rgba(16, 185, 129, ${pulseAlpha * 0.8})`);
-        auraGradient.addColorStop(0.75, `rgba(245, 158, 11, ${pulseAlpha * 0.4})`);
+        auraGradient.addColorStop(
+          0.4,
+          `rgba(16, 185, 129, ${pulseAlpha * 0.8})`,
+        );
+        auraGradient.addColorStop(
+          0.75,
+          `rgba(245, 158, 11, ${pulseAlpha * 0.4})`,
+        );
         auraGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
       } else {
         // Idle state breathing aura
@@ -265,7 +289,10 @@ export function KavachAssistant({
 
         ctx.beginPath();
         ctx.arc(cx + p.x, cy + p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color === "gold" ? `rgba(245, 158, 11, ${p.alpha})` : `rgba(16, 185, 129, ${p.alpha})`;
+        ctx.fillStyle =
+          p.color === "gold"
+            ? `rgba(245, 158, 11, ${p.alpha})`
+            : `rgba(16, 185, 129, ${p.alpha})`;
         ctx.fill();
       });
 
@@ -299,7 +326,10 @@ export function KavachAssistant({
         const logoY = cy - logoDrawSize / 2 + floatY;
 
         ctx.globalAlpha = alpha;
-        ctx.shadowColor = state === "thinking" || state === "speaking" ? "rgba(245, 158, 11, 0.8)" : "rgba(16, 185, 129, 0.7)";
+        ctx.shadowColor =
+          state === "thinking" || state === "speaking"
+            ? "rgba(245, 158, 11, 0.8)"
+            : "rgba(16, 185, 129, 0.7)";
         ctx.shadowBlur = Math.max(6, sizePx * 0.15 + effectiveAudioLevel * 15);
 
         ctx.drawImage(img, logoX, logoY, logoDrawSize, logoDrawSize);
