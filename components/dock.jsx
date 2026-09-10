@@ -98,9 +98,12 @@ function DockItem({ app, mouseX, openApp, isOpen, dockSize, dockMag, isBouncing,
   const isVani = app.id === "vani";
   const hasError = imgError;
 
-  // If mobile, override dynamic width to fixed size
-  const actualWidth = isMobile ? `${dockSize / 16}rem` : width;
-  const actualScale = isMobile ? 1 : scale;
+  // If mobile or tablet/touch, override dynamic width to fixed size
+  const isTabletOrTouch = typeof window !== 'undefined' ? (window.innerWidth < 1024 || window.matchMedia('(pointer: coarse)').matches) : false;
+  const disableAnimation = isMobile || isTabletOrTouch;
+  
+  const actualWidth = disableAnimation ? `${dockSize / 16}rem` : width;
+  const actualScale = disableAnimation ? 1 : scale;
 
   const content = (
     <motion.div
@@ -239,6 +242,9 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
     }
   };
 
+  const isTabletOrTouch = typeof window !== 'undefined' ? (window.innerWidth < 1024 || window.matchMedia('(pointer: coarse)').matches) : false;
+  // Let tablets still see more apps than mobile, but maybe fewer than desktop, or keep it to all apps if it fits?
+  // Since the user wants a simple dock for tablet, we'll keep all apps visible for tablet if it's not strictly 'mobile' (<768).
   const visibleApps = isMobile ? dockApps.slice(0, 4) : dockApps;
   const hiddenApps = isMobile ? dockApps.slice(4) : [];
 
@@ -291,7 +297,7 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
         <ul
           className="flex items-end px-2"
           onMouseMove={(e) => {
-            if (!isMobile) mouseX.set(e.nativeEvent.x);
+            if (!isMobile && !isTabletOrTouch) mouseX.set(e.nativeEvent.x);
           }}
           onMouseLeave={() => mouseX.set(null)}
           style={{ height: `${(dockSize + 15) / 16}rem` }}
