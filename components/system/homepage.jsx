@@ -983,7 +983,7 @@ export default function Homepage({ onLogout }) {
 
         {/* Name and Role under Balidan Emblem */}
         {isDarkMode && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 mt-[12vh] flex flex-col items-center pointer-events-none select-none z-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 mt-[18vh] flex flex-col items-center pointer-events-none select-none z-0">
             <h1 className="text-2xl md:text-3xl font-bold tracking-[0.2em] text-[#D4D5C8]/60 font-sans uppercase">
               Animesh Tiwari
             </h1>
