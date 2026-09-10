@@ -368,13 +368,16 @@ export default function Homepage({ onLogout }) {
 
   const handleDockAppClick = (appWindow) => {
     const appMapId = appWindow.id === "safari" ? "browser" : appWindow.id;
-    const exists = apps.some((a) => a.id === appMapId);
+    const existingApp = apps.find((a) => a.id === appMapId);
+    const exists = !!existingApp;
 
     const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
-    const screenH =
-      typeof window !== "undefined" ? window.innerHeight - 110 : 600;
-    const appWidth = appWindow.size.width;
-    const appHeight = appWindow.size.height;
+    const screenH = typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+    
+    // Use the actual current width/height of the app if it exists, otherwise use the passed in size or fallback
+    const appWidth = existingApp ? existingApp.defaultWidth : (appWindow.size?.width || 780);
+    const appHeight = existingApp ? existingApp.defaultHeight : (appWindow.size?.height || 520);
+    
     const centeredX = Math.max(10, Math.floor((screenW - appWidth) / 2));
     const centeredY = Math.max(10, Math.floor((screenH - appHeight) / 2));
 
