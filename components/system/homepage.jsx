@@ -43,6 +43,7 @@ export default function Homepage({ onLogout }) {
   const [isLaunchpadOpen, setIsLaunchpadOpen] = useState(false);
   const [isVaniOpen, setIsVaniOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const [systemReady, setSystemReady] = useState(false);
 
   const { themeMode, showRadar, showCorners, autoLock, audioPings } = useSettings();
 
@@ -237,6 +238,7 @@ export default function Homepage({ onLogout }) {
           };
         }),
       );
+      setSystemReady(true);
     }
   }, []);
 
@@ -355,8 +357,20 @@ export default function Homepage({ onLogout }) {
       );
       focusApp(id);
     } else if (app.isMinimized) {
+      const screenW = typeof window !== "undefined" ? window.innerWidth : 1000;
+      const screenH =
+        typeof window !== "undefined" ? window.innerHeight - 110 : 600;
+      const centeredX = Math.max(
+        10,
+        Math.floor((screenW - app.defaultWidth) / 2),
+      );
+      const centeredY = Math.max(
+        10,
+        Math.floor((screenH - app.defaultHeight) / 2),
+      );
+
       setApps((prev) =>
-        prev.map((a) => (a.id === id ? { ...a, isMinimized: false } : a)),
+        prev.map((a) => (a.id === id ? { ...a, isMinimized: false, defaultX: centeredX, defaultY: centeredY } : a)),
       );
       focusApp(id);
     } else if (activeAppId === id) {
@@ -400,7 +414,7 @@ export default function Homepage({ onLogout }) {
       } else if (app.isMinimized) {
         setApps((prev) =>
           prev.map((a) =>
-            a.id === appMapId ? { ...a, isMinimized: false } : a,
+            a.id === appMapId ? { ...a, isMinimized: false, defaultX: centeredX, defaultY: centeredY } : a,
           ),
         );
       }
@@ -998,7 +1012,7 @@ export default function Homepage({ onLogout }) {
 
         {/* Dynamic Windows Rendering */}
         <AnimatePresence>
-          {apps.map(
+          {systemReady && apps.map(
             (app) =>
               app.isOpen &&
               !app.isMinimized && (
