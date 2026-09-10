@@ -32,15 +32,33 @@ export default function Window({
   const dragControls = useDragControls();
   const windowRef = useRef(null);
 
-  const [position, setPosition] = useState({ x: defaultX, y: defaultY });
+  const [position, setPosition] = useState(() => {
+    // Force perfect centering on mount, overriding any corner coordinates
+    if (typeof window !== "undefined") {
+      const w = window.innerWidth;
+      const h = window.innerHeight - 110;
+      return {
+        x: Math.max(10, Math.floor((w - defaultWidth) / 2)),
+        y: Math.max(10, Math.floor((h - defaultHeight) / 2)),
+      };
+    }
+    return { x: defaultX, y: defaultY };
+  });
+  
   const [width, setWidth] = useState(defaultWidth);
   const [height, setHeight] = useState(defaultHeight);
   const [isResizing, setIsResizing] = useState(false);
 
-  // Sync with defaultX/defaultY on initial load or resize, ONLY if we haven't dragged (or just keep it simple and update when props change)
+  // Sync with defaultX/defaultY on resize or when specifically requested
   useEffect(() => {
-    if (!isMaximized) {
-      setPosition({ x: defaultX, y: defaultY });
+    if (!isMaximized && typeof window !== "undefined") {
+      const w = window.innerWidth;
+      const h = window.innerHeight - 110;
+      // When defaultX/Y change (e.g. unminimizing), force center again to respect "always center" rule
+      setPosition({
+        x: Math.max(10, Math.floor((w - width) / 2)),
+        y: Math.max(10, Math.floor((h - height) / 2))
+      });
     }
   }, [defaultX, defaultY]);
 
