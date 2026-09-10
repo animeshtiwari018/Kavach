@@ -24,7 +24,6 @@ import YouTubeApp from "../apps/youtube";
 import VaniAssistant from "./vani";
 import NotificationCenter from "./notification-center";
 import { useSettings } from "../../context/SettingsContext";
-import WelcomePage from "./welcome-page";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -966,7 +965,6 @@ export default function Homepage({ onLogout }) {
           </motion.div>
         </div>
 
-        {/* Static Background Shield Watermark for Depth */}
         <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
           <svg
             className="w-96 h-96 text-white"
@@ -982,6 +980,18 @@ export default function Homepage({ onLogout }) {
             />
           </svg>
         </div>
+
+        {/* Name and Role under Balidan Emblem */}
+        {isDarkMode && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 mt-[12vh] flex flex-col items-center pointer-events-none select-none z-0">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-[0.2em] text-[#D4D5C8]/60 font-sans uppercase">
+              Animesh Tiwari
+            </h1>
+            <h2 className="text-[10px] md:text-xs font-mono font-bold tracking-[0.3em] text-[#8E9B72]/80 uppercase mt-1.5">
+              Full-Stack Developer
+            </h2>
+          </div>
+        )}
 
         {/* Dynamic Windows Rendering */}
         <AnimatePresence>
@@ -1044,9 +1054,6 @@ export default function Homepage({ onLogout }) {
           onClose={() => setIsLaunchpadOpen(false)}
         />
       )}
-
-      {/* Welcome Page Overlay */}
-      <WelcomePage isDarkMode={isDarkMode} />
     </div>
   );
 }
