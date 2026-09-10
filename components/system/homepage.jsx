@@ -24,6 +24,7 @@ import YouTubeApp from "../apps/youtube";
 import VaniAssistant from "./vani";
 import NotificationCenter from "./notification-center";
 import { useSettings } from "../../context/SettingsContext";
+import WelcomePage from "./welcome-page";
 
 export default function Homepage({ onLogout }) {
   const desktopRef = useRef(null);
@@ -1043,6 +1044,9 @@ export default function Homepage({ onLogout }) {
           onClose={() => setIsLaunchpadOpen(false)}
         />
       )}
+
+      {/* Welcome Page Overlay */}
+      <WelcomePage isDarkMode={isDarkMode} />
     </div>
   );
 }
