@@ -187,6 +187,18 @@ export default function Homepage({ onLogout }) {
       ),
       iconName: "Settings",
     },
+    {
+      id: "mission-archive",
+      title: "Projects (Mission Archive)",
+      isOpen: false,
+      isMinimized: false,
+      zIndex: 6,
+      defaultX: 100,
+      defaultY: 60,
+      defaultWidth: 780,
+      defaultHeight: 520,
+      iconName: "Projects",
+    },
   ]);
 
   const [activeAppId, setActiveAppId] = useState("notes");
@@ -396,28 +408,19 @@ export default function Homepage({ onLogout }) {
     const centeredY = Math.max(10, Math.floor((screenH - appHeight) / 2));
 
     if (exists) {
-      const app = apps.find((a) => a.id === appMapId);
-      if (!app.isOpen) {
-        setApps((prev) =>
-          prev.map((a) =>
-            a.id === appMapId
-              ? {
-                  ...a,
-                  isOpen: true,
-                  isMinimized: false,
-                  defaultX: centeredX,
-                  defaultY: centeredY,
-                }
-              : a,
-          ),
-        );
-      } else if (app.isMinimized) {
-        setApps((prev) =>
-          prev.map((a) =>
-            a.id === appMapId ? { ...a, isMinimized: false, defaultX: centeredX, defaultY: centeredY } : a,
-          ),
-        );
-      }
+      setApps((prev) =>
+        prev.map((a) =>
+          a.id === appMapId
+            ? {
+                ...a,
+                isOpen: true,
+                isMinimized: false,
+                defaultX: centeredX,
+                defaultY: centeredY,
+              }
+            : a,
+        ),
+      );
       focusApp(appMapId);
     } else {
       const newZ = topZIndex + 1;
