@@ -188,6 +188,8 @@ export default function Window({
     <motion.div
       ref={windowRef}
       drag={!isMaximized}
+      dragControls={dragControls}
+      dragListener={false}
       dragMomentum={false}
       dragConstraints={!isMaximized ? {
         top: TOP_BAR_H,
@@ -253,7 +255,10 @@ export default function Window({
 
       {/* Window Title Bar */}
       <div
-        onPointerDown={onFocus}
+        onPointerDown={(e) => {
+          onFocus();
+          if (!isMaximized) dragControls.start(e);
+        }}
         onDoubleClick={handleTitleBarDoubleClick}
         className={`h-9 flex items-center justify-between px-3 border-b text-[11px] tracking-wider select-none cursor-move ${
           isActive
