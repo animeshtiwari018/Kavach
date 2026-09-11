@@ -782,7 +782,8 @@ export default function Homepage({ onLogout }) {
         {/* Safe Drag Boundary Container */}
         <div
           ref={constraintsRef}
-          className="absolute inset-x-2 top-[44px] bottom-[80px] pointer-events-none"
+          className="absolute top-[44px] bottom-[80px] pointer-events-none"
+          style={{ left: "-80vw", right: "-80vw" }}
         />
 
         {showCorners && (
