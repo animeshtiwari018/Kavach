@@ -20,6 +20,7 @@ export default function Window({
   constraintsRef,
   onPositionChange,
   onSizeChange,
+  openOrigin,
 }) {
   const [isMaximized, setIsMaximized] = useState(false);
   const [preMaximizeState, setPreMaximizeState] = useState({
@@ -160,8 +161,6 @@ export default function Window({
     document.addEventListener("pointerup", handlePointerUp);
   };
 
-  if (!isOpen) return null;
-
   const clampPosition = (x, y, winW, winH) => {
     if (typeof window === "undefined") return { x, y };
     const vw = window.innerWidth;
@@ -176,6 +175,15 @@ export default function Window({
     };
   };
 
+  // Compute origin for open/close animation
+  const originX = openOrigin ? openOrigin.x - width / 2 : position.x;
+  const originY = openOrigin ? openOrigin.y - height / 2 : position.y;
+
+  const openCloseTransition = {
+    duration: 0.28,
+    ease: [0.25, 0.46, 0.45, 0.94],
+  };
+
   return (
     <motion.div
       ref={windowRef}
@@ -188,7 +196,7 @@ export default function Window({
         bottom: typeof window !== "undefined" ? Math.max(TOP_BAR_H, window.innerHeight - BOTTOM_BAR_H - height) : 9999,
       } : false}
       dragElastic={0}
-      initial={{ opacity: 0, scale: 0.92, x: position.x, y: position.y }}
+      initial={{ opacity: 0, scale: 0.18, x: originX, y: originY }}
       animate={
         isMaximized
           ? { 
@@ -208,11 +216,11 @@ export default function Window({
               height: height 
             }
       }
-      exit={{ opacity: 0, scale: 0.90 }}
+      exit={{ opacity: 0, scale: 0.18, x: originX, y: originY, transition: openCloseTransition }}
       transition={
         isResizing
           ? { type: "tween", duration: 0 }
-          : { type: "spring", stiffness: 400, damping: 28 }
+          : { type: "spring", stiffness: 400, damping: 28, opacity: openCloseTransition, scale: openCloseTransition }
       }
       onPointerDown={onFocus}
       onDragEnd={(event, info) => {
