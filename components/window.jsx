@@ -181,7 +181,12 @@ export default function Window({
       ref={windowRef}
       drag={!isMaximized}
       dragMomentum={false}
-      dragConstraints={false}
+      dragConstraints={!isMaximized ? {
+        top: TOP_BAR_H,
+        left: 0,
+        right: typeof window !== "undefined" ? Math.max(0, window.innerWidth - width) : 9999,
+        bottom: typeof window !== "undefined" ? Math.max(TOP_BAR_H, window.innerHeight - BOTTOM_BAR_H - height) : 9999,
+      } : false}
       dragElastic={0}
       initial={{ opacity: 0, scale: 0.92, x: position.x, y: position.y }}
       animate={
@@ -210,16 +215,6 @@ export default function Window({
           : { type: "spring", stiffness: 400, damping: 28 }
       }
       onPointerDown={onFocus}
-      onDrag={(event, info) => {
-        if (isMaximized) return;
-        if (!windowRef.current) return;
-        const rect = windowRef.current.getBoundingClientRect();
-        const clamped = clampPosition(rect.left, rect.top, rect.width, rect.height);
-        // Only snap back if out of bounds
-        if (rect.left !== clamped.x || rect.top !== clamped.y) {
-          setPosition(clamped);
-        }
-      }}
       onDragEnd={(event, info) => {
         if (isMaximized) return;
         if (!windowRef.current) return;
