@@ -32,35 +32,34 @@ export default function Window({
   const dragControls = useDragControls();
   const windowRef = useRef(null);
 
-  const [position, setPosition] = useState(() => {
-    // Force perfect centering on mount, overriding any corner coordinates
-    if (typeof window !== "undefined") {
-      const w = window.innerWidth;
-      const h = window.innerHeight - 110;
-      return {
-        x: Math.max(10, Math.floor((w - defaultWidth) / 2)),
-        y: Math.max(10, Math.floor((h - defaultHeight) / 2)),
-      };
-    }
-    return { x: defaultX, y: defaultY };
-  });
+  const TOP_BAR_H = 42;
+  const BOTTOM_BAR_H = 80;
+
+  const calcCenter = (winW, winH) => {
+    if (typeof window === "undefined") return { x: defaultX, y: defaultY };
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const usableH = vh - TOP_BAR_H - BOTTOM_BAR_H;
+    return {
+      x: Math.max(0, Math.floor((vw - winW) / 2)),
+      y: TOP_BAR_H + Math.max(0, Math.floor((usableH - winH) / 2)),
+    };
+  };
+
+  const [position, setPosition] = useState(() => calcCenter(defaultWidth, defaultHeight));
   
   const [width, setWidth] = useState(defaultWidth);
   const [height, setHeight] = useState(defaultHeight);
   const [isResizing, setIsResizing] = useState(false);
 
-  // Sync with defaultX/defaultY on resize or when specifically requested
+  // Re-center whenever the window is opened (isOpen transitions to true)
+  const prevIsOpen = useRef(false);
   useEffect(() => {
-    if (!isMaximized && typeof window !== "undefined") {
-      const w = window.innerWidth;
-      const h = window.innerHeight - 110;
-      // When defaultX/Y or isOpen change, force center again to respect "always center" rule
-      setPosition({
-        x: Math.max(10, Math.floor((w - width) / 2)),
-        y: Math.max(10, Math.floor((h - height) / 2))
-      });
+    if (isOpen && !prevIsOpen.current && !isMaximized) {
+      setPosition(calcCenter(width, height));
     }
-  }, [defaultX, defaultY, isOpen]);
+    prevIsOpen.current = isOpen;
+  }, [isOpen]);
 
   // Clamp initial default size to desktop boundaries
   useEffect(() => {
@@ -163,13 +162,27 @@ export default function Window({
 
   if (!isOpen) return null;
 
+  const clampPosition = (x, y, winW, winH) => {
+    if (typeof window === "undefined") return { x, y };
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const minX = 0;
+    const maxX = Math.max(0, vw - winW);
+    const minY = TOP_BAR_H;
+    const maxY = Math.max(TOP_BAR_H, vh - BOTTOM_BAR_H - winH);
+    return {
+      x: Math.min(Math.max(x, minX), maxX),
+      y: Math.min(Math.max(y, minY), maxY),
+    };
+  };
+
   return (
     <motion.div
       ref={windowRef}
       drag={!isMaximized}
       dragMomentum={false}
-      dragConstraints={!isMaximized ? (constraintsRef || desktopRef) : false}
-      dragElastic={0.05}
+      dragConstraints={false}
+      dragElastic={0}
       initial={{ opacity: 0, scale: 0.92, x: position.x, y: position.y }}
       animate={
         isMaximized
@@ -197,17 +210,24 @@ export default function Window({
           : { type: "spring", stiffness: 400, damping: 28 }
       }
       onPointerDown={onFocus}
+      onDrag={(event, info) => {
+        if (isMaximized) return;
+        if (!windowRef.current) return;
+        const rect = windowRef.current.getBoundingClientRect();
+        const clamped = clampPosition(rect.left, rect.top, rect.width, rect.height);
+        // Only snap back if out of bounds
+        if (rect.left !== clamped.x || rect.top !== clamped.y) {
+          setPosition(clamped);
+        }
+      }}
       onDragEnd={(event, info) => {
         if (isMaximized) return;
-        const desktopRect = desktopRef?.current?.getBoundingClientRect();
-        if (desktopRect && windowRef.current) {
-          const rect = windowRef.current.getBoundingClientRect();
-          const relativeX = rect.left - desktopRect.left;
-          const relativeY = rect.top - desktopRect.top;
-          setPosition({ x: relativeX, y: relativeY });
-          if (onPositionChange) {
-            onPositionChange(relativeX, relativeY);
-          }
+        if (!windowRef.current) return;
+        const rect = windowRef.current.getBoundingClientRect();
+        const clamped = clampPosition(rect.left, rect.top, rect.width, rect.height);
+        setPosition(clamped);
+        if (onPositionChange) {
+          onPositionChange(clamped.x, clamped.y);
         }
       }}
       className={`flex flex-col rounded-xl border text-[#D4D5C8] font-mono shadow-2xl overflow-hidden select-none z-30 transition-shadow ${
@@ -217,7 +237,7 @@ export default function Window({
       }`}
       style={{
         zIndex: isActive ? 40 : 30,
-        position: isMaximized ? "fixed" : "absolute",
+        position: "fixed",
         top: isMaximized ? "42px" : "0px",
         left: "0px",
       }}
