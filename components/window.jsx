@@ -54,13 +54,13 @@ export default function Window({
     if (!isMaximized && typeof window !== "undefined") {
       const w = window.innerWidth;
       const h = window.innerHeight - 110;
-      // When defaultX/Y change (e.g. unminimizing), force center again to respect "always center" rule
+      // When defaultX/Y or isOpen change, force center again to respect "always center" rule
       setPosition({
         x: Math.max(10, Math.floor((w - width) / 2)),
         y: Math.max(10, Math.floor((h - height) / 2))
       });
     }
-  }, [defaultX, defaultY]);
+  }, [defaultX, defaultY, isOpen]);
 
   // Clamp initial default size to desktop boundaries
   useEffect(() => {
