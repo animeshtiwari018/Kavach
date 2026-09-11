@@ -146,7 +146,7 @@ function DockItem({ app, mouseX, openApp, isOpen, dockSize, dockMag, isBouncing,
   return (
     <li
       id={`dock-${app.id}`}
-      onClick={() => openApp(app)}
+      onClick={(e) => openApp(app, e)}
       className={`group relative flex flex-col justify-end mb-1 cursor-pointer mx-1 ${
         isBouncing ? "dock-bounce" : ""
       } ${isReceiving ? "dock-receive" : ""}`}
@@ -214,7 +214,7 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showMobileMenu]);
 
-  const handleAppClick = (app) => {
+  const handleAppClick = (app, e) => {
     if (app.id === "launchpad") {
       onLaunchpadClick();
       return;
@@ -229,12 +229,20 @@ export default function Dock({ onAppClick, onLaunchpadClick, onVaniClick, active
       setTimeout(() => setBouncingApp(null), 700);
     }
 
+    // Capture icon center for open animation origin
+    let origin = null;
+    if (e && e.currentTarget) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      origin = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+    }
+
     onAppClick({
       id: app.id,
       title: app.title,
       component: app.component,
       position: { x: Math.random() * 100 + 80, y: Math.random() * 30 + 15 },
       size: { width: 780, height: 520 },
+      origin,
     });
 
     if (showMobileMenu) {
