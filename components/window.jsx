@@ -180,8 +180,8 @@ export default function Window({
   const originY = openOrigin ? openOrigin.y - height / 2 : position.y;
 
   const openCloseTransition = {
-    duration: 0.28,
-    ease: [0.25, 0.46, 0.45, 0.94],
+    duration: 0.38,
+    ease: [0.16, 1, 0.3, 1],
   };
 
   return (
@@ -196,7 +196,7 @@ export default function Window({
         bottom: typeof window !== "undefined" ? Math.max(TOP_BAR_H, window.innerHeight - BOTTOM_BAR_H - height) : 9999,
       } : false}
       dragElastic={0}
-      initial={{ opacity: 0, scale: 0.18, x: originX, y: originY }}
+      initial={{ opacity: 0, scale: 0.55, x: originX, y: originY }}
       animate={
         isMaximized
           ? { 
@@ -216,11 +216,11 @@ export default function Window({
               height: height 
             }
       }
-      exit={{ opacity: 0, scale: 0.18, x: originX, y: originY, transition: openCloseTransition }}
+      exit={{ opacity: 0, scale: 0.55, x: originX, y: originY, transition: openCloseTransition }}
       transition={
         isResizing
           ? { type: "tween", duration: 0 }
-          : { type: "spring", stiffness: 400, damping: 28, opacity: openCloseTransition, scale: openCloseTransition }
+          : { type: "tween", duration: 0.38, ease: [0.16, 1, 0.3, 1] }
       }
       onPointerDown={onFocus}
       onDragEnd={(event, info) => {
