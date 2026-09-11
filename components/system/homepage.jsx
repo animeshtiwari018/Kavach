@@ -392,7 +392,7 @@ export default function Homepage({ onLogout }) {
     }
   };
 
-  const handleDockAppClick = (appWindow) => {
+  const handleDockAppClick = (appWindow, e) => {
     const appMapId = appWindow.id === "safari" ? "browser" : appWindow.id;
     const existingApp = apps.find((a) => a.id === appMapId);
     const exists = !!existingApp;
@@ -407,6 +407,13 @@ export default function Homepage({ onLogout }) {
     const centeredX = Math.max(10, Math.floor((screenW - appWidth) / 2));
     const centeredY = Math.max(10, Math.floor((screenH - appHeight) / 2));
 
+    // Capture icon center for open animation (from event or from appWindow.origin passed by dock)
+    let origin = appWindow.origin || null;
+    if (!origin && e && e.currentTarget) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      origin = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+    }
+
     if (exists) {
       setApps((prev) =>
         prev.map((a) =>
@@ -417,6 +424,7 @@ export default function Homepage({ onLogout }) {
                 isMinimized: false,
                 defaultX: centeredX,
                 defaultY: centeredY,
+                openOrigin: origin,
               }
             : a,
         ),
@@ -437,6 +445,7 @@ export default function Homepage({ onLogout }) {
           defaultY: centeredY,
           defaultWidth: appWidth,
           defaultHeight: appHeight,
+          openOrigin: origin,
         },
       ]);
       setActiveAppId(appMapId);
@@ -803,13 +812,7 @@ export default function Homepage({ onLogout }) {
           <motion.div
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              handleDockAppClick({
-                id: "mission-archive",
-                title: "Projects (Mission Archive)",
-                size: { width: 780, height: 520 },
-              })
-            }
+            onClick={(e) => { handleDockAppClick({ id: "mission-archive", title: "Projects (Mission Archive)", size: { width: 780, height: 520 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#8E9B72]/40 group-hover:border-[#8E9B72] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(142,155,114,0.3)]">
@@ -830,13 +833,7 @@ export default function Homepage({ onLogout }) {
           <motion.div
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              handleDockAppClick({
-                id: "system-analysis",
-                title: "Intelligence // System Analysis",
-                size: { width: 800, height: 540 },
-              })
-            }
+            onClick={(e) => { handleDockAppClick({ id: "system-analysis", title: "Intelligence // System Analysis", size: { width: 800, height: 540 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-blue-500/40 group-hover:border-blue-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]">
@@ -863,13 +860,7 @@ export default function Homepage({ onLogout }) {
           <motion.div
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              handleDockAppClick({
-                id: "contact",
-                title: "Communications // Contact",
-                size: { width: 780, height: 520 },
-              })
-            }
+            onClick={(e) => { handleDockAppClick({ id: "contact", title: "Communications // Contact", size: { width: 780, height: 520 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#8E9B72]/40 group-hover:border-[#8E9B72] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(142,155,114,0.3)]">
@@ -896,13 +887,7 @@ export default function Homepage({ onLogout }) {
           <motion.div
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              handleDockAppClick({
-                id: "skills",
-                title: "Skill Intelligence Report",
-                size: { width: 680, height: 540 },
-              })
-            }
+            onClick={(e) => { handleDockAppClick({ id: "skills", title: "Skill Intelligence Report", size: { width: 680, height: 540 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-green-500/40 group-hover:border-green-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(74,222,128,0.3)]">
@@ -929,13 +914,7 @@ export default function Homepage({ onLogout }) {
           <motion.div
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              handleDockAppClick({
-                id: "notes",
-                title: "Field Journal (About Me)",
-                size: { width: 720, height: 480 },
-              })
-            }
+            onClick={(e) => { handleDockAppClick({ id: "notes", title: "Field Journal (About Me)", size: { width: 720, height: 480 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-amber-500/40 group-hover:border-amber-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]">
@@ -956,13 +935,7 @@ export default function Homepage({ onLogout }) {
           <motion.div
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              handleDockAppClick({
-                id: "service-record",
-                title: "Kavach Service Record (Experience)",
-                size: { width: 780, height: 520 },
-              })
-            }
+            onClick={(e) => { handleDockAppClick({ id: "service-record", title: "Kavach Service Record (Experience)", size: { width: 780, height: 520 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
             <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#C2B280]/40 group-hover:border-[#C2B280] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(194,178,128,0.3)]">
@@ -1015,35 +988,34 @@ export default function Homepage({ onLogout }) {
         )}
 
         {/* Dynamic Windows Rendering */}
-        <AnimatePresence>
-          {systemReady && apps.map(
-            (app) =>
-              app.isOpen &&
-              !app.isMinimized && (
-                <Window
-                  key={app.id}
-                  title={app.title}
-                  isOpen={app.isOpen}
-                  isActive={activeAppId === app.id}
-                  onClose={() => closeApp(app.id)}
-                  onMinimize={() => minimizeApp(app.id)}
-                  onFocus={() => focusApp(app.id)}
-                  defaultWidth={app.defaultWidth}
-                  defaultHeight={app.defaultHeight}
-                  defaultX={app.defaultX}
-                  defaultY={app.defaultY}
-                  desktopRef={desktopRef}
-                  constraintsRef={constraintsRef}
-                  onPositionChange={(x, y) =>
-                    handlePositionChange(app.id, x, y)
-                  }
-                  onSizeChange={(w, h) => handleSizeChange(app.id, w, h)}
-                >
-                  {renderAppComponent(app)}
-                </Window>
-              ),
-          )}
-        </AnimatePresence>
+        {systemReady && apps.map((app) => (
+          <AnimatePresence key={app.id}>
+            {app.isOpen && !app.isMinimized && (
+              <Window
+                key={app.id}
+                title={app.title}
+                isOpen={app.isOpen}
+                isActive={activeAppId === app.id}
+                onClose={() => closeApp(app.id)}
+                onMinimize={() => minimizeApp(app.id)}
+                onFocus={() => focusApp(app.id)}
+                defaultWidth={app.defaultWidth}
+                defaultHeight={app.defaultHeight}
+                defaultX={app.defaultX}
+                defaultY={app.defaultY}
+                desktopRef={desktopRef}
+                constraintsRef={constraintsRef}
+                onPositionChange={(x, y) =>
+                  handlePositionChange(app.id, x, y)
+                }
+                onSizeChange={(w, h) => handleSizeChange(app.id, w, h)}
+                openOrigin={app.openOrigin}
+              >
+                {renderAppComponent(app)}
+              </Window>
+            )}
+          </AnimatePresence>
+        ))}
       </main>
 
       {/* Floating Bottom App Dock */}
