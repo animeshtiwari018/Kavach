@@ -51,6 +51,8 @@ import SkillsApp from "../apps/skills";
 import ServiceRecordApp from "../apps/service-record";
 import SystemAnalysisApp from "../apps/system-analysis";
 import ContactApp from "../apps/contact";
+import TrashApp from "../apps/trash";
+import YouTubeApp from "../apps/youtube";
 import ControlCenter from "../control-center";
 import NotificationCenter from "./notification-center";
 
@@ -145,6 +147,8 @@ const MOBILE_APPS = [
     component: SystemAnalysisApp,
   },
   { id: "contact", title: "Contact", icon: ContactIcon, component: ContactApp },
+  { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: YouTubeApp },
+  { id: "trash", title: "Trash", icon: "/images/trash.svg", component: TrashApp },
 ];
 
 const DOCK_APPS = [
@@ -282,29 +286,35 @@ export default function MobileHomepage({ onLogout }) {
             className="absolute inset-0 flex flex-col pt-14"
           >
             {/* App Grid */}
-            <div className="flex-1 px-5 pt-6 overflow-y-auto no-scrollbar pb-24">
-              <div className="grid grid-cols-4 gap-x-3 gap-y-7">
-                {MOBILE_APPS.map((app) => (
-                  <div
-                    key={app.id}
-                    className="flex flex-col items-center gap-1.5 cursor-pointer active:opacity-70 transition-opacity"
-                    onClick={() => openApp(app.id)}
-                  >
-                    <div className="w-[60px] h-[60px] flex items-center justify-center bg-white/10 rounded-2xl backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
-                      {typeof app.icon === "string" ? (
-                        <img
-                          src={app.icon}
-                          className="w-10 h-10 object-contain"
-                          alt={app.title}
-                          draggable={false}
-                        />
-                      ) : (
-                        app.icon
-                      )}
+            <div className="flex-1 pt-6 overflow-hidden pb-24">
+              <div className="w-full h-full flex overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth">
+                {Array.from({ length: Math.ceil(MOBILE_APPS.length / 8) }).map((_, pageIndex) => (
+                  <div key={pageIndex} className="min-w-full h-full px-5 snap-center">
+                    <div className="grid grid-cols-4 gap-x-3 gap-y-7 content-start">
+                      {MOBILE_APPS.slice(pageIndex * 8, (pageIndex + 1) * 8).map((app) => (
+                        <div
+                          key={app.id}
+                          className="flex flex-col items-center gap-1.5 cursor-pointer active:opacity-70 transition-opacity"
+                          onClick={() => openApp(app.id)}
+                        >
+                          <div className="w-[60px] h-[60px] flex items-center justify-center bg-white/10 rounded-2xl backdrop-blur-md border border-white/20 shadow-sm overflow-hidden">
+                            {typeof app.icon === "string" ? (
+                              <img
+                                src={app.icon}
+                                className="w-10 h-10 object-contain"
+                                alt={app.title}
+                                draggable={false}
+                              />
+                            ) : (
+                              app.icon
+                            )}
+                          </div>
+                          <span className="text-white text-[11px] font-medium tracking-wide drop-shadow-md text-center">
+                            {app.title}
+                          </span>
+                        </div>
+                      ))}
                     </div>
-                    <span className="text-white text-[11px] font-medium tracking-wide drop-shadow-md text-center">
-                      {app.title}
-                    </span>
                   </div>
                 ))}
               </div>
