@@ -8,7 +8,7 @@ import { useWindowSize } from "../hooks/useWindowSize";
 
 // App list config
 const dockApps = [
-  { id: "launchpad", title: "Launchpad", icon: "/images/kavach.svg", component: "Launchpad", isSystem: true },
+  { id: "launchpad", title: "Launchpad", icon: "/images/Rocket_optimized.webp", component: "Launchpad", isSystem: true },
   { id: "vani", title: "VANI AI", icon: "vani", component: "Vani" },
   { id: "safari", title: "Safari", icon: "/images/browser.svg", component: "Safari" },
   { id: "settings", title: "Settings", icon: "/images/settings1.svg", component: "Settings" },
