@@ -101,7 +101,7 @@ export default function MobileHomepage({ onLogout }) {
   return (
     <div 
       className="w-full h-[100dvh] overflow-hidden relative bg-cover bg-center text-white"
-      style={{ backgroundImage: `url('/images/wallpaper-dark.jpg')` }}
+      style={{ backgroundImage: `url('/images/balidan.svg')` }}
     >
       {/* iOS Status Bar */}
       <div className="absolute top-0 left-0 right-0 h-12 z-50 flex items-center justify-between px-6 select-none drop-shadow-md">
