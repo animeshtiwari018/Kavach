@@ -179,7 +179,7 @@ export function KavachAssistant({
         // Calculate state-based scale and floating y-offset
         let logoScale = 1;
         let floatY = 0;
-        let alpha = 0.5;
+        let alpha = 1.0;
 
         if (state === "idle") {
           logoScale = 1 + Math.sin(elapsed * 1.2) * 0.025; // 1 -> 1.025 -> 1
@@ -193,21 +193,30 @@ export function KavachAssistant({
           floatY = Math.sin(elapsed * 8) * 1.5;
         } else if (state === "activating") {
           logoScale = 0.5 + activationProgress * 0.5;
-          alpha = activationProgress * 0.5;
+          alpha = activationProgress;
         }
 
-        const logoDrawSize = sizePx * 0.85 * logoScale;
-        const logoX = cx - logoDrawSize / 2;
-        const logoY = cy - logoDrawSize / 2 + floatY;
+        const logoDrawSize = sizePx * 1.15 * logoScale;
+        
+        // Preserve aspect ratio
+        const imgAspect = img.width / img.height;
+        let drawWidth, drawHeight;
+        if (imgAspect > 1) {
+          drawWidth = logoDrawSize;
+          drawHeight = logoDrawSize / imgAspect;
+        } else {
+          drawHeight = logoDrawSize;
+          drawWidth = logoDrawSize * imgAspect;
+        }
+
+        const logoX = cx - drawWidth / 2;
+        const logoY = cy - drawHeight / 2 + floatY;
 
         ctx.globalAlpha = alpha;
-        ctx.shadowColor =
-          state === "thinking" || state === "speaking"
-            ? "rgba(245, 158, 11, 0.8)"
-            : "rgba(16, 185, 129, 0.7)";
-        ctx.shadowBlur = Math.max(6, sizePx * 0.15 + effectiveAudioLevel * 15);
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
 
-        ctx.drawImage(img, logoX, logoY, logoDrawSize, logoDrawSize);
+        ctx.drawImage(img, logoX, logoY, drawWidth, drawHeight);
         ctx.restore();
       }
 
