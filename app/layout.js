@@ -8,8 +8,11 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Portfolio OS",
+  title: "Kavach OS",
   description: "Developer Portfolio",
+  icons: {
+    icon: "/images/Para_Skull.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
