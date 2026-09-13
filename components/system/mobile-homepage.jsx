@@ -137,7 +137,7 @@ const MOBILE_APPS = [
   {
     id: "service-record",
     title: "Service",
-    icon: ServiceIcon,
+    icon: "/images/experience_optimized.webp",
     component: ServiceRecordApp,
   },
   {
