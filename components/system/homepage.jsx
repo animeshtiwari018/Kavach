@@ -820,13 +820,13 @@ export default function Homepage({ onLogout }) {
             onClick={(e) => { handleDockAppClick({ id: "mission-archive", title: "Projects (Mission Archive)", size: { width: 780, height: 520 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
-            <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#8E9B72]/40 group-hover:border-[#8E9B72] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(142,155,114,0.3)]">
+            <div className="w-16 h-16 flex items-center justify-center transition-all group-hover:drop-shadow-[0_0_15px_rgba(142,155,114,0.4)]">
               <img
-                src="/images/kavach.svg"
+                src="/images/project_optimized.webp"
                 alt="Projects"
                 loading="eager"
                 fetchPriority="high"
-                className="w-10 h-10 object-contain pointer-events-none select-none"
+                className="w-full h-full object-contain pointer-events-none select-none"
               />
             </div>
             <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#8E9B72] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
