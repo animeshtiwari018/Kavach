@@ -19,7 +19,7 @@ const dockApps = [
   { id: "github", title: "GitHub", icon: "/images/github.svg", component: "GitHub" },
   { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: "YouTube" },
   { id: "spotify", title: "Spotify", icon: "/images/spotify.svg", component: "Spotify" },
-  { id: "trash", title: "Trash", icon: "/images/trash.svg", component: "Trash" },
+  { id: "trash", title: "Trash", icon: "/images/bin_optimized.webp", component: "Trash" },
 ];
 
 const emojiFallback = {
