@@ -148,7 +148,7 @@ const MOBILE_APPS = [
   },
   { id: "contact", title: "Contact", icon: "/images/contact_optimized.webp", component: ContactApp },
   { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: YouTubeApp },
-  { id: "trash", title: "Trash", icon: "/images/trash.svg", component: TrashApp },
+  { id: "trash", title: "Trash", icon: "/images/bin_optimized.webp", component: TrashApp },
 ];
 
 const DOCK_APPS = [
