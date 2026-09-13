@@ -146,7 +146,7 @@ const MOBILE_APPS = [
     icon: AnalysisIcon,
     component: SystemAnalysisApp,
   },
-  { id: "contact", title: "Contact", icon: ContactIcon, component: ContactApp },
+  { id: "contact", title: "Contact", icon: "/images/contact_optimized.webp", component: ContactApp },
   { id: "youtube", title: "YouTube", icon: "/images/youtube.svg", component: YouTubeApp },
   { id: "trash", title: "Trash", icon: "/images/trash.svg", component: TrashApp },
 ];
