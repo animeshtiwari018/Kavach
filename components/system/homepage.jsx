@@ -818,7 +818,7 @@ export default function Homepage({ onLogout }) {
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
             onClick={(e) => { handleDockAppClick({ id: "mission-archive", title: "Projects (Mission Archive)", size: { width: 780, height: 520 } }, e); }}
-            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+            className="flex flex-col items-center gap-0 cursor-pointer group"
           >
             <div className="w-20 h-20 flex items-center justify-center transition-all group-hover:drop-shadow-[0_0_15px_rgba(142,155,114,0.4)]">
               <img
@@ -829,7 +829,7 @@ export default function Homepage({ onLogout }) {
                 className="w-full h-full object-contain pointer-events-none select-none"
               />
             </div>
-            <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#8E9B72] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
+            <span className="-mt-3 text-[10px] font-mono font-bold text-white group-hover:text-[#8E9B72] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
               Projects
             </span>
           </motion.div>
