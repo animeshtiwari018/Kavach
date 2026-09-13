@@ -7,7 +7,7 @@ const launchpadApps = [
   {
     id: "mission-archive",
     title: "Mission Archive",
-    icon: "/images/kavach.svg",
+    icon: "/images/project_optimized.webp",
     component: "MissionArchive",
   },
   {
