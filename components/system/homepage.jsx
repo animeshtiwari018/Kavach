@@ -820,7 +820,7 @@ export default function Homepage({ onLogout }) {
             onClick={(e) => { handleDockAppClick({ id: "mission-archive", title: "Projects (Mission Archive)", size: { width: 780, height: 520 } }, e); }}
             className="flex flex-col items-center gap-1.5 cursor-pointer group"
           >
-            <div className="w-16 h-16 flex items-center justify-center transition-all group-hover:drop-shadow-[0_0_15px_rgba(142,155,114,0.4)]">
+            <div className="w-20 h-20 flex items-center justify-center transition-all group-hover:drop-shadow-[0_0_15px_rgba(142,155,114,0.4)]">
               <img
                 src="/images/project_optimized.webp"
                 alt="Projects"
