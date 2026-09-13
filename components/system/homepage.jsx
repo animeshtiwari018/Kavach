@@ -929,24 +929,18 @@ export default function Homepage({ onLogout }) {
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
             onClick={(e) => { handleDockAppClick({ id: "service-record", title: "Kavach Service Record (Experience)", size: { width: 780, height: 520 } }, e); }}
-            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+            className="flex flex-col items-center gap-0 cursor-pointer group"
           >
-            <div className="w-14 h-14 bg-[#0A0C09]/90 border border-[#C2B280]/40 group-hover:border-[#C2B280] rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(194,178,128,0.3)]">
-              <svg
-                className="w-8 h-8 text-[#C2B280]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125v3.375m9 0h-9m9-15a3 3 0 0 0-3-3h-3a3 3 0 0 0-3 3v.75M9 3.75V6m0 0h6m-6 0h6M9 6v.75"
-                />
-              </svg>
+            <div className="w-20 h-20 flex items-center justify-center transition-all group-hover:drop-shadow-[0_0_15px_rgba(194,178,128,0.4)]">
+              <img
+                src="/images/experience_optimized.webp"
+                alt="Experience"
+                loading="eager"
+                fetchPriority="high"
+                className="w-full h-full object-contain pointer-events-none select-none"
+              />
             </div>
-            <span className="text-[10px] font-mono font-bold text-white group-hover:text-[#C2B280] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
+            <span className="-mt-3 text-[10px] font-mono font-bold text-white group-hover:text-[#C2B280] bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
               Experience
             </span>
           </motion.div>
