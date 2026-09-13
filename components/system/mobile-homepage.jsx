@@ -133,7 +133,7 @@ const MOBILE_APPS = [
     icon: "/images/project_optimized.webp",
     component: MissionArchiveApp,
   },
-  { id: "skills", title: "Skills", icon: SkillsIcon, component: SkillsApp },
+  { id: "skills", title: "Skills", icon: "/images/skills_optimized.webp", component: SkillsApp },
   {
     id: "service-record",
     title: "Service",
