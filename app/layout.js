@@ -11,7 +11,7 @@ export const metadata = {
   title: "Kavach OS",
   description: "Developer Portfolio",
   icons: {
-    icon: "/images/Para_Skull.svg",
+    icon: "/images/project_optimized.webp",
   },
 };
 
