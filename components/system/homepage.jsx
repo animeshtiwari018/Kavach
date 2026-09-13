@@ -887,24 +887,18 @@ export default function Homepage({ onLogout }) {
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
             onClick={(e) => { handleDockAppClick({ id: "skills", title: "Skill Intelligence Report", size: { width: 680, height: 540 } }, e); }}
-            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+            className="flex flex-col items-center gap-0 cursor-pointer group"
           >
-            <div className="w-14 h-14 bg-[#0A0C09]/90 border border-green-500/40 group-hover:border-green-400 rounded-xl flex items-center justify-center p-2 backdrop-blur-md shadow-xl transition-all group-hover:shadow-[0_0_20px_rgba(74,222,128,0.3)]">
-              <svg
-                className="w-8 h-8 text-green-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-5.25 6.557c0 1.63 2.35 2.952 5.25 2.952s5.25-1.322 5.25-2.952m-10.5 0h10.5"
-                />
-              </svg>
+            <div className="w-20 h-20 flex items-center justify-center transition-all group-hover:drop-shadow-[0_0_15px_rgba(74,222,128,0.4)]">
+              <img
+                src="/images/skills_optimized.webp"
+                alt="Skills"
+                loading="eager"
+                fetchPriority="high"
+                className="w-full h-full object-contain pointer-events-none select-none"
+              />
             </div>
-            <span className="text-[10px] font-mono font-bold text-white group-hover:text-green-400 bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
+            <span className="-mt-3 text-[10px] font-mono font-bold text-white group-hover:text-green-400 bg-black/70 px-2 py-0.5 rounded border border-[#24291F] tracking-wide shadow-md">
               Skills
             </span>
           </motion.div>
