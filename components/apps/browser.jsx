@@ -56,7 +56,7 @@ const SNS_LINKS = [
   {
     id: "linkedin",
     name: "LinkedIn",
-    url: "https://linkedin.com/in/animeshtiwari018",
+    url: "https://www.linkedin.com/in/animesh-tiwari-26b176323/",
     color: "#0A66C2",
     tileBg: "bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 text-[#0A66C2]",
     icon: LinkedInIcon,
@@ -80,7 +80,7 @@ const SNS_LINKS = [
   {
     id: "email",
     name: "Email",
-    url: "mailto:animeshtiwari018@gmail.com",
+    url: "mailto:animeshtiwari178@gmail.com",
     color: "#0078D4",
     tileBg: "bg-blue-500/15 hover:bg-blue-500/25 text-blue-500",
     icon: Mail,
@@ -98,7 +98,7 @@ const FREQUENTLY_VISITED = [
   {
     id: "linkedin-freq",
     name: "LinkedIn",
-    url: "https://linkedin.com/in/animeshtiwari018",
+    url: "https://www.linkedin.com/in/animesh-tiwari-26b176323/",
     tileBg: "bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 text-[#0A66C2]",
     icon: LinkedInIcon,
   },
