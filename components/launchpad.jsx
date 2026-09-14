@@ -185,7 +185,9 @@ export default function Launchpad({ onAppClick, onClose }) {
                       alt={app.title}
                       loading="eager"
                       fetchPriority="high"
-                      className="w-12 h-12 object-contain"
+                      className={`object-contain ${
+                        app.id === "mission-archive" ? "w-16 h-16 scale-[1.4]" : "w-12 h-12"
+                      }`}
                       draggable="false"
                       onError={() =>
                         setImgError((prev) => ({ ...prev, [app.id]: true }))
