@@ -21,10 +21,20 @@ import { motion } from "motion/react";
 
 const FEATURED_PLAYLISTS = [
   {
+    id: "bollywood-hits",
+    title: "Bollywood Top Hits",
+    subtitle: "The biggest Bollywood blockbusters and chartbusters",
+    cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&auto=format&fit=crop&q=80",
+    embedId: "playlist/37i9dQZF1DX0XUfTFmNBRM",
+    spotifyUri: "https://open.spotify.com/playlist/37i9dQZF1DX0XUfTFmNBRM",
+    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+    artist: "Hot Hits Hindi",
+  },
+  {
     id: "top-hits",
     title: "Today's Top Hits",
     subtitle: "The biggest hits right now from around the globe",
-    cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&auto=format&fit=crop&q=80",
+    cover: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300&auto=format&fit=crop&q=80",
     embedId: "playlist/37i9dQZF1DXcBWIGoYBM5M",
     spotifyUri: "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M",
     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
