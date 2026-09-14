@@ -148,34 +148,34 @@ export default function BrowserApp() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-[#DCDCDC] text-slate-800 font-sans select-none overflow-hidden border-t border-gray-300">
+    <div className="w-full h-full flex flex-col bg-[#121212] text-white font-sans select-none overflow-hidden border-t border-[#282828]">
       {/* Top Safari Chrome Navigation Bar */}
-      <div className="px-3 py-2 bg-[#D1D5DB] border-b border-gray-300 flex items-center justify-between gap-3 shadow-xs">
+      <div className="px-3 py-2 bg-[#181818] border-b border-[#282828] flex items-center justify-between gap-3 shadow-xs">
         {/* Navigation Control Buttons */}
-        <div className="flex items-center gap-1.5 text-gray-600">
+        <div className="flex items-center gap-1.5 text-gray-400">
           <button
             onClick={() => handleNavigate("https://animeshtiwari.dev")}
-            className="p-1 rounded hover:bg-gray-300/80 text-gray-700 transition-colors cursor-pointer"
+            className="p-1 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
             title="Back"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <button
-            className="p-1 rounded opacity-40 text-gray-500 cursor-not-allowed"
+            className="p-1 rounded opacity-40 text-gray-600 cursor-not-allowed"
             title="Forward"
           >
             <ArrowRight className="w-4 h-4" />
           </button>
           <button
             onClick={() => handleNavigate(currentUrl)}
-            className="p-1 rounded hover:bg-gray-300/80 text-gray-700 transition-colors cursor-pointer"
+            className="p-1 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
             title="Reload"
           >
             <RotateCw className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => handleNavigate("https://animeshtiwari.dev")}
-            className="p-1 rounded hover:bg-gray-300/80 text-gray-700 transition-colors cursor-pointer"
+            className="p-1 rounded hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
             title="Home"
           >
             <Home className="w-4 h-4" />
@@ -188,30 +188,30 @@ export default function BrowserApp() {
             e.preventDefault();
             handleNavigate(urlInput);
           }}
-          className="flex-1 max-w-xl mx-auto flex items-center bg-[#E5E7EB] hover:bg-white focus-within:bg-white border border-gray-300 rounded-lg px-3 py-1 transition-all shadow-inner"
+          className="flex-1 max-w-xl mx-auto flex items-center bg-[#282828] hover:bg-[#333333] focus-within:bg-[#333333] border border-transparent focus-within:border-white/20 rounded-lg px-3 py-1 transition-all shadow-inner"
         >
-          <Search className="w-3.5 h-3.5 text-gray-500 mr-2 shrink-0" />
+          <Search className="w-3.5 h-3.5 text-gray-400 mr-2 shrink-0" />
           <input
             type="text"
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
-            className="w-full bg-transparent border-none outline-none text-gray-800 text-xs font-normal"
+            className="w-full bg-transparent border-none outline-none text-white text-xs font-normal"
           />
-          <Star className="w-3.5 h-3.5 text-gray-400 ml-2 cursor-pointer hover:text-amber-500" />
+          <Star className="w-3.5 h-3.5 text-gray-500 ml-2 cursor-pointer hover:text-amber-500" />
         </form>
 
         <div className="w-16" />
       </div>
 
       {/* Safari Tab Bar */}
-      <div className="px-3 bg-[#E5E7EB] border-b border-gray-300 flex items-center gap-1 text-xs">
-        <div className="px-3 py-1 bg-[#DCDCDC] border-t-2 border-slate-600 text-slate-800 font-semibold flex items-center gap-2 rounded-t shadow-xs">
+      <div className="px-3 bg-[#181818] border-b border-[#282828] flex items-center gap-1 text-xs">
+        <div className="px-3 py-1 bg-[#282828] border-t-2 border-white/30 text-white font-semibold flex items-center gap-2 rounded-t shadow-xs">
           <span>Home</span>
-          <X className="w-3 h-3 text-gray-500 hover:text-gray-800 cursor-pointer" />
+          <X className="w-3 h-3 text-gray-400 hover:text-white cursor-pointer" />
         </div>
         <button
           onClick={() => handleNavigate("https://animeshtiwari.dev")}
-          className="p-1 text-gray-600 hover:text-gray-900 cursor-pointer"
+          className="p-1 text-gray-500 hover:text-white cursor-pointer transition-colors"
           title="New Tab"
         >
           <Plus className="w-4 h-4" />
@@ -219,11 +219,11 @@ export default function BrowserApp() {
       </div>
 
       {/* Safari Page Content Body */}
-      <div className="flex-1 overflow-y-auto p-8 bg-[#DCDCDC]">
+      <div className="flex-1 overflow-y-auto p-8 bg-[#121212]">
         <div className="max-w-3xl mx-auto space-y-8">
           {/* SNS Links Section */}
           <div className="space-y-4">
-            <h2 className="text-xl font-bold text-slate-800 tracking-tight">
+            <h2 className="text-xl font-bold text-white tracking-tight">
               SNS Links
             </h2>
 
@@ -238,11 +238,11 @@ export default function BrowserApp() {
                     className="flex flex-col items-center gap-2 cursor-pointer group"
                   >
                     <div
-                      className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm transition-all border border-gray-300/60 ${link.tileBg}`}
+                      className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm transition-all border border-white/10 ${link.tileBg}`}
                     >
                       <IconComp className="w-7 h-7" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-700 group-hover:text-slate-900">
+                    <span className="text-xs font-semibold text-gray-400 group-hover:text-white transition-colors">
                       {link.name}
                     </span>
                   </motion.div>
@@ -253,7 +253,7 @@ export default function BrowserApp() {
 
           {/* Frequently Visited Section */}
           <div className="space-y-4 pt-4">
-            <h2 className="text-xl font-bold text-slate-800 tracking-tight">
+            <h2 className="text-xl font-bold text-white tracking-tight">
               Frequently Visited
             </h2>
 
@@ -268,11 +268,11 @@ export default function BrowserApp() {
                     className="flex flex-col items-center gap-2 cursor-pointer group max-w-[70px] text-center"
                   >
                     <div
-                      className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm transition-all border border-gray-300/60 ${item.tileBg}`}
+                      className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm transition-all border border-white/10 ${item.tileBg}`}
                     >
                       <IconComp className="w-7 h-7" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-700 group-hover:text-slate-900 truncate w-full">
+                    <span className="text-xs font-semibold text-gray-400 group-hover:text-white transition-colors truncate w-full">
                       {item.name}
                     </span>
                   </motion.div>
