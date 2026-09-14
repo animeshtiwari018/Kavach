@@ -41,8 +41,11 @@ const MISSIONS = [
     status: "DEPLOYED",
     date: "2026",
     stackSummary: "React • Node.js • Express • MongoDB",
-    objective:
-      "Centralized academic resource distribution and verified course materials platform engineered to eliminate fragmentation in student file sharing. Replaced legacy manual file distribution with a high-availability Next.js architecture and indexed MongoDB document query pipeline.",
+    objective: {
+      what: "A centralized academic resource distribution and verified course materials platform.",
+      why: "To eliminate fragmentation in student file sharing and replace legacy manual file distribution methods.",
+      how: "Engineered using a high-availability Next.js architecture and an indexed MongoDB document query pipeline."
+    },
     capabilities: [
       "Role-Based Access Control (RBAC) separating student and faculty clearances",
       "Instant multi-filter search indexing across 500+ course PDFs and notes",
@@ -75,8 +78,11 @@ const MISSIONS = [
     status: "ACTIVE",
     date: "2026",
     stackSummary: "Next.js 15 • React 19 • Framer Motion • Tailwind CSS",
-    objective:
-      "A defense-inspired web operating system workstation built to showcase personal software development projects, technical skills, and security dossier records in an interactive, modular environment.",
+    objective: {
+      what: "A defense-inspired web operating system workstation environment.",
+      why: "To showcase personal software development projects, technical skills, and security dossier records in an engaging and interactive format.",
+      how: "Built using Next.js 15, React 19, and Framer Motion for a zero-latency modular window management engine."
+    },
     capabilities: [
       "Custom drag & edge-resize physics window management engine",
       "Zero-latency state evaluation loop with dynamic dock magnification & Spotlight launcher",
@@ -109,8 +115,11 @@ const MISSIONS = [
     status: "DEPLOYED",
     date: "2026",
     stackSummary: "Node.js • Redis • Docker • Express • Nginx",
-    objective:
-      "A high-throughput ingress microservice proxy engineered to manage microservice authentication, request routing, IP rate limiting, and telemetry logging to stop unauthorized access and DDoS traffic spikes.",
+    objective: {
+      what: "A high-throughput ingress microservice proxy and API gateway.",
+      why: "To manage microservice authentication, request routing, IP rate limiting, and stop unauthorized access and DDoS traffic spikes.",
+      how: "Engineered using Node.js and Redis for sliding-window rate limiting, deployed via Docker and Nginx."
+    },
     capabilities: [
       "Redis sliding-window rate limiting algorithm for traffic protection",
       "Sub-4 millisecond average gateway proxy routing delay under heavy load",
@@ -143,8 +152,11 @@ const MISSIONS = [
     status: "ARCHIVED",
     date: "2026",
     stackSummary: "Python • PyTorch • eBPF • Linux C • Docker",
-    objective:
-      "An autonomous Linux kernel system call anomaly detection core that inspects low-level execution streams to intercept zero-day security exploits in real time.",
+    objective: {
+      what: "An autonomous Linux kernel system call anomaly detection core.",
+      why: "To intercept zero-day security exploits in real time and protect critical system infrastructure.",
+      how: "Uses PyTorch autoencoder neural networks and zero-overhead eBPF ring buffer event capture inside Linux kernel space."
+    },
     capabilities: [
       "Zero-overhead eBPF ring buffer event capture inside Linux kernel space",
       "99.4% detection accuracy for simulated shellcode injection attacks",
@@ -612,14 +624,31 @@ export default function MissionArchiveApp() {
                 </div>
 
                 {/* Objective Section */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <div className="text-[11px] font-bold text-[#C2B280] tracking-wider uppercase flex items-center gap-1.5 border-b border-[#2A2E29] pb-1.5">
                     <Target className="w-3.5 h-3.5 text-[#C2B280]" />
                     <span>OBJECTIVE</span>
                   </div>
-                  <p className="text-sm text-[#D0D3CB] leading-relaxed pt-0.5">
-                    {currentMission.objective}
-                  </p>
+                  <div className="space-y-2.5 pt-0.5">
+                    <div className="space-y-0.5">
+                      <span className="text-[#8E9B72] font-bold text-[10px] tracking-wider">WHAT</span>
+                      <p className="text-xs text-[#D0D3CB] leading-relaxed">
+                        {currentMission.objective.what}
+                      </p>
+                    </div>
+                    <div className="space-y-0.5">
+                      <span className="text-[#8E9B72] font-bold text-[10px] tracking-wider">WHY</span>
+                      <p className="text-xs text-[#D0D3CB] leading-relaxed">
+                        {currentMission.objective.why}
+                      </p>
+                    </div>
+                    <div className="space-y-0.5">
+                      <span className="text-[#8E9B72] font-bold text-[10px] tracking-wider">HOW</span>
+                      <p className="text-xs text-[#D0D3CB] leading-relaxed">
+                        {currentMission.objective.how}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Mission Capabilities Section */}
