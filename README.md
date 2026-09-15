@@ -7,7 +7,6 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-### 3. Spotlight Search & Quick Navigation
 Kavach OS includes a powerful, system-wide search and launcher utility to navigate the interface without touching the mouse.
 - **Keyboard Shortcuts:** Press `Cmd + Space` (or `Ctrl + Space` on Windows/Linux) to instantly open the Spotlight search bar from anywhere.
 - **App Launcher:** Type the name of any application (e.g., "Browser", "Terminal", "Projects") and hit Enter to instantly launch it.
