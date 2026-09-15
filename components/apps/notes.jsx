@@ -361,15 +361,7 @@ export default function NotesApp() {
             </span>
           </button>
 
-          <button className="w-full flex items-center justify-between px-2 py-1.5 rounded-md text-xs font-medium text-[#7A8274] hover:bg-[#222622] transition-colors mt-0.5">
-            <span className="flex items-center gap-2 truncate font-mono text-[11px]">
-              <Users className="w-3.5 h-3.5 shrink-0 text-[#7A8274]" />
-              <span className="truncate">CLASSIFIED FILES</span>
-            </span>
-            <span className="text-[10px] font-mono text-[#7A8274] shrink-0">
-              0
-            </span>
-          </button>
+
         </div>
 
         {/* Tags Section */}
