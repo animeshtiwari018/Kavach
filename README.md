@@ -5,7 +5,7 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-## 🛠️ Tech Stack
+
 
 - **Framework:** Next.js 15 (App Router)
 - **UI Library:** React 19
