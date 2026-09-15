@@ -5,7 +5,7 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-- **Active Focus (Z-index):** Clicking on any window brings it immediately to the front, just like a real operating system.
+
 
 ### 2. Seamless Mobile & Responsive Experience
 Kavach OS is designed to work flawlessly across all devices, adapting intelligently to smaller screens.
