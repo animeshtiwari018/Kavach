@@ -5,7 +5,7 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-- **Notification Center:** A dedicated panel to view system alerts and security notifications.
+
 - **Unified Interactions:** Both panels are mutually exclusive, ensuring a clean and overlapping-free user experience on small screens.
 
 ### 3. Spotlight Search & Quick Navigation
