@@ -6,7 +6,6 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-- **Unified Interactions:** Both panels are mutually exclusive, ensuring a clean and overlapping-free user experience on small screens.
 
 ### 3. Spotlight Search & Quick Navigation
 Kavach OS includes a powerful, system-wide search and launcher utility to navigate the interface without touching the mouse.
