@@ -5,7 +5,6 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-- **iOS-Style Mobile Interface:** On mobile devices, the OS transforms from a windowed desktop into a smooth, app-based mobile interface.
 - **Control Center:** A swipe-down or click-activated control panel to quickly toggle system settings like Dark Mode and Brightness.
 - **Notification Center:** A dedicated panel to view system alerts and security notifications.
 - **Unified Interactions:** Both panels are mutually exclusive, ensuring a clean and overlapping-free user experience on small screens.
