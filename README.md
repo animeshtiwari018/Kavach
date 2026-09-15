@@ -5,7 +5,6 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-- **Window Controls:** Standard macOS-style buttons (Close, Minimize, and Expand) are available on every app.
 - **Dynamic Dock:** A responsive bottom dock with hover magnification to quickly launch or switch between active applications.
 - **Active Focus (Z-index):** Clicking on any window brings it immediately to the front, just like a real operating system.
 
