@@ -5,9 +5,6 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-
-- **Contextual Awareness:** Spotlight intelligently filters available system apps based on your query, providing a rapid execution flow.
-
 ## 🛠️ Tech Stack
 
 - **Framework:** Next.js 15 (App Router)
