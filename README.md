@@ -6,8 +6,6 @@ Kavach is a defense-inspired, macOS-style web operating system built to showcase
 
 
 
-
-- **App Launcher:** Type the name of any application (e.g., "Browser", "Terminal", "Projects") and hit Enter to instantly launch it.
 - **Contextual Awareness:** Spotlight intelligently filters available system apps based on your query, providing a rapid execution flow.
 
 ## 🛠️ Tech Stack
