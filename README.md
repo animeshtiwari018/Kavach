@@ -1,6 +1,6 @@
 
 
- operating system built to showcase personal software development projects, technical skills, and security dossier records in an interactive, modular environment.
+ ilt to showcase personal software development projects, technical skills, and security dossier records in an interactive, modular environment.
 
 
 
