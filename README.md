@@ -1,6 +1,6 @@
 
 
- ilt to showcase personal software development projects, technical skills, and security dossier records in an interactive, modular environment.
+nal software development projects, technical skills, and security dossier records in an interactive, modular environment.
 
 
 
