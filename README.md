@@ -4,8 +4,7 @@
 
 
 
-
-ercel Platform](https://vercel.com/new). Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+https://vercel.com/new). Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 ## 🗺️ Future Roadmap
 
 - [ ] Add lock screen authentication simulation.
