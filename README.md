@@ -1,4 +1,4 @@
- projects, technical skills, and security dossier records in an interactive, modular environment.
+technical skills, and security dossier records in an interactive, modular environment.
 
 
 
