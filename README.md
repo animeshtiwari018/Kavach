@@ -4,8 +4,7 @@
 
 
 
-r more details.
-## 🗺️ Future Roadmap
+r more details 🗺️ Future Roadmap
 
 - [ ] Add lock screen authentication simulation.
 - [ ] Implement local storage caching for apps like Field Journal.
