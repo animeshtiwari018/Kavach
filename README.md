@@ -1,4 +1,4 @@
-# 🛡️ Kavach OS
+
 
 Kavach is a defense-inspired, macOS-style web operating system built to showcase personal software development projects, technical skills, and security dossier records in an interactive, modular environment.
 
