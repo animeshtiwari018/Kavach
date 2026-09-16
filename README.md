@@ -6,7 +6,7 @@
 
 
 
-ck screen authentication simulation.
+ck s
 - [ ] Implement local storage caching for apps like Field Journal.
 - [ ] Add more responsive themes and military-style color palettes.
 - [ ] Build out the simulated VS Code IDE iframe integration.
