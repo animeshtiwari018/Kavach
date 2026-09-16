@@ -4,7 +4,7 @@
 
 
 
-rg/docs/app/building-your-application/deploying) for more details.
+r more details.
 ## 🗺️ Future Roadmap
 
 - [ ] Add lock screen authentication simulation.
