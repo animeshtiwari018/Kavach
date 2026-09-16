@@ -4,7 +4,7 @@
 
 
 
- Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 ## 🗺️ Future Roadmap
 
 - [ ] Add lock screen authentication simulation.
