@@ -1,6 +1,5 @@
 
-
-nal software development projects, technical skills, and security dossier records in an interactive, modular environment.
+development projects, technical skills, and security dossier records in an interactive, modular environment.
 
 
 
