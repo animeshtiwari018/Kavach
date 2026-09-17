@@ -5,7 +5,7 @@
 
 
 
-apps like Field Journal.
+ like Field Journal.
 - [ ] Add more responsive themes and military-style color palettes.
 - [ ] Build out the simulated VS Code IDE iframe integration.
 
