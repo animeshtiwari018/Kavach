@@ -5,7 +5,7 @@
 
 
 
- and military-style color palettes.
+  military-style color palettes.
 - [ ] Build out the simulated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
