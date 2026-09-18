@@ -5,7 +5,7 @@
 
 
 
-s op
+s o
 - [] Buid out the simulated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
