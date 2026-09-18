@@ -6,7 +6,7 @@
 
 
 s o
-- [] Bui out th simlated VS Code IDE iframe integration.
+- [] Bui ou th simlated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
 
