@@ -5,7 +5,7 @@
 
 
 
-s coor palettes.
+s coopalettes.
 - [] Buid out the simulated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
