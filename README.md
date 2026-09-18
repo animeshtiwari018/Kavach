@@ -5,7 +5,7 @@
 
 
 
-s color palettes.
+s coor palettes.
 - [] Build out the simulated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
