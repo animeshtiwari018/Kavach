@@ -5,7 +5,7 @@
 
 
 
-s cooptes.
+s coopts.
 - [] Buid out the simulated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
