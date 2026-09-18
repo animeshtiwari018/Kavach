@@ -5,7 +5,7 @@
 
 
 
-s coopalettes.
+s coopalttes.
 - [] Buid out the simulated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
