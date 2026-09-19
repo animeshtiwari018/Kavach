@@ -1,6 +1,6 @@
 
 
--   si VS ode IDE iframe integration.
+-   si Vode IDE iframe integration.
 
 ## 📬 Contact & Links
 
