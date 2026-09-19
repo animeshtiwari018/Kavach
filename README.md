@@ -1,6 +1,6 @@
 
 
-- [] uo th simlated VS Code IDE iframe integration.
+- [] u th simlated VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
 
