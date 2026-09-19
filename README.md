@@ -1,6 +1,6 @@
 
 
--   sil VS Code IDE iframe integration.
+-   sil VS ode IDE iframe integration.
 
 ## 📬 Contact & Links
 
