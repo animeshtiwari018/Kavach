@@ -1,6 +1,6 @@
 
 
--   silatd VS Code IDE iframe integration.
+-   silat VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
 
