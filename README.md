@@ -1,6 +1,6 @@
 
 
--   silated VS Code IDE iframe integration.
+-   silatd VS Code IDE iframe integration.
 
 ## 📬 Contact & Links
 
