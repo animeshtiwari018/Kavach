@@ -1,6 +1,6 @@
 
 
--   s Vo E iframe integration.
+-   s  E iframe integration.
 
 ## 📬 Contact & Links
 
