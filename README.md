@@ -1,6 +1,6 @@
 
 
--   si Vod DE iframe integration.
+-   si Vod E iframe integration.
 
 ## 📬 Contact & Links
 
