@@ -1,6 +1,6 @@
 
 
-s  if 
+s  i
 
 ## 📬 Contact & Links
 
