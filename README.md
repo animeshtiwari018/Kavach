@@ -1,6 +1,6 @@
 
 
-s  Eif integration.
+s  Eif intgration.
 
 ## 📬 Contact & Links
 
