@@ -1,6 +1,6 @@
 
 
-s  if itin.
+s  if tin.
 
 ## 📬 Contact & Links
 
