@@ -1,6 +1,6 @@
 
 
-s  Eifa integration.
+s  Eif integration.
 
 ## 📬 Contact & Links
 
