@@ -1,6 +1,6 @@
 
 
-s  if itgration.
+s  if itgrtion.
 
 ## 📬 Contact & Links
 
