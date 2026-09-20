@@ -1,6 +1,6 @@
 
 
-s  if itrin.
+s  if itin.
 
 ## 📬 Contact & Links
 
