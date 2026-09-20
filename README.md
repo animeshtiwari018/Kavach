@@ -1,6 +1,6 @@
 
 
-s  if tn.
+s  if n.
 
 ## 📬 Contact & Links
 
