@@ -1,6 +1,6 @@
 
 
-s  E ifam integration.
+s  Eifam integration.
 
 ## 📬 Contact & Links
 
