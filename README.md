@@ -66,4 +66,4 @@ Make sure you have Node.js installed on your system.
 * `npm run lint`: Runs ESLint to check for code issues.
 
 ## 🎨 Theme & Design
-Kavach OS blends a sleek desktop interface with subtle military/tactical aesthetics (e.g., "Mission Archive", "Service Record", "Kavach" meaning armor/shield in Hindi), creating a memorable and engaging user experience.
+Kavach OS blends a sleek desktop interface with subtle military/tactical aesthetics (e.g., "Mission Archive", "Service Record", "Kavach" meaning armor/shield in Hindi), creating a memorable and engaging user experienc
