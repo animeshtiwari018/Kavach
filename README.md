@@ -66,4 +66,4 @@ Make sure you have Node.js installed on your system.
 * `npm run lint`: Runs ESLint to check for code issues.
 
 ## 🎨 Theme & Design
-Kavach OS blends a sleek desktop interface with
+Kavach OS blends a sleek desktop interface
