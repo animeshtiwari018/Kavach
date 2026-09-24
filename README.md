@@ -1,5 +1,4 @@
-﻿* **Launchpad**: Grid-based application launcher.
-* **Responsive Design**: Dedicated mobile homepage for smaller screens, ensuring a great experience across all devices.
+﻿* **Responsive Design**: Dedicated mobile homepage for smaller screens, ensuring a great experience across all devices.
 
 ### 📱 Integrated "Apps" (Portfolio Sections)
 * 📁 **Mission Archive (Projects)**: Explore featured projects and case studies.
