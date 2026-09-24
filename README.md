@@ -1,5 +1,4 @@
-﻿* 🎖️ **Service Record (Experience)**: Detailed timeline of work experience and roles.
-* ⚡ **Skills**: Interactive display of technical proficiencies.
+﻿* ⚡ **Skills**: Interactive display of technical proficiencies.
 * 🔍 **System Analysis (About)**: Overview of the developer's background and core stats.
 * 📞 **Contact**: Direct communication form disguised as an app.
 * 💻 **Terminal**: Command-line interface for the portfolio.
