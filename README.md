@@ -1,5 +1,4 @@
-﻿* **Window Management**: Fully functional windows that can be dragged, minimized, maximized, and closed.
-* **Dock & Menu Bar**: Familiar macOS-style navigation with a dynamic dock and interactive menu bar.
+﻿* **Dock & Menu Bar**: Familiar macOS-style navigation with a dynamic dock and interactive menu bar.
 * **Control Center & Widgets**: Quick settings and informational widgets.
 * **Launchpad**: Grid-based application launcher.
 * **Responsive Design**: Dedicated mobile homepage for smaller screens, ensuring a great experience across all devices.
