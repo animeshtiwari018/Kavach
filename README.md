@@ -1,5 +1,4 @@
-﻿* **Responsive Design**: Dedicated mobile homepage for smaller screens, ensuring a great experience across all devices.
-
+﻿
 ### 📱 Integrated "Apps" (Portfolio Sections)
 * 📁 **Mission Archive (Projects)**: Explore featured projects and case studies.
 * 🎖️ **Service Record (Experience)**: Detailed timeline of work experience and roles.
