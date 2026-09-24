@@ -1,5 +1,4 @@
-﻿
-### 🖥️ OS Simulation
+﻿### 🖥️ OS Simulation
 * **Boot Sequence & Lockscreen**: Authentic startup experience with a preloader and lockscreen.
 * **Window Management**: Fully functional windows that can be dragged, minimized, maximized, and closed.
 * **Dock & Menu Bar**: Familiar macOS-style navigation with a dynamic dock and interactive menu bar.
