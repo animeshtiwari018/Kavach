@@ -1,5 +1,4 @@
-﻿## ✨ Features
-
+﻿
 ### 🖥️ OS Simulation
 * **Boot Sequence & Lockscreen**: Authentic startup experience with a preloader and lockscreen.
 * **Window Management**: Fully functional windows that can be dragged, minimized, maximized, and closed.
