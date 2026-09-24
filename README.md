@@ -1,5 +1,4 @@
-﻿* 🔍 **System Analysis (About)**: Overview of the developer's background and core stats.
-* 📞 **Contact**: Direct communication form disguised as an app.
+﻿* 📞 **Contact**: Direct communication form disguised as an app.
 * 💻 **Terminal**: Command-line interface for the portfolio.
 * 🌐 **Browser**: In-app web browser simulation.
 * 🎵 **Spotify**: Music player integration/mockup.
