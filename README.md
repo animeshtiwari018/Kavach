@@ -1,5 +1,4 @@
-﻿### 📱 Integrated "Apps" (Portfolio Sections)
-* 📁 **Mission Archive (Projects)**: Explore featured projects and case studies.
+﻿* 📁 **Mission Archive (Projects)**: Explore featured projects and case studies.
 * 🎖️ **Service Record (Experience)**: Detailed timeline of work experience and roles.
 * ⚡ **Skills**: Interactive display of technical proficiencies.
 * 🔍 **System Analysis (About)**: Overview of the developer's background and core stats.
