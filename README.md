@@ -1,5 +1,4 @@
-﻿* **Control Center & Widgets**: Quick settings and informational widgets.
-* **Launchpad**: Grid-based application launcher.
+﻿* **Launchpad**: Grid-based application launcher.
 * **Responsive Design**: Dedicated mobile homepage for smaller screens, ensuring a great experience across all devices.
 
 ### 📱 Integrated "Apps" (Portfolio Sections)
