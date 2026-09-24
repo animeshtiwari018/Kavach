@@ -58,9 +58,5 @@ Make sure you have Node.js installed on your system.
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the OS in action.
 
-## 📜 Scripts
 
-* `npm run dev`: Starts the Next.js development server.
-* `npm run build`: Builds the app for production.
-* `npm run start`: Runs the built application in production mode.
 
