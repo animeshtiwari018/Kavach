@@ -56,7 +56,6 @@ Make sure you have Node.js installed on your system.
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the OS in action.
 
 
 
