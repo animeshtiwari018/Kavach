@@ -1,5 +1,4 @@
-﻿
-**Kavach OS** is a highly interactive, macOS-inspired developer portfolio built to showcase skills, projects, and experience in a unique, desktop-like web environment. It features a complete window management system, boot sequence, and a suite of custom "apps" that serve as different sections of the portfolio.
+﻿**Kavach OS** is a highly interactive, macOS-inspired developer portfolio built to showcase skills, projects, and experience in a unique, desktop-like web environment. It features a complete window management system, boot sequence, and a suite of custom "apps" that serve as different sections of the portfolio.
 
 ## ✨ Features
 
