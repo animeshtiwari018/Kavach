@@ -27,4 +27,3 @@ Make sure you have Node.js installed on your system.
    cd kavach
    ```
 
-2. Install dependencies:
