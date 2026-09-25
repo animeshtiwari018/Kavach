@@ -14,4 +14,3 @@
 * **Animations**: [Motion](https://motion.dev/) (Framer Motion)
 * **Icons**: [Lucide React](https://lucide.dev/)
 
-## ?? Getting Started
