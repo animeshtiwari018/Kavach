@@ -23,4 +23,3 @@ Make sure you have Node.js installed on your system.
 
 1. Clone the repository (or download the source):
    ```bash
-   git clone <your-repo-url>
