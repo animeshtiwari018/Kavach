@@ -36,4 +36,3 @@ Make sure you have Node.js installed on your system.
    ```bash
    npm run dev
    ```
-
