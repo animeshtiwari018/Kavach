@@ -32,4 +32,3 @@ Make sure you have Node.js installed on your system.
    npm install
    ```
 
-3. Run the development server:
