@@ -21,4 +21,3 @@ Make sure you have Node.js installed on your system.
 
 ### Installation
 
-1. Clone the repository (or download the source):
