@@ -1,12 +1,12 @@
-﻿* 📞 **Contact**: Direct communication form disguised as an app.
-* 💻 **Terminal**: Command-line interface for the portfolio.
-* 🌐 **Browser**: In-app web browser simulation.
-* 🎵 **Spotify**: Music player integration/mockup.
-* 📹 **YouTube & GitHub**: Quick access to external profiles and content.
-* 📝 **Notes**: Personal notes and thoughts.
-* 🗑️ **Trash**: Functional trash bin for closed/deleted items.
+* ?? **Contact**: Direct communication form disguised as an app.
+* ?? **Terminal**: Command-line interface for the portfolio.
+* ?? **Browser**: In-app web browser simulation.
+* ?? **Spotify**: Music player integration/mockup.
+* ?? **YouTube & GitHub**: Quick access to external profiles and content.
+* ?? **Notes**: Personal notes and thoughts.
+* ??? **Trash**: Functional trash bin for closed/deleted items.
 
-## 🛠️ Tech Stack
+## ??? Tech Stack
 
 * **Framework**: [Next.js](https://nextjs.org/) (App Router)
 * **Library**: [React](https://react.dev/) 19
@@ -14,7 +14,7 @@
 * **Animations**: [Motion](https://motion.dev/) (Framer Motion)
 * **Icons**: [Lucide React](https://lucide.dev/)
 
-## 🚀 Getting Started
+## ?? Getting Started
 
 ### Prerequisites
 Make sure you have Node.js installed on your system.
@@ -36,7 +36,6 @@ Make sure you have Node.js installed on your system.
    ```bash
    npm run dev
    ```
-
 
 
 
