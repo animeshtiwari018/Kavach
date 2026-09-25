@@ -34,4 +34,3 @@ Make sure you have Node.js installed on your system.
 
 3. Run the development server:
    ```bash
-   npm run dev
