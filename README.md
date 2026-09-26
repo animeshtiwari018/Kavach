@@ -15,4 +15,4 @@ A web-based desktop OS portfolio simulation.
 ## ??? Tech Stack
 
 * **Framework**: [Next.js](https://nextjs.org/) (App Router)
-* **Library**:
+*
