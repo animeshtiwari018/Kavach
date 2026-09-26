@@ -13,5 +13,3 @@ A web-based desktop OS portfolio simulation.
 * ??? **Trash**: Functional trash bin for closed/deleted items.
 
 ## ??? Tech Stack
-
-*
