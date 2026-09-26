@@ -1,3 +1,9 @@
+# Kavach OS
+
+A web-based desktop OS portfolio simulation.
+
+## Features
+
 * ?? **Contact**: Direct communication form disguised as an app.
 * ?? **Terminal**: Command-line interface for the portfolio.
 * ?? **Browser**: In-app web browser simulation.
@@ -12,5 +18,4 @@
 * **Library**: [React](https://react.dev/) 19
 * **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4
 * **Animations**: [Motion](https://motion.dev/) (Framer Motion)
-* **Icons**: [Lucide React](https://lucide.dev/)
-
+* **Icons**: [Lucide
