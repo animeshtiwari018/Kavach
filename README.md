@@ -18,4 +18,4 @@ A web-based desktop OS portfolio simulation.
 * **Library**: [React](https://react.dev/) 19
 * **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4
 * **Animations**: [Motion](https://motion.dev/) (Framer Motion)
-* **Icons**:
+*
