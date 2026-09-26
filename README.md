@@ -17,4 +17,4 @@ A web-based desktop OS portfolio simulation.
 * **Framework**: [Next.js](https://nextjs.org/) (App Router)
 * **Library**: [React](https://react.dev/) 19
 * **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4
-* **Animations**: [Motion](https://motion.dev/) (Framer
+* **Animations**: [Motion](https://motion.dev/)
