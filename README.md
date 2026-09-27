@@ -12,4 +12,3 @@ A web-based desktop OS portfolio simulation.
 * ?? **Notes**: Personal notes and thoughts.
 * ??? **Trash**: Functional trash bin for closed/deleted items.
 
-##
