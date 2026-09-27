@@ -10,5 +10,4 @@ A web-based desktop OS portfolio simulation.
 * ?? **Spotify**: Music player integration/mockup.
 * ?? **YouTube & GitHub**: Quick access to external profiles and content.
 * ?? **Notes**: Personal notes and thoughts.
-* ??? **Trash**: Functional trash bin for closed/deleted items.
-
+* ??? **Trash**: Functional trash bin for closed/deleted 
