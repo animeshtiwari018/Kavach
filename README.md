@@ -9,4 +9,4 @@ A web-based desktop OS portfolio simulation.
 * ?? **Browser**: In-app web browser simulation.
 * ?? **Spotify**: Music player integration/mockup.
 * ?? **YouTube & GitHub**: Quick access to external profiles and content.
-* ?? **Notes**: Personal notes 
+* ?? **Notes**: Personal 
