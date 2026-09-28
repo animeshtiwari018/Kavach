@@ -7,4 +7,4 @@ A web-based desktop OS portfolio simulation.
 * ?? **Contact**: Direct communication form disguised as an app.
 * ?? **Terminal**: Command-line interface for the portfolio.
 * ?? **Browser**: In-app web browser simulation.
-* ?? 
+* 
