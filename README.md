@@ -4,4 +4,4 @@ A web-based desktop OS portfolio simulation.
 
 ## Features
 
-* ?? **Contact**: Direct communication form disguised 
+* ?? **Contact**: Direct communication form 
