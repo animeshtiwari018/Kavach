@@ -8,4 +8,3 @@ A web-based desktop OS portfolio simulation.
 * ?? **Terminal**: Command-line interface for the portfolio.
 * ?? **Browser**: In-app web browser simulation.
 * ?? **Spotify**: Music player integration/mockup.
-* 
