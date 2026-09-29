@@ -1,4 +1,4 @@
-﻿# Kavach OS
+# Kavach OS
 
 A web-based desktop OS portfolio simulation.
 
@@ -20,5 +20,4 @@ A web-based desktop OS portfolio simulation.
 
 * ?? **Projects**: 5+ projects with live demos and source code.
 * ?? **Skills**: 10+ skills with proficiency levels.
-* ?? **Experience**: 3+ years of experience.
-
+* ?? **Experience**: 3+ years of
