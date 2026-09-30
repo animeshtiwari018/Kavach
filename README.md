@@ -14,4 +14,4 @@ A web-based desktop OS portfolio simulation.
 
 
 
-Kavach OS is a beautiful web-based desktop operating system portfolio simulation. It features 
+Kavach OS is a beautiful web-based desktop operating system portfolio simulation. It features an 
