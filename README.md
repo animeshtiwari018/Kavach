@@ -13,4 +13,3 @@ A web-based desktop OS portfolio simulation.
 
 
 
-commit 15
