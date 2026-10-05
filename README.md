@@ -41,4 +41,3 @@ A web-based desktop OS portfolio simulation.
 * ?? **Skills**: 10+ skills with proficiency levels.
 * ?? **Experience**: 3+ years of experience.
 
-
