@@ -37,4 +37,3 @@ A web-based desktop OS portfolio simulation.
 
 * ?? **Contact**: Direct 
 
-* ?? **Projects**: 5+ projects with live demos and source code.
