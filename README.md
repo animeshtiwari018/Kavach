@@ -32,4 +32,3 @@ A web-based desktop OS portfolio simulation.
 # Kavach OS
 
 A web-based desktop OS portfolio simulation.
-
