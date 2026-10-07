@@ -16,4 +16,3 @@ A web-based desktop OS portfolio simulation.
 
 A web-based desktop OS portfolio simulation.
 
-## Features
