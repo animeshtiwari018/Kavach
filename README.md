@@ -25,4 +25,3 @@ A web-based desktop OS portfolio simulation.
 * ?? **Experience**: 3+ years of experience.
 
 
-
