@@ -1,4 +1,4 @@
-a comprehensive project designed for robust security and protection.
+comprehensive project designed for robust security and protection.
 
 ## Overview
 
