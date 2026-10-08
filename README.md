@@ -1,4 +1,4 @@
-project designed for robust security and protection.
+designed for robust security and protection.
 
 ## Overview
 
