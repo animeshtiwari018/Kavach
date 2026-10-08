@@ -1,4 +1,4 @@
-designed for robust security and protection.
+for robust security and protection.
 
 ## Overview
 
