@@ -1,5 +1,3 @@
-protection.
-
 ## Overview
 
 Kavach aims to provide state-of-the-art defense mechanisms for modern applications.
