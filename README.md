@@ -1,5 +1,3 @@
-Overview
-
 Kavach aims to provide state-of-the-art defense mechanisms for modern applications.
 It is built with scalability, efficiency, and reliability in mind.
 
