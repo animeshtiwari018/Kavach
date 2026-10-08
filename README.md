@@ -1,4 +1,4 @@
-Kavach, a comprehensive project designed for robust security and protection.
+a comprehensive project designed for robust security and protection.
 
 ## Overview
 
