@@ -1,4 +1,4 @@
-security and protection.
+and protection.
 
 ## Overview
 
