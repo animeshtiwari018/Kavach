@@ -1,4 +1,4 @@
-robust security and protection.
+security and protection.
 
 ## Overview
 
